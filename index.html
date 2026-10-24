@@ -47,7 +47,7 @@
 .mini-legend-row.route-legend-row,.mini-legend-row.route-approx-legend{white-space:nowrap}.mini-legend{max-width:190px}
 </style></head><body>
 <div class="app">
-<aside class="sidebar"><section class="brand"><div class="brand-top"><span class="dot"></span>PARIS SAFETY INTELLIGENCE</div><h1>파리 치안·시위<br>인텔리전스 맵</h1><p class="desc">2025년 공식 범죄 항목을 전체·강력범죄·생활재산범죄 비교지수로 요약하고, 실제로 보도된 범죄·시위 발생 위치를 구분해 보여줍니다. 공식 통계와 기사 사례는 서로 다른 데이터입니다.</p><div class="top-meta"><span class="chip">웹 연결판 v0.7.4</span><span class="chip">데이터 기준 2026.10.24</span><span class="chip">20개 구 순위·뉴스</span></div></section>
+<aside class="sidebar"><section class="brand"><div class="brand-top"><span class="dot"></span>PARIS SAFETY INTELLIGENCE</div><h1>파리 치안·시위<br>인텔리전스 맵</h1><p class="desc">2025년 공식 범죄 항목을 전체·강력범죄·생활재산범죄 비교지수로 요약하고, 실제로 보도된 범죄·시위 발생 위치를 구분해 보여줍니다. 공식 통계와 기사 사례는 서로 다른 데이터입니다.</p><div class="top-meta"><span class="chip">웹 연결판 v0.7.5</span><span class="chip">데이터 기준 2026.10.24</span><span class="chip">20개 구 순위·뉴스</span></div></section>
 <section class="panel"><h2 class="sectitle">MAP LAYERS</h2><div class="seg" id="tabs"><button data-tab="crime">치안·범죄</button><button data-tab="unrest">시위·집회</button><button data-tab="both" class="active">함께 보기</button></div>
 <div class="field" id="metricField"><label for="metric">치안 유형 · 2025 공식 항목 기반 자체 비교지수</label><select id="metric"><option value="all" selected>전체 범죄 (강력 + 생활·재산)</option><option value="serious">강력범죄</option><option value="property">생활·재산범죄 (소매치기 등)</option></select></div>
 <div class="switch-area" id="crimeSwitches"><label class="control-line"><input type="checkbox" id="showStats" checked> <span>공식 통계 10단계 색상 지도</span></label><label class="control-line"><input type="checkbox" id="showCrimeNews" checked> <span><i class="color-dot" style="background:#ff0000"></i>범죄 뉴스 위치</span></label></div>
@@ -61,7 +61,7 @@
 </div></div>
 <div class="switch-area" id="heatToggle"><label class="control-line"><input type="checkbox" id="heatInput"> <span>뉴스·시위 위치 밀집도 표시</span></label></div>
 <div class="field" id="dateField"><label for="period">뉴스·집회·피해 발생 기간</label><select id="period"><option value="7">최근 7일</option><option value="30">최근 30일</option><option value="90">최근 90일</option><option value="365">최근 1년</option><option value="all" selected>전체 누적</option></select></div>
-<div class="legend" id="crimeLegend"><div class="sectitle">2025 치안 비교지수 · 상대적인 10단계</div><div class="ten-legend" id="tenLegend" aria-label="10단계 치안 지표 색상"></div><div class="legend-line"><span>1 낮은 값</span><span>10 높은 값</span></div><p class="desc" style="margin-top:9px">강력범죄는 <b>비무장 폭력 절도·가정 밖 신체폭력·성범죄</b>, 생활·재산범죄는 <b>비폭력 대인절도·고의 파손·차량 안 절도·주거침입 절도</b>의 20개 구 내 상대 백분위를 평균합니다. <b>전체</b>는 두 카테고리의 점수를 동일한 비중(50%씩)으로 평균합니다. <b>정부 공식 점수가 아닌 자체 비교지수</b>이며 살인·무장 강도는 공개 범위 문제로 지수에서 제외합니다.</p></div>
+<div class="legend" id="crimeLegend"><div class="sectitle">2025 치안 비교지수 · 상대적인 10단계</div><div class="ten-legend" id="tenLegend" aria-label="10단계 치안 지표 색상"></div><div class="legend-line"><span>1 낮은 값</span><span>10 높은 값</span></div><p class="desc" style="margin-top:9px">강력범죄는 <b>무장강도·비무장 폭력강도·가정 밖 신체폭력·가정 내 신체폭력·성범죄</b> 5종, 생활·재산범죄는 <b>비폭력 대인절도·고의 파손·차량 내 절도·주거침입 절도·차량 자체 절도·차량 부품 절도·사기/결제수단 범죄</b> 7종을 비교합니다. <b>살인·살인미수는 강력범죄에 해당하나 구별 공식 공개 수치가 없어 점수에는 미반영</b>(관련 보도 점에는 포함). 무장강도는 4~7구 수치가 비공개여서 결측 처리합니다. 사기는 피해자 <b>거주지</b> 기준이고, 마약 사용·밀매 단속 건수는 별도 참고합니다. 12종의 서로 다른 단위를 합산하지 않고 각 구의 상대 백분위 평균을 사용합니다. <b>전체</b>는 강력/생활·재산을 50:50으로 평균하는 <b>정부 비공식 자체 비교지수</b>입니다.</p></div>
 <div class="legend" id="crimeNewsLegend"><div class="rowtext"><span class="sq" style="background:#ff0000"></span>범죄 관련 뉴스의 확인된 위치 (교통·안전사고 제외)</div></div>
 <div class="legend" id="unrestLegend"><div class="sectitle">시위 발생 vs 시위 관련 피해</div><div class="rowtext"><span class="sq" style="background:#717d8c"></span>집회·행진이 보도된 위치 (폭력 여부와 별개)</div><div class="rowtext"><span class="sq" style="background:#f28c28"></span>시위 관련 폭력·약탈·시설 피해 위치</div><p class="desc" style="margin-top:9px">일반 집회는 위험 또는 폭력 발생을 뜻하지 않습니다. 장소 좌표는 보도에 근거한 대표 위치이며 뉴스에 없는 지역이 안전함을 뜻하지 않습니다.</p></div>
 <div class="syncBanner" id="syncBanner" role="status" aria-live="polite"><span id="syncDot"></span><span id="syncText">Google Sheets 연결 확인 중…</span><button id="syncNow" type="button" title="지금 새로 고침">↻</button></div><div class="kpis"><div class="kpi"><strong id="numOne">20</strong><span id="labelOne">치안 통계 반영 구</span></div><div class="kpi"><strong id="numTwo">8</strong><span id="labelTwo">위치 확인 보도 사례</span></div></div>
@@ -74,7 +74,7 @@
 <main class="mapbox"><div id="map" class="map"></div><div class="loading" id="mapStatus">지도를 불러오는 중…</div><div class="mini-legend" id="miniLegend" aria-label="지도 색상 인덱스"><div class="mini-legend-title">색상 인덱스</div><div class="mini-legend-row"><span class="mini-legend-dot crime"></span><span>범죄</span></div><div class="mini-legend-row"><span class="mini-legend-dot damage"></span><span>시위 폭력·피해</span></div><div class="mini-legend-row"><span class="mini-legend-dot protest"></span><span>일반 시위</span></div><div class="mini-legend-row route-legend-row" id="routeLegendRow"><span class="mini-legend-line route-confirmed" aria-hidden="true"></span><span title="확인된 경유 도로를 바탕으로 근사 재구성">실제 행진 경로</span></div><div class="mini-legend-row route-approx-legend" id="routeApproxLegend"><span class="mini-legend-line route-approx" aria-hidden="true"></span><span title="실제 행진 도로가 아닌 출발지와 도착지의 직선 연결">시·종점 직선 연결</span></div></div></main></div>
 <script id="seed" type="application/json">{
   "project": "Paris Safety Intelligence",
-  "version": "v0.7.4-2026-10-25",
+  "version": "v0.7.5-2026-10-25",
   "as_of": "2026-10-24",
   "crime_year": 2025,
   "districts": [
@@ -93,7 +93,14 @@
       "vandalism_per_1000": 25.1,
       "vehicle_breakins_per_1000": 26.7,
       "home_burglary_per_1000_housing": 5.2,
-      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/"
+      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/",
+      "armed_robbery_per_1000": 0.5,
+      "domestic_violence_per_1000": 4.4,
+      "vehicle_theft_per_1000": 3.6,
+      "vehicle_accessory_theft_per_1000": 2.4,
+      "fraud_residence_per_1000": 21.0,
+      "drug_trafficking_suspects_per_1000": 8.8,
+      "drug_use_suspects_per_1000": 104.1
     },
     {
       "arrondissement": 2,
@@ -110,7 +117,14 @@
       "vandalism_per_1000": 17.1,
       "vehicle_breakins_per_1000": 17.2,
       "home_burglary_per_1000_housing": 7.2,
-      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/"
+      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/",
+      "armed_robbery_per_1000": 0.4,
+      "domestic_violence_per_1000": 3.6,
+      "vehicle_theft_per_1000": 2.6,
+      "vehicle_accessory_theft_per_1000": 2.4,
+      "fraud_residence_per_1000": 18.0,
+      "drug_trafficking_suspects_per_1000": 7.2,
+      "drug_use_suspects_per_1000": 17.5
     },
     {
       "arrondissement": 3,
@@ -127,7 +141,14 @@
       "vandalism_per_1000": 11.1,
       "vehicle_breakins_per_1000": 8.1,
       "home_burglary_per_1000_housing": 7.0,
-      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/"
+      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/",
+      "armed_robbery_per_1000": 0.3,
+      "domestic_violence_per_1000": 2.9,
+      "vehicle_theft_per_1000": 2.1,
+      "vehicle_accessory_theft_per_1000": 0.7,
+      "fraud_residence_per_1000": 15.2,
+      "drug_trafficking_suspects_per_1000": 3.7,
+      "drug_use_suspects_per_1000": 10.3
     },
     {
       "arrondissement": 4,
@@ -144,7 +165,14 @@
       "vandalism_per_1000": 14.1,
       "vehicle_breakins_per_1000": 8.2,
       "home_burglary_per_1000_housing": 5.8,
-      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/"
+      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/",
+      "armed_robbery_per_1000": null,
+      "domestic_violence_per_1000": 3.1,
+      "vehicle_theft_per_1000": 1.4,
+      "vehicle_accessory_theft_per_1000": 1.0,
+      "fraud_residence_per_1000": 22.6,
+      "drug_trafficking_suspects_per_1000": 1.5,
+      "drug_use_suspects_per_1000": 18.3
     },
     {
       "arrondissement": 5,
@@ -161,7 +189,14 @@
       "vandalism_per_1000": 8.1,
       "vehicle_breakins_per_1000": 4.7,
       "home_burglary_per_1000_housing": 6.6,
-      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/"
+      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/",
+      "armed_robbery_per_1000": null,
+      "domestic_violence_per_1000": 2.6,
+      "vehicle_theft_per_1000": 1.2,
+      "vehicle_accessory_theft_per_1000": 0.5,
+      "fraud_residence_per_1000": 13.1,
+      "drug_trafficking_suspects_per_1000": 2.5,
+      "drug_use_suspects_per_1000": 6.0
     },
     {
       "arrondissement": 6,
@@ -178,7 +213,14 @@
       "vandalism_per_1000": 7.6,
       "vehicle_breakins_per_1000": 8.7,
       "home_burglary_per_1000_housing": 7.1,
-      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/"
+      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/",
+      "armed_robbery_per_1000": null,
+      "domestic_violence_per_1000": 2.6,
+      "vehicle_theft_per_1000": 1.5,
+      "vehicle_accessory_theft_per_1000": 1.2,
+      "fraud_residence_per_1000": 14.7,
+      "drug_trafficking_suspects_per_1000": 5.6,
+      "drug_use_suspects_per_1000": 7.1
     },
     {
       "arrondissement": 7,
@@ -195,7 +237,14 @@
       "vandalism_per_1000": 8.0,
       "vehicle_breakins_per_1000": 6.6,
       "home_burglary_per_1000_housing": 6.6,
-      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/"
+      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/",
+      "armed_robbery_per_1000": null,
+      "domestic_violence_per_1000": 2.4,
+      "vehicle_theft_per_1000": 1.9,
+      "vehicle_accessory_theft_per_1000": 1.1,
+      "fraud_residence_per_1000": 14.3,
+      "drug_trafficking_suspects_per_1000": 1.7,
+      "drug_use_suspects_per_1000": 9.1
     },
     {
       "arrondissement": 8,
@@ -212,7 +261,14 @@
       "vandalism_per_1000": 18.7,
       "vehicle_breakins_per_1000": 18.7,
       "home_burglary_per_1000_housing": 8.8,
-      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/"
+      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/",
+      "armed_robbery_per_1000": 0.5,
+      "domestic_violence_per_1000": 2.7,
+      "vehicle_theft_per_1000": 3.5,
+      "vehicle_accessory_theft_per_1000": 2.2,
+      "fraud_residence_per_1000": 21.3,
+      "drug_trafficking_suspects_per_1000": 3.3,
+      "drug_use_suspects_per_1000": 65.7
     },
     {
       "arrondissement": 9,
@@ -229,7 +285,14 @@
       "vandalism_per_1000": 14.0,
       "vehicle_breakins_per_1000": 10.2,
       "home_burglary_per_1000_housing": 3.4,
-      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/"
+      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/",
+      "armed_robbery_per_1000": 0.2,
+      "domestic_violence_per_1000": 2.1,
+      "vehicle_theft_per_1000": 1.7,
+      "vehicle_accessory_theft_per_1000": 1.3,
+      "fraud_residence_per_1000": 16.4,
+      "drug_trafficking_suspects_per_1000": 7.7,
+      "drug_use_suspects_per_1000": 21.4
     },
     {
       "arrondissement": 10,
@@ -246,7 +309,14 @@
       "vandalism_per_1000": 13.2,
       "vehicle_breakins_per_1000": 8.5,
       "home_burglary_per_1000_housing": 3.6,
-      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/"
+      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/",
+      "armed_robbery_per_1000": 0.3,
+      "domestic_violence_per_1000": 4.4,
+      "vehicle_theft_per_1000": 1.5,
+      "vehicle_accessory_theft_per_1000": 0.7,
+      "fraud_residence_per_1000": 12.6,
+      "drug_trafficking_suspects_per_1000": 5.2,
+      "drug_use_suspects_per_1000": 43.9
     },
     {
       "arrondissement": 11,
@@ -263,7 +333,14 @@
       "vandalism_per_1000": 10.3,
       "vehicle_breakins_per_1000": 3.8,
       "home_burglary_per_1000_housing": 3.0,
-      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/"
+      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/",
+      "armed_robbery_per_1000": 0.1,
+      "domestic_violence_per_1000": 2.7,
+      "vehicle_theft_per_1000": 1.4,
+      "vehicle_accessory_theft_per_1000": 0.8,
+      "fraud_residence_per_1000": 13.4,
+      "drug_trafficking_suspects_per_1000": 2.0,
+      "drug_use_suspects_per_1000": 5.6
     },
     {
       "arrondissement": 12,
@@ -280,7 +357,14 @@
       "vandalism_per_1000": 8.7,
       "vehicle_breakins_per_1000": 7.3,
       "home_burglary_per_1000_housing": 3.5,
-      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/"
+      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/",
+      "armed_robbery_per_1000": 0.2,
+      "domestic_violence_per_1000": 2.5,
+      "vehicle_theft_per_1000": 2.0,
+      "vehicle_accessory_theft_per_1000": 1.4,
+      "fraud_residence_per_1000": 11.2,
+      "drug_trafficking_suspects_per_1000": 1.5,
+      "drug_use_suspects_per_1000": 25.1
     },
     {
       "arrondissement": 13,
@@ -297,7 +381,14 @@
       "vandalism_per_1000": 7.3,
       "vehicle_breakins_per_1000": 4.8,
       "home_burglary_per_1000_housing": 3.3,
-      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/"
+      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/",
+      "armed_robbery_per_1000": 0.2,
+      "domestic_violence_per_1000": 3.4,
+      "vehicle_theft_per_1000": 1.5,
+      "vehicle_accessory_theft_per_1000": 0.8,
+      "fraud_residence_per_1000": 10.0,
+      "drug_trafficking_suspects_per_1000": 1.3,
+      "drug_use_suspects_per_1000": 9.1
     },
     {
       "arrondissement": 14,
@@ -314,7 +405,14 @@
       "vandalism_per_1000": 8.2,
       "vehicle_breakins_per_1000": 3.8,
       "home_burglary_per_1000_housing": 4.3,
-      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/"
+      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/",
+      "armed_robbery_per_1000": 0.2,
+      "domestic_violence_per_1000": 2.5,
+      "vehicle_theft_per_1000": 1.3,
+      "vehicle_accessory_theft_per_1000": 0.7,
+      "fraud_residence_per_1000": 11.6,
+      "drug_trafficking_suspects_per_1000": 1.4,
+      "drug_use_suspects_per_1000": 6.0
     },
     {
       "arrondissement": 15,
@@ -331,7 +429,14 @@
       "vandalism_per_1000": 5.7,
       "vehicle_breakins_per_1000": 2.9,
       "home_burglary_per_1000_housing": 6.3,
-      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/"
+      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/",
+      "armed_robbery_per_1000": 0.1,
+      "domestic_violence_per_1000": 2.9,
+      "vehicle_theft_per_1000": 1.8,
+      "vehicle_accessory_theft_per_1000": 0.9,
+      "fraud_residence_per_1000": 11.5,
+      "drug_trafficking_suspects_per_1000": 0.8,
+      "drug_use_suspects_per_1000": 10.7
     },
     {
       "arrondissement": 16,
@@ -348,7 +453,14 @@
       "vandalism_per_1000": 11.6,
       "vehicle_breakins_per_1000": 10.8,
       "home_burglary_per_1000_housing": 6.0,
-      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/"
+      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/",
+      "armed_robbery_per_1000": 0.2,
+      "domestic_violence_per_1000": 2.3,
+      "vehicle_theft_per_1000": 2.7,
+      "vehicle_accessory_theft_per_1000": 1.4,
+      "fraud_residence_per_1000": 10.6,
+      "drug_trafficking_suspects_per_1000": 0.6,
+      "drug_use_suspects_per_1000": 3.7
     },
     {
       "arrondissement": 17,
@@ -365,7 +477,14 @@
       "vandalism_per_1000": 9.9,
       "vehicle_breakins_per_1000": 6.1,
       "home_burglary_per_1000_housing": 5.1,
-      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/"
+      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/",
+      "armed_robbery_per_1000": 0.1,
+      "domestic_violence_per_1000": 2.7,
+      "vehicle_theft_per_1000": 1.8,
+      "vehicle_accessory_theft_per_1000": 1.2,
+      "fraud_residence_per_1000": 11.9,
+      "drug_trafficking_suspects_per_1000": 1.7,
+      "drug_use_suspects_per_1000": 4.6
     },
     {
       "arrondissement": 18,
@@ -382,7 +501,14 @@
       "vandalism_per_1000": 8.7,
       "vehicle_breakins_per_1000": 6.9,
       "home_burglary_per_1000_housing": 5.9,
-      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/"
+      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/",
+      "armed_robbery_per_1000": 0.3,
+      "domestic_violence_per_1000": 2.7,
+      "vehicle_theft_per_1000": 1.8,
+      "vehicle_accessory_theft_per_1000": 0.8,
+      "fraud_residence_per_1000": 7.9,
+      "drug_trafficking_suspects_per_1000": 7.1,
+      "drug_use_suspects_per_1000": 21.5
     },
     {
       "arrondissement": 19,
@@ -399,7 +525,14 @@
       "vandalism_per_1000": 6.5,
       "vehicle_breakins_per_1000": 9.2,
       "home_burglary_per_1000_housing": 5.4,
-      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/"
+      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/",
+      "armed_robbery_per_1000": 0.3,
+      "domestic_violence_per_1000": 3.6,
+      "vehicle_theft_per_1000": 1.6,
+      "vehicle_accessory_theft_per_1000": 0.8,
+      "fraud_residence_per_1000": 10.2,
+      "drug_trafficking_suspects_per_1000": 3.9,
+      "drug_use_suspects_per_1000": 12.9
     },
     {
       "arrondissement": 20,
@@ -416,7 +549,14 @@
       "vandalism_per_1000": 6.2,
       "vehicle_breakins_per_1000": 3.1,
       "home_burglary_per_1000_housing": 4.3,
-      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/"
+      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/",
+      "armed_robbery_per_1000": 0.1,
+      "domestic_violence_per_1000": 3.9,
+      "vehicle_theft_per_1000": 1.2,
+      "vehicle_accessory_theft_per_1000": 0.6,
+      "fraud_residence_per_1000": 11.9,
+      "drug_trafficking_suspects_per_1000": 1.2,
+      "drug_use_suspects_per_1000": 3.9
     }
   ],
   "incidents": [
@@ -638,11 +778,14 @@
     }
   ],
   "methodology": {
-    "crime": "2025 SSMSI 다종 지표 7개를 각 지표별 20개 구 상대 백분위로 표준화한 단순 평균; 사용자 정의 비교지수, 정부 공식 종합 범죄율 아님.",
+    "crime": "2025 SSMSI 기준 강력 5종·생활재산 7종. 유형별 상대 백분위 단순 평균. 살인·살인미수 구별 수치는 비공개, 무장강도 4~7구는 비공개. 마약 관련 2종은 별도 참고. SSMSI 공식 종합점수가 아닌 자체 비교점수.",
     "protest": "Selected geolocated reports from 17 Oct 2026. One row per distinct reported area/event-group; not 451 shop coordinates.",
     "coordinates": "All point positions approximate representative anchors pending official geocoding. Circles are not administrative precinct polygons.",
     "scope": "범죄·치안 뉴스, 일반 시위·집회, 시위 관련 폭력·재산 피해만. 교통사고와 일반 안전사고는 제외.",
-    "categories": "강력범죄 비교지수: 비무장 폭력 절도, 가정 밖 신체폭력, 성폭력 / 생활·재산범죄 비교지수: 비폭력 대인절도, 고의 기물파손, 차량 안 절도, 주거침입 절도. 살인·무기 사용 강도는 구 단위 결측·미공개 때문에 지수 제외; 범죄 뉴스에는 포함."
+    "categories": "강력범죄: 무장강도, 비무장 폭력 절도, 가정 밖 신체폭력, 가정 내 신체폭력, 성범죄. 생활·재산범죄: 비폭력 대인절도, 고의 기물파손, 차량 내 절도, 주거침입 절도, 차량 자체 절도, 차량 부품 절도, 사기·결제수단 범죄. 마약 밀매·마약 사용은 경찰 단속·적발 중심이라 별도 참고지표로 표시. 살인·살인미수와 납치·감금·협박·방화 등은 범죄 분류에 포함하지만 SSMSI 파리 구별 2025 비교 가능치가 없어 점수에서는 제외. 무장강도는 4~7구에서 통계 비공개이며 결측을 0으로 간주하지 않음. 사기는 피해자 거주지 기준이므로 현장 상권 위험으로 직접 해석 금지. 모든 점수는 자체 상대평균이며 정부 공식 범죄지수 아님."
+  },
+  "metadata": {
+    "categories": "강력범죄: 무장강도, 비무장 폭력 절도, 가정 밖 신체폭력, 가정 내 신체폭력, 성범죄. 생활·재산범죄: 비폭력 대인절도, 고의 기물파손, 차량 내 절도, 주거침입 절도, 차량 자체 절도, 차량 부품 절도, 사기·결제수단 범죄. 마약 밀매·마약 사용은 경찰 단속·적발 중심이라 별도 참고지표로 표시. 살인·살인미수와 납치·감금·협박·방화 등은 범죄 분류에 포함하지만 SSMSI 파리 구별 2025 비교 가능치가 없어 점수에서는 제외. 무장강도는 4~7구에서 통계 비공개이며 결측을 0으로 간주하지 않음. 사기는 피해자 거주지 기준이므로 현장 상권 위험으로 직접 해석 금지. 모든 점수는 자체 상대평균이며 정부 공식 범죄지수 아님."
   }
 }</script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -670,20 +813,38 @@ const eventGroups={crime:L.layerGroup().addTo(map),protest:L.layerGroup().addTo(
 let heatLayers={crime:null,protest:null,damage:null},geoLayer=null,geoOutlineLayer=null,geoAvailable=false;
 const COLORS=['#3fae8a','#62c59e','#9fd18c','#ccd66c','#e8ca70','#f6b75c','#f59b56','#f0785f','#df5265','#a92c66'];
 const CATEGORY_FIELDS={
- serious:[['violent_robbery_per_1000','비무장 폭력 절도','/1,000명'],['non_domestic_violence_per_1000','가정 밖 신체폭력','/1,000명'],['sexual_violence_per_1000','성범죄','/1,000명']],
- property:[['nonviolent_theft_per_1000','비폭력 대인절도','/1,000명'],['vandalism_per_1000','고의 기물파손','/1,000명'],['vehicle_breakins_per_1000','차량 안 절도','/1,000명'],['home_burglary_per_1000_housing','주거침입 절도','/1,000주택']]
+ serious:[
+ ['armed_robbery_per_1000','무장강도','/1,000명'],
+ ['violent_robbery_per_1000','비무장 폭력강도','/1,000명'],
+ ['non_domestic_violence_per_1000','가정 밖 신체폭력','/1,000명'],
+ ['domestic_violence_per_1000','가정 내 신체폭력','/1,000명'],
+ ['sexual_violence_per_1000','성범죄','/1,000명']],
+ property:[
+ ['nonviolent_theft_per_1000','비폭력 대인절도(소매치기 등)','/1,000명'],
+ ['vandalism_per_1000','고의 기물파손','/1,000명'],
+ ['vehicle_breakins_per_1000','차량 안 절도','/1,000명'],
+ ['home_burglary_per_1000_housing','주거침입 절도','/1,000주택'],
+ ['vehicle_theft_per_1000','차량 자체 절도','/1,000명'],
+ ['vehicle_accessory_theft_per_1000','차량 부품 절도','/1,000명'],
+ ['fraud_residence_per_1000','사기·결제수단 범죄(피해자 거주지)','/1,000명']]
 };
+const OTHER_RECORDED_FIELDS=[
+ ['drug_trafficking_suspects_per_1000','마약 밀매 단속 피의자','/1,000명'],
+ ['drug_use_suspects_per_1000','마약 사용 단속 피의자','/1,000명']
+];
+function validIndicatorValue(x){return x!==null&&x!==undefined&&x!==''&&Number.isFinite(Number(x))} 
 const categoryName=()=>metric==='serious'?'강력범죄':metric==='property'?'생활·재산범죄':'전체 범죄';
 // Equal-weight mean of indicator-specific Paris district percentiles; never sum heterogeneous count units.
 function indicatorPercentile(key,entry){
- const sorted=arr.map(d=>Number(d[key])).filter(Number.isFinite).sort((a,b)=>a-b), n=sorted.length;
- if(n<2||!Number.isFinite(Number(entry[key])))return null;
+ // Suppressed cells are unavailable, NOT zero cases. Compare only published rates.
+ const sorted=arr.filter(d=>validIndicatorValue(d[key])).map(d=>Number(d[key])).sort((a,b)=>a-b),n=sorted.length;
+ if(n<2||!validIndicatorValue(entry[key]))return null;
  const v=Number(entry[key]),first=sorted.findIndex(x=>x===v),last=sorted.lastIndexOf(v);
  if(first<0)return null;
  return 100*(first+last)/2/(n-1);
 }
-function categoryScore(d,group){const fields=CATEGORY_FIELDS[group];const vals=fields.map(([key])=>indicatorPercentile(key,d)).filter(v=>v!==null);
- return vals.length===fields.length?vals.reduce((a,b)=>a+b,0)/vals.length:NaN}
+function categoryScore(d,group){const vals=CATEGORY_FIELDS[group].map(([key])=>indicatorPercentile(key,d)).filter(v=>v!==null);
+ return vals.length?vals.reduce((a,b)=>a+b,0)/vals.length:NaN}
 function getVal(d){if(metric!=='all')return categoryScore(d,metric);
  const serious=categoryScore(d,'serious'),property=categoryScore(d,'property');
  // Two categories receive equal 50:50 weights, not three-versus-four indicator weights.
@@ -694,9 +855,12 @@ const getColor=v=>getGrade(v)?COLORS[getGrade(v)-1]:'#8395a9';
 function renderTenLegend(){$('tenLegend').innerHTML=COLORS.map((c,i)=>`<span title="${i+1}단계" style="background:${c}">${i+1}</span>`).join('')}
 function popupCrime(d){
  const fields=metric==='all'?[...CATEGORY_FIELDS.serious,...CATEGORY_FIELDS.property]:CATEGORY_FIELDS[metric];
- const measures=fields.map(([key,name,unit])=>`<div style="font-size:11px;line-height:1.7">${esc(name)}: ${Number(d[key]).toFixed(1)} ${unit}</div>`).join('');
- const breakdown=metric==='all'?`<p style="font-size:11px;margin:7px 0">강력범죄 ${categoryScore(d,'serious').toFixed(1)}/100 · 생활·재산범죄 ${categoryScore(d,'property').toFixed(1)}/100<br>두 카테고리를 50:50으로 반영</p>`:'';
- return `<strong style="font-size:15px">${d.arrondissement}구 · ${categoryName()} (2025)</strong><div style="font-size:25px;font-weight:800;color:#93d7ff">${getVal(d).toFixed(1)}<small style="font-size:11px;color:#bbd6f1;font-weight:400"> /100 · 상대 ${getGrade(getVal(d))}/10단계</small></div>${breakdown}${measures}<p style="font-size:11px;color:#a8bad1">각 원 지표의 20개 구 내 상대 백분위 평균이며 프랑스 정부가 발표한 공식 종합 범죄율이나 개인 피해 확률이 아닙니다. 분모는 범죄마다 주민/주택으로 다를 수 있습니다.</p><a href="https://www.yakeo.com/v/classements/arrondissements-de-paris/" target="_blank" rel="noopener">SSMSI 구별 지표 재표시 ↗</a>`
+ const measures=fields.map(([key,name,unit])=>`<div style="font-size:11px;line-height:1.7">${esc(name)}: ${validIndicatorValue(d[key])?Number(d[key]).toFixed(1)+' '+unit:'미공개(점수에 0으로 대체하지 않음)'}</div>`).join('');
+ const supplemental=OTHER_RECORDED_FIELDS.map(([key,name,unit])=>`<div style="font-size:11px;line-height:1.7">${esc(name)}: ${validIndicatorValue(d[key])?Number(d[key]).toFixed(1)+' '+unit:'미공개'}</div>`).join('');
+ const seriousCount=CATEGORY_FIELDS.serious.filter(([key])=>validIndicatorValue(d[key])).length;
+ const propertyCount=CATEGORY_FIELDS.property.filter(([key])=>validIndicatorValue(d[key])).length;
+ const breakdown=metric==='all'?`<p style="font-size:11px;margin:7px 0">강력범죄 ${categoryScore(d,'serious').toFixed(1)}/100 (${seriousCount}/5지표) · 생활·재산범죄 ${categoryScore(d,'property').toFixed(1)}/100 (${propertyCount}/7지표)<br>두 카테고리를 50:50으로 반영</p>`:'';
+ return `<strong style="font-size:15px">${d.arrondissement}구 · ${categoryName()} (2025)</strong><div style="font-size:25px;font-weight:800;color:#93d7ff">${getVal(d).toFixed(1)}<small style="font-size:11px;color:#bbd6f1;font-weight:400"> /100 · 상대 ${getGrade(getVal(d))}/10단계</small></div>${breakdown}${measures}<p style="font-size:11px;line-height:1.65;color:#dfbe7f">강력범죄에는 살인·살인미수도 포함되지만, 구별 공개 수치가 없어 점수에서만 제외됩니다. 무장강도가 비공개인 4~7구는 비교지표 4/5개만 사용하므로 다른 구와 완전히 동일한 기준은 아닙니다. 사기는 발생 장소가 아닌 피해자 거주지 기준입니다.</p><details style="font-size:11px"><summary>마약 관련 단속 참고지표(치안점수 별도)</summary>${supplemental}<div style="color:#a8bad1">경찰 단속 건수는 실제 거리의 범죄 피해 위험을 직접 나타내지 않습니다.</div></details><p style="font-size:11px;color:#a8bad1">각 지표의 파리 20개 구 내 상대 백분위 평균입니다. 공식 범죄율이나 개인 피해 확률이 아니며 지표에 따라 주민·주택 분모와 집계 단위가 다릅니다.</p><a href="https://www.yakeo.com/v/classements/arrondissements-de-paris/" target="_blank" rel="noopener">SSMSI 구별 지표 재표시 ↗</a>`
 }
 function inPeriod(e){const n=$('period').value;if(n==='all')return true;const end=new Date(seed.as_of+'T12:00:00Z');const ev=new Date(e.occurred_on+'T12:00:00Z');if(Number.isNaN(ev.getTime()))return false;const start=new Date(end);start.setUTCDate(start.getUTCDate()-Number(n));return ev>=start&&ev<=end}
 // Incident categories are explicit and audited; unknown categories remain hidden until classified.
@@ -710,13 +874,13 @@ function kind(e){const cat=String(e.category||'').toLowerCase(),group=String(e.e
  const damage=/폭력|충돌|약탈|파손|피해|방화|폭동|소요|violence|pillag|dégrad/.test(cat);
  if(protestContext&&damage)return 'damage';
  if(protestContext)return 'protest';
- if(/범죄|절도|강도|폭행|살인|살해|성범죄|성폭력|도난|차량털이|흉기|강간|납치|강탈|소매치기|날치기|형사범죄|crime|robbery|theft|assault|homicide|murder|rape/.test(cat))return 'crime';
+ if(/범죄|절도|강도|폭행|살인|살해|성범죄|성폭력|도난|차량털이|흉기|강간|납치|강탈|소매치기|날치기|형사범죄|감금|협박|공갈|사기|기물파손|재산손괴|방화|마약|crime|robbery|theft|assault|homicide|murder|rape|fraud|burglary|arson/.test(cat))return 'crime';
  return 'unknown';
 }
 function crimeSubkind(e){const cat=String(e.category||'').toLowerCase();
  if(/비폭력|소매치기|날치기/.test(cat))return 'property';
- if(/살인|폭행|강도|폭력|성범죄|성폭력|흉기|강간|납치|homicide|rape|assault|armed/.test(cat))return 'serious';
- if(/절도|도난|사기|파손|손괴|theft|burglary|pickpocket/.test(cat))return 'property';return 'unknown';}
+ if(/살인|살해|살인미수|폭행|강도|폭력|성범죄|성폭력|성추행|흉기|강간|납치|감금|공갈|협박|방화|마약밀매|마약 밀매|homicide|murder|rape|assault|armed|kidnapping|arson/.test(cat))return 'serious';
+ if(/절도|도난|사기|파손|손괴|차량|마약사용|마약 사용|theft|burglary|pickpocket|fraud/.test(cat))return 'property';return 'unknown';}
 const kindNames={crime:'범죄 뉴스',protest:'일반 집회·행진',damage:'시위 관련 폭력·피해'};
 const kindColors={crime:'#ff0000',protest:'#717d8c',damage:'#f28c28'};
 function popupIncident(e){const k=kind(e);return `<div style="font-size:11px;color:${kindColors[k]||'#fca'};font-weight:800">${esc(kindNames[k]||'확인 필요')} · ${esc(e.category)} · ${esc(e.occurred_on)}</div><div style="font-weight:800;font-size:15px;line-height:1.45;margin:6px 0">${esc(e.title)}</div><div style="color:#c6d6e4">${esc(e.place)}${e.arrondissement?' · '+esc(e.arrondissement)+'구':''}</div><p>${esc(e.summary)}</p><div style="font-size:10px;color:#dfbe7f">위치: ${esc(e.location_precision)} / ${esc(e.verification||'')}</div><a href="${esc(validUrl(e.source_url))}" target="_blank" rel="noopener noreferrer">${esc(e.source_name)} 원문 확인 ↗</a>`}
@@ -1025,10 +1189,13 @@ function sheetIncidents(table){const list=[]; for(const row of table.rows||[]){
 function sheetCrime(table){let count=0;for(const row of table.rows||[]){const n=Number(cell(row,0));if(!Number.isInteger(n)||n<1||n>20)continue;
  const d=arr.find(x=>x.arrondissement===n);if(!d)continue;
  const v=Number(cell(row,2)),p=Number(cell(row,3));if(!Number.isFinite(v)||!Number.isFinite(p))continue;
- const extra=[['sexual_violence_per_1000',7],['nonviolent_theft_per_1000',8],['vandalism_per_1000',9],['vehicle_breakins_per_1000',10],['home_burglary_per_1000_housing',11]];
-  if(extra.some(([key,col])=>!Number.isFinite(Number(cell(row,col)))||cell(row,col)===''))continue;
+ const required=[['sexual_violence_per_1000',7],['nonviolent_theft_per_1000',8],['vandalism_per_1000',9],['vehicle_breakins_per_1000',10],['home_burglary_per_1000_housing',11]];
+  const extended=[['armed_robbery_per_1000',13],['domestic_violence_per_1000',14],['vehicle_theft_per_1000',15],['vehicle_accessory_theft_per_1000',16],['fraud_residence_per_1000',17],['drug_trafficking_suspects_per_1000',18],['drug_use_suspects_per_1000',19]];
+  if(required.some(([key,col])=>!validIndicatorValue(cell(row,col))))continue;
   d.violent_robbery_per_1000=v;d.non_domestic_violence_per_1000=p;
-  for(const [key,col] of extra)d[key]=Number(cell(row,col));count++;
+  for(const [key,col] of required)d[key]=Number(cell(row,col));
+  for(const [key,col] of extended){const raw=cell(row,col);if(validIndicatorValue(raw))d[key]=Number(raw);else if(key==='armed_robbery_per_1000')d[key]=null;}
+  count++;
 }return count}
 async function updateFromSheets(){if(inFlight)return;inFlight=true;
  syncState('loading',lastSuccess?'데이터 갱신 중…':'Google Sheets 연결 확인 중…');
