@@ -34,13 +34,31 @@
 .incident-hit:hover .incident-svg{transform:scale(1.10);transform-origin:center;transition:transform .1s}
 
 .mini-legend{position:absolute;right:14px;bottom:18px;z-index:640;min-width:112px;max-width:148px;background:#111b29e6;border:1px solid #ffffff22;border-radius:12px;padding:8px 10px;box-shadow:0 8px 24px #0000003d;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);pointer-events:none}.mini-legend-title{font-size:10px;font-weight:780;letter-spacing:.04em;color:#dbe7f5;margin:0 0 6px}.mini-legend-row{display:flex;align-items:center;gap:8px;color:#eff6ff;font-size:11px;line-height:1.35}.mini-legend-row+.mini-legend-row{margin-top:6px}.mini-legend-dot{width:10px;height:10px;border-radius:50%;flex:none;box-shadow:0 0 0 1px #ffffff33}.mini-legend-dot.crime{background:#ff0000}.mini-legend-dot.damage{background:#f28c28}.mini-legend-dot.protest{background:#717d8c}@media(max-width:760px){.mini-legend{right:10px;bottom:10px;padding:7px 8px;min-width:100px;border-radius:10px}.mini-legend-title{font-size:9px;margin-bottom:5px}.mini-legend-row{font-size:10px;gap:7px}.mini-legend-dot{width:9px;height:9px}}
+
+.route-tools{margin-top:11px}
+.route-settings{background:#132238;border:1px solid #34475f;border-radius:10px;padding:11px;display:flex;flex-direction:column;gap:7px;margin-top:7px}
+.route-settings label{font-size:11px;font-weight:760;color:#bdd0e4}
+.route-settings select{width:100%;min-height:36px;background:#0f1b2d;color:#e5eef8;border:1px solid #4b6179;border-radius:8px;padding:7px;font-size:12px}
+.route-notice{font-size:10.5px;line-height:1.6;color:#b7cbdc;overflow-wrap:anywhere;margin-top:3px}
+.route-notice a{color:#b1eaf3;text-decoration:underline}
+.mini-legend-row.route-legend-row{display:none}
+.mini-legend-dot.route-zone{background:#19879b;opacity:.9;border-radius:4px}
+.mini-legend-row.route-approx-legend{display:none}
+.mini-legend-dot.route-approx{width:12px;height:0;background:transparent;border-radius:0;border-top:3px dashed #066c7e;box-shadow:none}
 </style></head><body>
 <div class="app">
-<aside class="sidebar"><section class="brand"><div class="brand-top"><span class="dot"></span>PARIS SAFETY INTELLIGENCE</div><h1>파리 치안·시위<br>인텔리전스 맵</h1><p class="desc">2025년 공식 범죄 항목을 전체·강력범죄·생활재산범죄 비교지수로 요약하고, 실제로 보도된 범죄·시위 발생 위치를 구분해 보여줍니다. 공식 통계와 기사 사례는 서로 다른 데이터입니다.</p><div class="top-meta"><span class="chip">웹 연결판 v0.6.12</span><span class="chip">데이터 기준 2026.10.24</span><span class="chip">20개 구 순위·뉴스</span></div></section>
+<aside class="sidebar"><section class="brand"><div class="brand-top"><span class="dot"></span>PARIS SAFETY INTELLIGENCE</div><h1>파리 치안·시위<br>인텔리전스 맵</h1><p class="desc">2025년 공식 범죄 항목을 전체·강력범죄·생활재산범죄 비교지수로 요약하고, 실제로 보도된 범죄·시위 발생 위치를 구분해 보여줍니다. 공식 통계와 기사 사례는 서로 다른 데이터입니다.</p><div class="top-meta"><span class="chip">웹 연결판 v0.7.3</span><span class="chip">데이터 기준 2026.10.24</span><span class="chip">20개 구 순위·뉴스</span></div></section>
 <section class="panel"><h2 class="sectitle">MAP LAYERS</h2><div class="seg" id="tabs"><button data-tab="crime">치안·범죄</button><button data-tab="unrest">시위·집회</button><button data-tab="both" class="active">함께 보기</button></div>
 <div class="field" id="metricField"><label for="metric">치안 유형 · 2025 공식 항목 기반 자체 비교지수</label><select id="metric"><option value="all" selected>전체 범죄 (강력 + 생활·재산)</option><option value="serious">강력범죄</option><option value="property">생활·재산범죄 (소매치기 등)</option></select></div>
 <div class="switch-area" id="crimeSwitches"><label class="control-line"><input type="checkbox" id="showStats" checked> <span>공식 통계 10단계 색상 지도</span></label><label class="control-line"><input type="checkbox" id="showCrimeNews" checked> <span><i class="color-dot" style="background:#ff0000"></i>범죄 뉴스 위치</span></label></div>
 <div class="switch-area" id="protestSwitches"><label class="control-line"><input type="checkbox" id="showProtests" checked> <span><i class="color-dot" style="background:#717d8c"></i>일반 시위·집회·행진</span></label><label class="control-line"><input type="checkbox" id="showDamage" checked> <span><i class="color-dot" style="background:#f28c28"></i>시위 관련 폭력·재산 피해</span></label></div>
+<div class="route-tools" id="routeTools">
+<label class="control-line"><input type="checkbox" id="showRouteZones" checked> <span>행진 경로·주변 영향권 표시</span></label>
+<div class="route-settings" id="routeSettings">
+<label for="routePick">행진 선택</label><select id="routePick"><option value="all-marches">전체 행진 · 상세 경로 + 직선 연결</option></select>
+<label for="routeRadius">참고 영향권 반경</label><select id="routeRadius"><option value="100">100m</option><option value="200" selected>200m</option><option value="300">300m</option></select>
+<div class="route-notice" id="routeNotice">공식 통제구역이 아닌 위치 기반 참고 영향권입니다.</div>
+</div></div>
 <div class="switch-area" id="heatToggle"><label class="control-line"><input type="checkbox" id="heatInput"> <span>뉴스·시위 위치 밀집도 표시</span></label></div>
 <div class="field" id="dateField"><label for="period">뉴스·집회·피해 발생 기간</label><select id="period"><option value="7">최근 7일</option><option value="30">최근 30일</option><option value="90">최근 90일</option><option value="365">최근 1년</option><option value="all" selected>전체 누적</option></select></div>
 <div class="legend" id="crimeLegend"><div class="sectitle">2025 치안 비교지수 · 상대적인 10단계</div><div class="ten-legend" id="tenLegend" aria-label="10단계 치안 지표 색상"></div><div class="legend-line"><span>1 낮은 값</span><span>10 높은 값</span></div><p class="desc" style="margin-top:9px">강력범죄는 <b>비무장 폭력 절도·가정 밖 신체폭력·성범죄</b>, 생활·재산범죄는 <b>비폭력 대인절도·고의 파손·차량 안 절도·주거침입 절도</b>의 20개 구 내 상대 백분위를 평균합니다. <b>전체</b>는 두 카테고리의 점수를 동일한 비중(50%씩)으로 평균합니다. <b>정부 공식 점수가 아닌 자체 비교지수</b>이며 살인·무장 강도는 공개 범위 문제로 지수에서 제외합니다.</p></div>
@@ -53,10 +71,10 @@
 <section id="casesBlock" style="margin-top:23px"><div class="event-head"><h2 class="sectitle" id="eventTitle" style="margin:0">확인된 사건·집회</h2><span id="displayCount">0건</span></div><div id="eventList"></div></section>
 <div class="buttonbar"><button class="action" id="exportButton">데이터 JSON 내보내기 ↗</button><label class="action" style="cursor:pointer">JSON 병합하기<input id="importButton" type="file" accept=".json,application/json" hidden></label></div><p class="desc" style="margin-top:11px">로컬 JSON 병합은 이 브라우저에만 저장됩니다. 매일 누적 데이터는 Google Sheets 연결이 정상일 때 반영됩니다.</p></section>
 <div class="foot">지도 © <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> 기여자 · 범죄 통계 <a href="https://www.data.gouv.fr/datasets/bases-statistiques-communale-departementale-et-regionale-de-la-delinquance-enregistree-par-la-police-et-la-gendarmerie-nationales" target="_blank">SSMSI / Ministère de l’Intérieur</a> (<a href="https://www.yakeo.com/v/classements/arrondissements-de-paris/" target="_blank">Yakeo 구별 통계 재표시</a>) · 보도자료 출처는 각 사건 상세에서 확인하세요.<br><br>데이터 갱신: Google Sheets 접속 성공 시 불러온 값 표시. 연결 실패 시 샘플 데이터 표시. 공식 범죄 통계는 연간 값입니다.</div></aside>
-<main class="mapbox"><div id="map" class="map"></div><div class="loading" id="mapStatus">지도를 불러오는 중…</div><div class="mini-legend" id="miniLegend" aria-label="지도 색상 인덱스"><div class="mini-legend-title">색상 인덱스</div><div class="mini-legend-row"><span class="mini-legend-dot crime"></span><span>범죄</span></div><div class="mini-legend-row"><span class="mini-legend-dot damage"></span><span>시위 폭력·피해</span></div><div class="mini-legend-row"><span class="mini-legend-dot protest"></span><span>일반 시위</span></div></div></main></div>
+<main class="mapbox"><div id="map" class="map"></div><div class="loading" id="mapStatus">지도를 불러오는 중…</div><div class="mini-legend" id="miniLegend" aria-label="지도 색상 인덱스"><div class="mini-legend-title">색상 인덱스</div><div class="mini-legend-row"><span class="mini-legend-dot crime"></span><span>범죄</span></div><div class="mini-legend-row"><span class="mini-legend-dot damage"></span><span>시위 폭력·피해</span></div><div class="mini-legend-row"><span class="mini-legend-dot protest"></span><span>일반 시위</span></div><div class="mini-legend-row route-legend-row" id="routeLegendRow"><span class="mini-legend-dot route-zone"></span><span>경유 도로 확인</span></div><div class="mini-legend-row route-approx-legend" id="routeApproxLegend"><span class="mini-legend-dot route-approx"></span><span>가상 직선 연결</span></div></div></main></div>
 <script id="seed" type="application/json">{
   "project": "Paris Safety Intelligence",
-  "version": "v0.6.12-2026-10-25",
+  "version": "v0.7.3-2026-10-25",
   "as_of": "2026-10-24",
   "crime_year": 2025,
   "districts": [
@@ -644,8 +662,10 @@ if(typeof L==='undefined'){status('지도 라이브러리를 불러오지 못했
 const map=L.map('map',{zoomControl:false,preferCanvas:true}).setView([48.8615,2.351],12);L.control.zoom({position:'topleft'}).addTo(map);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap contributors'}).addTo(map);
 map.createPane('districtLabelPane');map.getPane('districtLabelPane').style.zIndex='575';map.getPane('districtLabelPane').style.pointerEvents='none';
+map.createPane('routeZonePane');map.getPane('routeZonePane').style.zIndex='480';map.getPane('routeZonePane').style.pointerEvents='none';
 map.createPane('incidentPane');map.getPane('incidentPane').style.zIndex='660';
 const districtLabels=L.layerGroup().addTo(map);
+const routeZones=L.layerGroup().addTo(map);
 const eventGroups={crime:L.layerGroup().addTo(map),protest:L.layerGroup().addTo(map),damage:L.layerGroup().addTo(map)};
 let heatLayers={crime:null,protest:null,damage:null},geoLayer=null,geoOutlineLayer=null,geoAvailable=false;
 const COLORS=['#3fae8a','#62c59e','#9fd18c','#ccd66c','#e8ca70','#f6b75c','#f59b56','#f0785f','#df5265','#a92c66'];
@@ -733,6 +753,168 @@ function popupMany(items){
  return (items.length>1?`<strong style="display:block;margin-bottom:10px">이 위치 인근 보도 ${items.length}건</strong>`:'')+
  `<div class="incident-popup-list">${sorted.map(e=>`<section>${popupIncident(e)}</section>`).join('')}</div>`;
 }
+
+// Source-verified *street order*, not recorded GPS traces. Points are approximated to the named streets.
+const VERIFIED_ROUTES={
+ 'PARIS-2025-05-01-LABOR':{
+  name:'2025.05.01 노동절 행진',date:'2025-05-01',
+  source:'https://www.prefecturedepolice.interieur.gouv.fr/sites/default/files/Documents/20250429_cp_circulation_1_mai_2025-1.pdf',
+  quality:'경유 도로 순서가 경찰 안내에 명시됨. 지도 연결선은 근사 위치로 재구성',
+  anchors:[[48.8324,2.3554],[48.8376,2.3591],[48.8433,2.3655],[48.8456,2.3673],[48.8480,2.3722],[48.8460,2.3806],[48.8459,2.3889],[48.84833,2.39583]]
+ },
+ 'PARIS-2025-09-18-INTERSYNDICALE':{
+  name:'2025.09.18 긴축 반대 행진',date:'2025-09-18',
+  source:'https://www.leparisien.fr/paris-75/mobilisation-du-18-septembre-le-detail-du-parcours-de-la-manifestation-a-paris-ce-jeudi-17-09-2025-L2OKKKBP7FCRDFHHDKVU26XMVY.php',
+  quality:'경유 도로가 경찰 발표로 확인됨. 거리 중심 연결선은 개략적인 재구성',
+  anchors:[[48.8532,2.3691],[48.8582,2.3675],[48.8622,2.3662],[48.8658,2.3645],[48.8673,2.3633],[48.8596,2.3790],[48.8534,2.3874],[48.84833,2.39583]]
+ },
+ 'PARIS-2026-09-19-TECHNO-PARADE':{
+  name:'2026.09.19 테크노 퍼레이드',date:'2026-09-19',
+  source:'https://www.timeout.fr/paris/actualites/techno-parade-2026-tout-ce-quil-faut-savoir-sur-la-fete-des-musiques-electroniques-091826',
+  quality:'바스티유→Beaumarchais→Filles-du-Calvaire→Temple→République→Voltaire→Nation 도로 순서 확인. 표시선은 도로 대표 지점의 개략 연결',
+  anchors:[[48.8532,2.3691],[48.8580,2.3687],[48.8616,2.3675],[48.8652,2.3651],[48.8673,2.3633],[48.8605,2.3780],[48.8548,2.3870],[48.84833,2.39583]]
+ },
+ 'PARIS-2026-09-29-PUBLIC-SERVICE-MARCH':{
+  name:'2026.09.29 공공부문 시위',date:'2026-09-29',
+  source:'https://www.udfo91.fr/affiche-et-organisation-du-la-manif-du-29-septembre-2026/',
+  quality:'République→Temple→Filles-du-Calvaire→Beaumarchais→Bastille→rue de Lyon→Daumesnil→Nation 도로 순서 확인. 지도선은 근사 재구성',
+  anchors:[[48.8673,2.3633],[48.8648,2.3651],[48.8616,2.3675],[48.8582,2.3687],[48.8532,2.3691],[48.8500,2.3745],[48.8458,2.3830],[48.8465,2.3890],[48.84833,2.39583]]
+ }
+};
+// Curated march groups. Stationary square rallies, school blockades, clashes and
+// notices of planned marches must never appear in the moving-march selector.
+// Include one-point evidence only when an actual moving procession was reported.
+const CONFIRMED_MARCHES=new Set([
+ 'PARIS-2025-03-08-WOMEN-MARCH',
+ 'PARIS-2025-03-22-ANTIRACISM',
+ 'PARIS-2025-05-01-LABOR',
+ 'PARIS-2025-06-14-GAZA',
+ 'PARIS-2025-06-28-PRIDE',
+ 'PARIS-2025-07-08-RED-LINE-GAZA',
+ 'PARIS-2025-09-18-INTERSYNDICALE',
+ 'PARIS-2025-10-02-INTERSYNDICALE',
+ 'PARIS-2025-11-22-WOMENS-VIOLENCE-PROTEST',
+ 'PARIS-2025-12-02-PUBLIC-SERVICE',
+ 'PARIS-2026-03-01-IRAN-MARCH',
+ 'PARIS-2026-03-08-WOMENS-DAY',
+ 'PARIS-2026-05-01-LABOR',
+ 'PARIS-2026-06-21-ANTIRACISM',
+ 'PARIS-2026-08-22-PALESTINE',
+ 'PARIS-2026-09-19-TECHNO-PARADE',
+ 'PARIS-2026-09-29-PUBLIC-SERVICE-MARCH'
+]);
+function routePoints(items){
+ const distinct=new Set();
+ const candidates=[];
+ // Prefer explicit start and end descriptions; otherwise preserve the recorded order.
+ const position=e=>/출발|집결|시작|départ|starting/i.test(e.title||'')?0:
+   /도착|종료|해산|arrivée|finish/i.test(e.title||'')?2:1;
+ for(const e of [...items].sort((a,b)=>position(a)-position(b))){
+  const lat=Number(e.lat),lon=Number(e.lon),key=lat.toFixed(5)+'|'+lon.toFixed(5);
+  if(!Number.isFinite(lat)||!Number.isFinite(lon)||distinct.has(key))continue;
+  distinct.add(key);candidates.push([lat,lon]);
+ }
+ return candidates;
+}
+function routeCandidates(){
+ const groups=new Map();
+ for(const e of inc){
+  if(kind(e)!=='protest'||!e.event_group||!CONFIRMED_MARCHES.has(e.event_group)||!inPeriod(e))continue;
+  if(!groups.has(e.event_group))groups.set(e.event_group,[]);
+  groups.get(e.event_group).push(e);
+ }
+ // Do not offer a route when there is only one known point and no verified streets.
+ return new Map([...groups].filter(([key,items])=>VERIFIED_ROUTES[key]||routePoints(items).length>=2));
+}
+function fillRoutePicker(groups){
+ const select=$('routePick'),keep=select.value;
+ select.innerHTML='';
+ const first=document.createElement('option');first.value='all-marches';first.textContent='전체 행진 · 상세 경로 + 직선 연결';select.appendChild(first);
+ const second=document.createElement('option');second.value='verified-all';second.textContent='경유 도로 확인된 행진만';select.appendChild(second);
+ const candidates=[...groups].sort((a,b)=>b[1][0].occurred_on.localeCompare(a[1][0].occurred_on));
+ for(const [group,items] of candidates){
+  const known=VERIFIED_ROUTES[group],date=items[0].occurred_on;
+  const title=known?known.name:(date+' '+items[0].title.replace(/\s*[·—-].*$/,'').slice(0,22));
+  const option=document.createElement('option');option.value=group;
+  option.textContent=title+(known?' · 경유 도로 확인':' · 시작↔끝 직선');select.appendChild(option);
+ }
+ select.value=[...select.options].some(o=>o.value===keep)?keep:'all-marches';
+}
+function bufferRectangle(a,b,radius){
+ const latScale=111132,lonScale=111320*Math.cos((a[0]+b[0])*Math.PI/360);
+ const dx=(b[1]-a[1])*lonScale,dy=(b[0]-a[0])*latScale,len=Math.hypot(dx,dy);
+ if(len<1)return null;
+ const latOffset=(dx/len)*radius/latScale,lonOffset=(-dy/len)*radius/lonScale;
+ return [[a[0]+latOffset,a[1]+lonOffset],[b[0]+latOffset,b[1]+lonOffset],
+         [b[0]-latOffset,b[1]-lonOffset],[a[0]-latOffset,a[1]-lonOffset]];
+}
+function addRouteBubble(point,radius,fill,opacity=.11){
+ L.circle(point,{pane:'routeZonePane',interactive:false,radius,color:fill,weight:0,fillColor:fill,fillOpacity:opacity}).addTo(routeZones);
+}
+function drawRouteLine(anchors,radius,estimated=false){
+ const col='#19879b';
+ const opacity=.10;
+ for(let i=1;i<anchors.length;i++){
+  const rect=bufferRectangle(anchors[i-1],anchors[i],radius);
+  if(rect)L.polygon(rect,{pane:'routeZonePane',interactive:false,color:col,weight:0,fillColor:col,fillOpacity:opacity}).addTo(routeZones);
+ }
+ for(const point of anchors)addRouteBubble(point,radius,col,opacity);
+ const line={pane:'routeZonePane',interactive:false,color:'#066c7e',weight:3,opacity:.93};
+ if(estimated)line.dashArray='5 9';
+ L.polyline(anchors,line).addTo(routeZones);
+}
+function drawInferredRoute(items,radius){
+ const points=routePoints(items);
+ if(points.length<2)return false;
+ // Straight line joining only the reported start and end, NOT an actual street trace.
+ drawRouteLine([points[0],points[points.length-1]],radius,true);
+ // Intermediate confirmed points may be outside that purely illustrative straight line.
+ for(const point of points.slice(1,-1))addRouteBubble(point,radius,'#19879b',.10);
+ return true;
+}
+function renderRouteZones(){
+ routeZones.clearLayers();
+ const enabled=mode!=='crime'&&$('showProtests').checked;
+ $('routeTools').style.display=enabled?'':'none';
+ const visible=enabled&&$('showRouteZones').checked;
+ $('routeSettings').style.display=visible?'':'none';
+ $('routeLegendRow').style.display='none';
+ $('routeApproxLegend').style.display='none';
+ if(!visible)return;
+ const groups=routeCandidates();fillRoutePicker(groups);
+ const selection=$('routePick').value,radius=Number($('routeRadius').value)||200;
+ let confirmed=0,straight=0;
+ const showAll=selection==='all-marches',showVerifiedOnly=selection==='verified-all';
+ if(showAll||showVerifiedOnly){
+  for(const [key,items] of groups){
+   const verified=VERIFIED_ROUTES[key];
+   if(verified){drawRouteLine(verified.anchors,radius);confirmed++}
+   else if(showAll&&drawInferredRoute(items,radius))straight++;
+  }
+  $('routeNotice').innerHTML=`<b>도로 확인 ${confirmed}건 · 출발↔도착 직선 ${straight}건</b><div style="margin-top:4px">청록 실선은 확인된 도로 순서의 근사 재구성, 같은 청록색 점선은 도로 정보를 모르는 행진의 가상 직선입니다. ${radius}m 음영은 <b>실제 통제·피해 구역이 아닌 가상 참고 영향권</b>입니다.</div>`;
+  if(!confirmed&&!straight)$('routeNotice').textContent='선택한 기간에 연결 가능한 행진이 없습니다.';
+ }else{
+  const items=groups.get(selection)||[],verified=VERIFIED_ROUTES[selection];
+  if(verified){
+   drawRouteLine(verified.anchors,radius);confirmed++;
+   $('routeNotice').innerHTML='<b>경유 도로 확인 · 청록 실선</b> · '+esc(verified.quality)+'. '+radius+'m는 참고 영향권이며 실제 통제구역이 아닙니다. <a href="'+esc(verified.source)+'" target="_blank" rel="noopener noreferrer">출처 확인 ↗</a>';
+  }else if(drawInferredRoute(items,radius)){
+   straight++;
+   $('routeNotice').textContent='출발·도착 지점 사이를 청록색 점선으로 연결했습니다. 이는 실제 행진 도로가 아닌 가상 기준선이며 '+radius+'m 음영도 실제 통제·피해 범위가 아닙니다.';
+  }else{
+   $('routeNotice').textContent='두 개 이상의 확인된 장소가 없어 선을 표시할 수 없습니다.';
+  }
+ }
+ $('routeLegendRow').style.display=confirmed?'flex':'none';
+ $('routeApproxLegend').style.display=straight?'flex':'none';
+}
+function focusRouteSelection(){
+ const selected=$('routePick').value;if(selected==='verified-all'||selected==='all-marches')return;
+ const def=VERIFIED_ROUTES[selected],items=routeCandidates().get(selected)||[];
+ const points=def?def.anchors:routePoints(items);
+ if(points.length&&typeof map.fitBounds==='function')map.fitBounds(L.latLngBounds(points).pad(.14),{padding:[28,28],maxZoom:14});
+}
+
 function renderIncidents(){for(const k of Object.keys(eventGroups)){eventGroups[k].clearLayers();if(heatLayers[k]){map.removeLayer(heatLayers[k]);heatLayers[k]=null}}
  const visible=inc.filter(e=>e&&Number.isFinite(Number(e.lat))&&Number.isFinite(Number(e.lon))&&Number(e.lat)>48.4&&Number(e.lat)<49.4&&Number(e.lon)>1.7&&Number(e.lon)<3&&inPeriod(e)&&enabledKind(kind(e))&&(kind(e)!=='crime'||metric==='all'||crimeSubkind(e)===metric));
  const clusters=new Map();
@@ -795,14 +977,15 @@ function refresh(){const crimeOn=mode==='crime'||mode==='both',protestOn=mode===
  if(geoLayer){if(stats&&!map.hasLayer(geoLayer))geoLayer.addTo(map);if(!stats&&map.hasLayer(geoLayer))map.removeLayer(geoLayer);if(stats)geoLayer.bringToBack()}
  if(geoOutlineLayer){if(protestOnly&&!map.hasLayer(geoOutlineLayer))geoOutlineLayer.addTo(map);if(!protestOnly&&map.hasLayer(geoOutlineLayer))map.removeLayer(geoOutlineLayer);if(protestOnly)geoOutlineLayer.bringToBack()}
  if(showDistrictLabels&&!map.hasLayer(districtLabels))districtLabels.addTo(map);if(!showDistrictLabels&&map.hasLayer(districtLabels))map.removeLayer(districtLabels);
- renderCrime();let visible=renderIncidents();for(const [k,group] of Object.entries(eventGroups)){if(enabledKind(k)&&!map.hasLayer(group))group.addTo(map);if(!enabledKind(k)&&map.hasLayer(group))map.removeLayer(group)}
+ renderCrime();let visible=renderIncidents();renderRouteZones();for(const [k,group] of Object.entries(eventGroups)){if(enabledKind(k)&&!map.hasLayer(group))group.addTo(map);if(!enabledKind(k)&&map.hasLayer(group))map.removeLayer(group)}
  renderList(visible);
  $('numOne').textContent=crimeOn?'20':String(visible.filter(e=>kind(e)==='protest').length);$('labelOne').textContent=crimeOn?'2025년 통계 반영 구':'집회·행진 기록';$('numTwo').textContent=visible.length;$('labelTwo').textContent='기간 내 확인된 뉴스·시위 위치';
  status(protestOnly?(geoAvailable?'파리 20개 구 경계·구 번호 표시 (치안 색상 없음) · 원을 누르면 시위 상세보기':'행정구역 경계 데이터를 불러오지 못해 구 번호만 표시 · 시위 원은 정상 표시'):geoAvailable?'구별 번호·비교 단계(1~10) 표시 · 사건 원을 누르면 상세보기':'구 경계 데이터 미연결 · 구 번호·비교 단계 라벨 및 뉴스 위치 표시');
 }
 for(const btn of document.querySelectorAll('#tabs button')){btn.addEventListener('click',()=>{mode=btn.dataset.tab;document.querySelectorAll('#tabs button').forEach(x=>x.classList.toggle('active',x===btn));refresh()})}
 if(typeof map.on==='function')map.on('zoomend',()=>{if(mode==='unrest'||((mode==='crime'||mode==='both')&&$('showStats').checked))renderDistrictLabels()});
-$('metric').addEventListener('change',e=>{metric=e.target.value;refresh()});$('period').addEventListener('change',refresh);$('heatInput').addEventListener('change',refresh);for(const id of ['showStats','showCrimeNews','showProtests','showDamage'])$(id).addEventListener('change',refresh);
+$('metric').addEventListener('change',e=>{metric=e.target.value;refresh()});$('showRouteZones').addEventListener('change',refresh);$('routeRadius').addEventListener('change',refresh);$('routePick').addEventListener('change',()=>{refresh();focusRouteSelection()});
+$('period').addEventListener('change',refresh);$('heatInput').addEventListener('change',refresh);for(const id of ['showStats','showCrimeNews','showProtests','showDamage'])$(id).addEventListener('change',refresh);
 $('exportButton').onclick=()=>{let output={...seed,incidents:inc.filter(e=>e&&e.id).map(({_layer,...rest})=>rest),exported_on:new Date().toISOString()};let blob=new Blob([JSON.stringify(output,null,2)],{type:'application/json'});let url=URL.createObjectURL(blob);let a=document.createElement('a');a.href=url;a.download='paris_safety_updated.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),2000)};
 $('importButton').onchange=async e=>{const file=e.target.files?.[0];if(!file)return;try{const dat=JSON.parse(await file.text());if(!Array.isArray(dat.incidents))throw Error('incidents 배열이 없습니다');let added=0,changed=0;for(const x of dat.incidents){if(!x.id||!/^\d{4}-\d\d-\d\d$/.test(x.occurred_on||'')||!Number.isFinite(Number(x.lat))||!Number.isFinite(Number(x.lon)))continue;if(kind(x)==='unknown')continue;const idx=inc.findIndex(y=>y.id===x.id);if(idx<0){inc.push(x);added++}else if(JSON.stringify(x)!==JSON.stringify(inc[idx])){inc[idx]=x;changed++}}localStorage.setItem('psi_incidents_test',JSON.stringify(inc.map(({_layer,...e})=>e)));refresh();alert(`병합 완료: 신규 ${added}건, 수정 ${changed}건. 이 브라우저에만 저장되었습니다.`)}catch(err){alert('JSON 불러오기 실패: '+err.message)}e.target.value=''};
 refresh();
