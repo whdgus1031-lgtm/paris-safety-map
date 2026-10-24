@@ -42,12 +42,12 @@
 .route-notice{font-size:10.5px;line-height:1.6;color:#b7cbdc;overflow-wrap:anywhere;margin-top:3px}
 .route-notice a{color:#b1eaf3;text-decoration:underline}
 .mini-legend-row.route-legend-row{display:none}
-.mini-legend-dot.route-zone{background:#19879b;opacity:.9;border-radius:4px}
+.mini-legend-line{display:block;flex:none;width:24px;height:0;border-top:3px solid #066c7e;box-shadow:none;border-radius:0;opacity:1}.mini-legend-line.route-approx{border-top-style:dashed}
 .mini-legend-row.route-approx-legend{display:none}
-.mini-legend-dot.route-approx{width:12px;height:0;background:transparent;border-radius:0;border-top:3px dashed #066c7e;box-shadow:none}
+.mini-legend-row.route-legend-row,.mini-legend-row.route-approx-legend{white-space:nowrap}.mini-legend{max-width:190px}
 </style></head><body>
 <div class="app">
-<aside class="sidebar"><section class="brand"><div class="brand-top"><span class="dot"></span>PARIS SAFETY INTELLIGENCE</div><h1>파리 치안·시위<br>인텔리전스 맵</h1><p class="desc">2025년 공식 범죄 항목을 전체·강력범죄·생활재산범죄 비교지수로 요약하고, 실제로 보도된 범죄·시위 발생 위치를 구분해 보여줍니다. 공식 통계와 기사 사례는 서로 다른 데이터입니다.</p><div class="top-meta"><span class="chip">웹 연결판 v0.7.3</span><span class="chip">데이터 기준 2026.10.24</span><span class="chip">20개 구 순위·뉴스</span></div></section>
+<aside class="sidebar"><section class="brand"><div class="brand-top"><span class="dot"></span>PARIS SAFETY INTELLIGENCE</div><h1>파리 치안·시위<br>인텔리전스 맵</h1><p class="desc">2025년 공식 범죄 항목을 전체·강력범죄·생활재산범죄 비교지수로 요약하고, 실제로 보도된 범죄·시위 발생 위치를 구분해 보여줍니다. 공식 통계와 기사 사례는 서로 다른 데이터입니다.</p><div class="top-meta"><span class="chip">웹 연결판 v0.7.4</span><span class="chip">데이터 기준 2026.10.24</span><span class="chip">20개 구 순위·뉴스</span></div></section>
 <section class="panel"><h2 class="sectitle">MAP LAYERS</h2><div class="seg" id="tabs"><button data-tab="crime">치안·범죄</button><button data-tab="unrest">시위·집회</button><button data-tab="both" class="active">함께 보기</button></div>
 <div class="field" id="metricField"><label for="metric">치안 유형 · 2025 공식 항목 기반 자체 비교지수</label><select id="metric"><option value="all" selected>전체 범죄 (강력 + 생활·재산)</option><option value="serious">강력범죄</option><option value="property">생활·재산범죄 (소매치기 등)</option></select></div>
 <div class="switch-area" id="crimeSwitches"><label class="control-line"><input type="checkbox" id="showStats" checked> <span>공식 통계 10단계 색상 지도</span></label><label class="control-line"><input type="checkbox" id="showCrimeNews" checked> <span><i class="color-dot" style="background:#ff0000"></i>범죄 뉴스 위치</span></label></div>
@@ -71,10 +71,10 @@
 <section id="casesBlock" style="margin-top:23px"><div class="event-head"><h2 class="sectitle" id="eventTitle" style="margin:0">확인된 사건·집회</h2><span id="displayCount">0건</span></div><div id="eventList"></div></section>
 <div class="buttonbar"><button class="action" id="exportButton">데이터 JSON 내보내기 ↗</button><label class="action" style="cursor:pointer">JSON 병합하기<input id="importButton" type="file" accept=".json,application/json" hidden></label></div><p class="desc" style="margin-top:11px">로컬 JSON 병합은 이 브라우저에만 저장됩니다. 매일 누적 데이터는 Google Sheets 연결이 정상일 때 반영됩니다.</p></section>
 <div class="foot">지도 © <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> 기여자 · 범죄 통계 <a href="https://www.data.gouv.fr/datasets/bases-statistiques-communale-departementale-et-regionale-de-la-delinquance-enregistree-par-la-police-et-la-gendarmerie-nationales" target="_blank">SSMSI / Ministère de l’Intérieur</a> (<a href="https://www.yakeo.com/v/classements/arrondissements-de-paris/" target="_blank">Yakeo 구별 통계 재표시</a>) · 보도자료 출처는 각 사건 상세에서 확인하세요.<br><br>데이터 갱신: Google Sheets 접속 성공 시 불러온 값 표시. 연결 실패 시 샘플 데이터 표시. 공식 범죄 통계는 연간 값입니다.</div></aside>
-<main class="mapbox"><div id="map" class="map"></div><div class="loading" id="mapStatus">지도를 불러오는 중…</div><div class="mini-legend" id="miniLegend" aria-label="지도 색상 인덱스"><div class="mini-legend-title">색상 인덱스</div><div class="mini-legend-row"><span class="mini-legend-dot crime"></span><span>범죄</span></div><div class="mini-legend-row"><span class="mini-legend-dot damage"></span><span>시위 폭력·피해</span></div><div class="mini-legend-row"><span class="mini-legend-dot protest"></span><span>일반 시위</span></div><div class="mini-legend-row route-legend-row" id="routeLegendRow"><span class="mini-legend-dot route-zone"></span><span>경유 도로 확인</span></div><div class="mini-legend-row route-approx-legend" id="routeApproxLegend"><span class="mini-legend-dot route-approx"></span><span>가상 직선 연결</span></div></div></main></div>
+<main class="mapbox"><div id="map" class="map"></div><div class="loading" id="mapStatus">지도를 불러오는 중…</div><div class="mini-legend" id="miniLegend" aria-label="지도 색상 인덱스"><div class="mini-legend-title">색상 인덱스</div><div class="mini-legend-row"><span class="mini-legend-dot crime"></span><span>범죄</span></div><div class="mini-legend-row"><span class="mini-legend-dot damage"></span><span>시위 폭력·피해</span></div><div class="mini-legend-row"><span class="mini-legend-dot protest"></span><span>일반 시위</span></div><div class="mini-legend-row route-legend-row" id="routeLegendRow"><span class="mini-legend-line route-confirmed" aria-hidden="true"></span><span title="확인된 경유 도로를 바탕으로 근사 재구성">실제 행진 경로</span></div><div class="mini-legend-row route-approx-legend" id="routeApproxLegend"><span class="mini-legend-line route-approx" aria-hidden="true"></span><span title="실제 행진 도로가 아닌 출발지와 도착지의 직선 연결">시·종점 직선 연결</span></div></div></main></div>
 <script id="seed" type="application/json">{
   "project": "Paris Safety Intelligence",
-  "version": "v0.7.3-2026-10-25",
+  "version": "v0.7.4-2026-10-25",
   "as_of": "2026-10-24",
   "crime_year": 2025,
   "districts": [
