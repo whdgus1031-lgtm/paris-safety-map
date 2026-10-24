@@ -10,28 +10,49 @@
 @media(max-width:760px){.app{display:flex;flex-direction:column;height:auto;min-height:100vh}.mapbox{order:0;height:55vh;min-height:340px;flex:none}.sidebar{order:1;height:auto;overflow:visible;border-right:none;border-top:1px solid #304257}.brand{padding:20px}.brand h1{font-size:21px}.panel{padding:15px 20px}.maptoolbar{right:9px;top:9px}.maptag{padding:8px 10px;font-size:11px}.leaflet-top.leaflet-left{top:11px}.loading{bottom:8px;left:8px;font-size:10px}}
 .syncBanner{display:flex;gap:8px;align-items:center;margin:14px 0 0;padding:10px 11px;border-radius:11px;border:1px solid #52412c;background:#382a24;color:#f2c79c;font-size:11px;line-height:1.5}.syncBanner.online{border-color:#275b4d;background:#16392f;color:#b9eed7}.syncBanner #syncDot{flex-shrink:0;width:8px;height:8px;border-radius:50%;background:currentColor}.syncBanner #syncText{flex:1}.syncBanner button{border-radius:7px;border:1px solid #71839a;padding:4px 8px;color:inherit;background:#182637;cursor:pointer}.syncBanner button:hover{opacity:.8}
 .ten-legend{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:3px;margin:10px 0 7px}.ten-legend span{height:23px;display:flex;align-items:center;justify-content:center;border:1px solid #ffffff40;border-radius:4px;font-weight:800;font-size:10px;color:#10202a}.switch-area{margin:11px 0 0;display:flex;flex-direction:column;gap:7px}.control-line{font-size:12px;display:flex;gap:9px;align-items:center;cursor:pointer;color:#ccd9ea;background:#162337;padding:9px 10px;border:1px solid #30445b;border-radius:9px}.control-line input{accent-color:#8cc4ef;flex:none}.control-line span{display:inline-flex;align-items:center;gap:8px}.color-dot{display:inline-block;width:10px;height:10px;border-radius:50%;box-shadow:0 0 0 2px #ffffff22}.rankdesc{color:#9bacbf;font-size:10px;line-height:1.5;margin:9px 0 6px}.rank{display:flex;align-items:center;gap:9px;border-bottom:1px solid #263449;padding:9px 2px;cursor:pointer;font-size:12px}.rank:hover{background:#1c2b3b}.rankno{width:23px;text-align:right;color:#92a5bd;font-variant-numeric:tabular-nums}.rankname{flex:1;font-weight:730}.rankval{color:#d8e7f7;font-variant-numeric:tabular-nums}.rankgrade{width:24px;text-align:center;padding:4px 0;border-radius:5px;color:#182028;font-size:11px;font-weight:850}.event-tag{padding:3px 6px;border-radius:5px;font-size:10px;color:#dceaff;background:#26354a;margin-right:5px}
+
+/* Heat intensity is a visual layer; it must never intercept marker taps. */
+.leaflet-heatmap-layer{pointer-events:none!important}
+.incident-hit{width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;touch-action:manipulation}
+.incident-pin{display:flex;align-items:center;justify-content:center;width:24px;height:24px;border:2px solid #fff;border-radius:50%;box-shadow:0 2px 7px #101926bb,0 0 0 4px #fff3;color:#fff;font-size:10px;font-weight:800;transition:transform .1s}
+/* Single event = subtle 12px dot; clustered locations preserve the original 24px bubble and count. */
+.incident-pin.single{width:12px;height:12px;border-width:1.5px;box-shadow:0 1px 4px #101926bb,0 0 0 2px #fff3}
+.incident-hit:hover .incident-pin{transform:scale(1.15)}
+.incident-popup-list{display:flex;flex-direction:column;gap:8px;max-height:260px;overflow-y:auto}
+.incident-popup-list section{border-bottom:1px solid #314258;padding:0 0 9px}
+.incident-popup-list section:last-child{border:0;padding-bottom:0}
+.incident-marker{background:transparent;border:0}
+.district-label-icon{background:transparent;border:0!important;pointer-events:none!important}
+.district-label-chip{pointer-events:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;width:54px;height:42px;border:1px solid #ffffffec;border-radius:10px;background:#152435eb;color:#fff;box-shadow:0 2px 8px #111a2b99;text-shadow:0 1px 2px #0008;white-space:nowrap}
+.district-name{font-size:12px;font-weight:850;line-height:1.2;letter-spacing:-.15px}
+.district-grade{font-size:11px;font-weight:800;line-height:1.1;border-radius:5px;padding:1px 5px;background:var(--grade-color,#90a0b0);color:#122130;text-shadow:none}
+.district-label-chip.compact{width:40px;height:30px;border-radius:7px;gap:0}
+.district-label-chip.compact .district-name{font-size:10px;line-height:1.15}
+.district-label-chip.compact .district-grade{font-size:9px;line-height:1.1;padding:1px 3px}
+@media(max-width:760px){.district-label-chip:not(.compact){width:49px;height:38px;border-radius:9px;gap:1px}.district-label-icon{margin-left:0}.district-label-chip:not(.compact) .district-name{font-size:11px}.district-label-chip:not(.compact) .district-grade{font-size:10px}}
 </style></head><body>
 <div class="app">
-<aside class="sidebar"><section class="brand"><div class="brand-top"><span class="dot"></span>PARIS SAFETY INTELLIGENCE</div><h1>파리 치안·시위<br>인텔리전스 맵</h1><p class="desc">2025년 공식 범죄 지표, 매일 추가하는 범죄 보도, 일반 집회·행진, 시위 관련 피해를 분리해 보는 지도입니다. 통계 순위와 뉴스 위치는 서로 다른 지표입니다.</p><div class="top-meta"><span class="chip">웹 연결판 v0.4</span><span class="chip">데이터 기준 2026.10.24</span><span class="chip">20개 구 순위·뉴스</span></div></section>
+<aside class="sidebar"><section class="brand"><div class="brand-top"><span class="dot"></span>PARIS SAFETY INTELLIGENCE</div><h1>파리 치안·시위<br>인텔리전스 맵</h1><p class="desc">2025년 공식 범죄 항목을 전체·강력범죄·생활재산범죄 비교지수로 요약하고, 실제로 보도된 범죄·시위 발생 위치를 구분해 보여줍니다. 공식 통계와 기사 사례는 서로 다른 데이터입니다.</p><div class="top-meta"><span class="chip">웹 연결판 v0.6.2</span><span class="chip">데이터 기준 2026.10.24</span><span class="chip">20개 구 순위·뉴스</span></div></section>
 <section class="panel"><h2 class="sectitle">MAP LAYERS</h2><div class="seg" id="tabs"><button data-tab="crime" class="active">치안·범죄</button><button data-tab="unrest">시위·집회</button><button data-tab="both">함께 보기</button></div>
-<div class="field" id="metricField"><label for="metric">공식 치안 지표 · 2025 · 인구 1,000명당</label><select id="metric"><option value="violent_robbery_per_1000">폭력 동반 절도(무기 없음)</option><option value="non_domestic_violence_per_1000">가정 밖 신체폭력</option></select></div>
+<div class="field" id="metricField"><label for="metric">치안 유형 · 2025 공식 항목 기반 자체 비교지수</label><select id="metric"><option value="all" selected>전체 범죄 (강력 + 생활·재산)</option><option value="serious">강력범죄</option><option value="property">생활·재산범죄 (소매치기 등)</option></select></div>
 <div class="switch-area" id="crimeSwitches"><label class="control-line"><input type="checkbox" id="showStats" checked> <span>공식 통계 10단계 색상 지도</span></label><label class="control-line"><input type="checkbox" id="showCrimeNews" checked> <span><i class="color-dot" style="background:#4eaafa"></i>범죄 뉴스 위치</span></label></div>
 <div class="switch-area" id="protestSwitches" style="display:none"><label class="control-line"><input type="checkbox" id="showProtests" checked> <span><i class="color-dot" style="background:#9c8bff"></i>일반 시위·집회·행진</span></label><label class="control-line"><input type="checkbox" id="showDamage" checked> <span><i class="color-dot" style="background:#f2666a"></i>시위 관련 폭력·재산 피해</span></label></div>
+<div class="switch-area" id="heatToggle"><label class="control-line"><input type="checkbox" checked id="heatInput"> <span>뉴스·시위 위치 밀집도 표시</span></label></div>
 <div class="field" id="dateField"><label for="period">뉴스·집회·피해 발생 기간</label><select id="period"><option value="7">최근 7일</option><option value="30">최근 30일</option><option value="90" selected>최근 90일</option><option value="365">최근 1년</option><option value="all">전체 누적</option></select></div>
-<div class="legend" id="crimeLegend"><div class="sectitle">2025 치안 지표 · 상대적인 10단계</div><div class="ten-legend" id="tenLegend" aria-label="10단계 치안 지표 색상"></div><div class="legend-line"><span>1 낮은 값</span><span>10 높은 값</span></div><p class="desc" style="margin-top:9px">20개 구의 <b>선택한 지표값</b>을 상대적으로 10단계로 표시합니다. 동점은 같은 단계로 분류합니다. 숫자가 클수록 해당 유형의 경찰 등록 지표가 높다는 뜻이며 종합 치안 등급은 아닙니다.</p></div>
+<div class="legend" id="crimeLegend"><div class="sectitle">2025 치안 비교지수 · 상대적인 10단계</div><div class="ten-legend" id="tenLegend" aria-label="10단계 치안 지표 색상"></div><div class="legend-line"><span>1 낮은 값</span><span>10 높은 값</span></div><p class="desc" style="margin-top:9px">강력범죄는 <b>비무장 폭력 절도·가정 밖 신체폭력·성범죄</b>, 생활·재산범죄는 <b>비폭력 대인절도·고의 파손·차량 안 절도·주거침입 절도</b>의 20개 구 내 상대 백분위를 평균합니다. <b>전체</b>는 두 카테고리의 점수를 동일한 비중(50%씩)으로 평균합니다. <b>정부 공식 점수가 아닌 자체 비교지수</b>이며 살인·무장 강도는 공개 범위 문제로 지수에서 제외합니다.</p></div>
 <div class="legend" id="crimeNewsLegend"><div class="rowtext"><span class="sq" style="background:#4eaafa"></span>범죄 관련 뉴스의 확인된 위치 (교통·안전사고 제외)</div></div>
 <div class="legend hidden" id="unrestLegend"><div class="sectitle">시위 발생 vs 시위 관련 피해</div><div class="rowtext"><span class="sq" style="background:#9c8bff"></span>집회·행진이 보도된 위치 (폭력 여부와 별개)</div><div class="rowtext"><span class="sq" style="background:#f2666a"></span>시위 관련 폭력·약탈·시설 피해 위치</div><p class="desc" style="margin-top:9px">일반 집회는 위험 또는 폭력 발생을 뜻하지 않습니다. 장소 좌표는 보도에 근거한 대표 위치이며 뉴스에 없는 지역이 안전함을 뜻하지 않습니다.</p></div>
 <div class="syncBanner" id="syncBanner" role="status" aria-live="polite"><span id="syncDot"></span><span id="syncText">Google Sheets 연결 확인 중…</span><button id="syncNow" type="button" title="지금 새로 고침">↻</button></div><div class="kpis"><div class="kpi"><strong id="numOne">20</strong><span id="labelOne">치안 통계 반영 구</span></div><div class="kpi"><strong id="numTwo">8</strong><span id="labelTwo">위치 확인 보도 사례</span></div></div>
 <div class="smallnotice">참고: 연간 범죄율과 뉴스 보도 사례는 비교하거나 합산하지 않습니다. 시위가 열렸다는 사실도 피해가 발생했다는 뜻은 아닙니다. 지금의 뉴스 히트맵은 수집된 사례만 나타냅니다.</div>
 </section>
-<section class="evidences"><section id="rankingBlock"><div class="event-head"><h2 class="sectitle" style="margin:0">20개 구 전체 순위</h2><span id="rankCount">20개 구</span></div><div class="rankdesc">현재 선택된 범죄 유형의 <strong>등록 지표 높은 순</strong>. 높은 순위는 '더 안전함'이 아닙니다.</div><div id="rankList"></div></section>
+<section class="evidences"><section id="rankingBlock"><div class="event-head"><h2 class="sectitle" style="margin:0">20개 구 전체 순위</h2><span id="rankCount">20개 구</span></div><div class="rankdesc">선택한 카테고리의 <strong>자체 비교지수 높은 순</strong> (0~100). 지도 위의 <b>구 번호와 1~10단계</b>도 같은 지표입니다. 순위는 주민·상점의 실제 범죄 피해 확률이 아닙니다.</div><div id="rankList"></div></section>
 <section id="casesBlock" style="margin-top:23px"><div class="event-head"><h2 class="sectitle" id="eventTitle" style="margin:0">확인된 사건·집회</h2><span id="displayCount">0건</span></div><div id="eventList"></div></section>
 <div class="buttonbar"><button class="action" id="exportButton">데이터 JSON 내보내기 ↗</button><label class="action" style="cursor:pointer">JSON 병합하기<input id="importButton" type="file" accept=".json,application/json" hidden></label></div><p class="desc" style="margin-top:11px">로컬 JSON 병합은 이 브라우저에만 저장됩니다. 매일 누적 데이터는 Google Sheets 연결이 정상일 때 반영됩니다.</p></section>
-<div class="foot">지도 © <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> 기여자 · 범죄 통계 <a href="https://www.data.gouv.fr/datasets/bases-statistiques-communale-departementale-et-regionale-de-la-delinquance-enregistree-par-la-police-et-la-gendarmerie-nationales" target="_blank">SSMSI / Ministère de l’Intérieur</a> (Observatoire Sécurité 재표시) · 보도자료 출처는 각 사건 상세에서 확인하세요.<br><br>데이터 갱신: Google Sheets 접속 성공 시 불러온 값 표시. 연결 실패 시 샘플 데이터 표시. 공식 범죄 통계는 연간 값입니다.</div></aside>
-<main class="mapbox"><div id="map" class="map"></div><div class="maptoolbar"><div class="maptag"><strong id="mapTitle">2025년 비무장 폭력 절도 지표</strong><div class="mapsub" id="mapSubtitle">파리 20개 구 · 인구 1,000명당 등록 사건 수</div></div><label class="toggle" id="heatToggle" ><input type="checkbox" checked id="heatInput"> 뉴스·시위 위치 밀집도 표시</label></div><div class="loading" id="mapStatus">지도를 불러오는 중…</div></main></div>
+<div class="foot">지도 © <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> 기여자 · 범죄 통계 <a href="https://www.data.gouv.fr/datasets/bases-statistiques-communale-departementale-et-regionale-de-la-delinquance-enregistree-par-la-police-et-la-gendarmerie-nationales" target="_blank">SSMSI / Ministère de l’Intérieur</a> (<a href="https://www.yakeo.com/v/classements/arrondissements-de-paris/" target="_blank">Yakeo 구별 통계 재표시</a>) · 보도자료 출처는 각 사건 상세에서 확인하세요.<br><br>데이터 갱신: Google Sheets 접속 성공 시 불러온 값 표시. 연결 실패 시 샘플 데이터 표시. 공식 범죄 통계는 연간 값입니다.</div></aside>
+<main class="mapbox"><div id="map" class="map"></div><div class="maptoolbar"><div class="maptag"><strong id="mapTitle">2025년 강력범죄 비교지수</strong><div class="mapsub" id="mapSubtitle">20개 구 위치·상대 1~10단계 표시 · 뉴스는 별도 원</div></div></div><div class="loading" id="mapStatus">지도를 불러오는 중…</div></main></div>
 <script id="seed" type="application/json">{
   "project": "Paris Safety Intelligence",
-  "version": "v0.4-2026-10-24",
+  "version": "v0.6.2-2026-10-24",
   "as_of": "2026-10-24",
   "crime_year": 2025,
   "districts": [
@@ -44,7 +65,13 @@
       "non_domestic_violence_per_1000": 31.0,
       "source_url": "https://observatoiresecurite.fr/ile-de-france/paris/paris-1er-arrondissement/",
       "unit": "인구 1,000명당 기록된 사건·피해자(지표별 단위 구분)",
-      "centroid_is_illustrative": true
+      "centroid_is_illustrative": true,
+      "sexual_violence_per_1000": 13.4,
+      "nonviolent_theft_per_1000": 311.6,
+      "vandalism_per_1000": 25.1,
+      "vehicle_breakins_per_1000": 26.7,
+      "home_burglary_per_1000_housing": 5.2,
+      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/"
     },
     {
       "arrondissement": 2,
@@ -55,7 +82,13 @@
       "non_domestic_violence_per_1000": 8.1,
       "source_url": "https://observatoiresecurite.fr/ile-de-france/paris/paris-2e-arrondissement/",
       "unit": "인구 1,000명당 기록된 사건·피해자(지표별 단위 구분)",
-      "centroid_is_illustrative": true
+      "centroid_is_illustrative": true,
+      "sexual_violence_per_1000": 6.1,
+      "nonviolent_theft_per_1000": 118.0,
+      "vandalism_per_1000": 17.1,
+      "vehicle_breakins_per_1000": 17.2,
+      "home_burglary_per_1000_housing": 7.2,
+      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/"
     },
     {
       "arrondissement": 3,
@@ -66,7 +99,13 @@
       "non_domestic_violence_per_1000": 6.0,
       "source_url": "https://observatoiresecurite.fr/ile-de-france/paris/paris-3e-arrondissement/",
       "unit": "인구 1,000명당 기록된 사건·피해자(지표별 단위 구분)",
-      "centroid_is_illustrative": true
+      "centroid_is_illustrative": true,
+      "sexual_violence_per_1000": 3.0,
+      "nonviolent_theft_per_1000": 61.0,
+      "vandalism_per_1000": 11.1,
+      "vehicle_breakins_per_1000": 8.1,
+      "home_burglary_per_1000_housing": 7.0,
+      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/"
     },
     {
       "arrondissement": 4,
@@ -77,7 +116,13 @@
       "non_domestic_violence_per_1000": 6.7,
       "source_url": "https://observatoiresecurite.fr/ile-de-france/paris/paris-4e-arrondissement/",
       "unit": "인구 1,000명당 기록된 사건·피해자(지표별 단위 구분)",
-      "centroid_is_illustrative": true
+      "centroid_is_illustrative": true,
+      "sexual_violence_per_1000": 4.5,
+      "nonviolent_theft_per_1000": 93.0,
+      "vandalism_per_1000": 14.1,
+      "vehicle_breakins_per_1000": 8.2,
+      "home_burglary_per_1000_housing": 5.8,
+      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/"
     },
     {
       "arrondissement": 5,
@@ -88,7 +133,13 @@
       "non_domestic_violence_per_1000": 4.2,
       "source_url": "https://observatoiresecurite.fr/ile-de-france/paris/paris-5e-arrondissement/",
       "unit": "인구 1,000명당 기록된 사건·피해자(지표별 단위 구분)",
-      "centroid_is_illustrative": true
+      "centroid_is_illustrative": true,
+      "sexual_violence_per_1000": 3.1,
+      "nonviolent_theft_per_1000": 48.5,
+      "vandalism_per_1000": 8.1,
+      "vehicle_breakins_per_1000": 4.7,
+      "home_burglary_per_1000_housing": 6.6,
+      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/"
     },
     {
       "arrondissement": 6,
@@ -99,7 +150,13 @@
       "non_domestic_violence_per_1000": 4.5,
       "source_url": "https://observatoiresecurite.fr/ile-de-france/paris/paris-6e-arrondissement/",
       "unit": "인구 1,000명당 기록된 사건·피해자(지표별 단위 구분)",
-      "centroid_is_illustrative": true
+      "centroid_is_illustrative": true,
+      "sexual_violence_per_1000": 3.4,
+      "nonviolent_theft_per_1000": 66.9,
+      "vandalism_per_1000": 7.6,
+      "vehicle_breakins_per_1000": 8.7,
+      "home_burglary_per_1000_housing": 7.1,
+      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/"
     },
     {
       "arrondissement": 7,
@@ -110,7 +167,13 @@
       "non_domestic_violence_per_1000": 4.3,
       "source_url": "https://observatoiresecurite.fr/ile-de-france/paris/paris-7e-arrondissement/",
       "unit": "인구 1,000명당 기록된 사건·피해자(지표별 단위 구분)",
-      "centroid_is_illustrative": true
+      "centroid_is_illustrative": true,
+      "sexual_violence_per_1000": 3.5,
+      "nonviolent_theft_per_1000": 46.4,
+      "vandalism_per_1000": 8.0,
+      "vehicle_breakins_per_1000": 6.6,
+      "home_burglary_per_1000_housing": 6.6,
+      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/"
     },
     {
       "arrondissement": 8,
@@ -121,7 +184,13 @@
       "non_domestic_violence_per_1000": 14.4,
       "source_url": "https://observatoiresecurite.fr/ile-de-france/paris/paris-8e-arrondissement/",
       "unit": "인구 1,000명당 기록된 사건·피해자(지표별 단위 구분)",
-      "centroid_is_illustrative": true
+      "centroid_is_illustrative": true,
+      "sexual_violence_per_1000": 8.6,
+      "nonviolent_theft_per_1000": 144.3,
+      "vandalism_per_1000": 18.7,
+      "vehicle_breakins_per_1000": 18.7,
+      "home_burglary_per_1000_housing": 8.8,
+      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/"
     },
     {
       "arrondissement": 9,
@@ -132,7 +201,13 @@
       "non_domestic_violence_per_1000": 5.5,
       "source_url": "https://observatoiresecurite.fr/ile-de-france/paris/paris-9e-arrondissement/",
       "unit": "인구 1,000명당 기록된 사건·피해자(지표별 단위 구분)",
-      "centroid_is_illustrative": true
+      "centroid_is_illustrative": true,
+      "sexual_violence_per_1000": 4.1,
+      "nonviolent_theft_per_1000": 88.7,
+      "vandalism_per_1000": 14.0,
+      "vehicle_breakins_per_1000": 10.2,
+      "home_burglary_per_1000_housing": 3.4,
+      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/"
     },
     {
       "arrondissement": 10,
@@ -143,7 +218,13 @@
       "non_domestic_violence_per_1000": 13.6,
       "source_url": "https://observatoiresecurite.fr/ile-de-france/paris/paris-10e-arrondissement/",
       "unit": "인구 1,000명당 기록된 사건·피해자(지표별 단위 구분)",
-      "centroid_is_illustrative": true
+      "centroid_is_illustrative": true,
+      "sexual_violence_per_1000": 5.5,
+      "nonviolent_theft_per_1000": 91.7,
+      "vandalism_per_1000": 13.2,
+      "vehicle_breakins_per_1000": 8.5,
+      "home_burglary_per_1000_housing": 3.6,
+      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/"
     },
     {
       "arrondissement": 11,
@@ -154,7 +235,13 @@
       "non_domestic_violence_per_1000": 4.3,
       "source_url": "https://observatoiresecurite.fr/ile-de-france/paris/paris-11e-arrondissement/",
       "unit": "인구 1,000명당 기록된 사건·피해자(지표별 단위 구분)",
-      "centroid_is_illustrative": true
+      "centroid_is_illustrative": true,
+      "sexual_violence_per_1000": 2.6,
+      "nonviolent_theft_per_1000": 39.6,
+      "vandalism_per_1000": 10.3,
+      "vehicle_breakins_per_1000": 3.8,
+      "home_burglary_per_1000_housing": 3.0,
+      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/"
     },
     {
       "arrondissement": 12,
@@ -165,7 +252,13 @@
       "non_domestic_violence_per_1000": 6.6,
       "source_url": "https://observatoiresecurite.fr/ile-de-france/paris/paris-12e-arrondissement/",
       "unit": "인구 1,000명당 기록된 사건·피해자(지표별 단위 구분)",
-      "centroid_is_illustrative": true
+      "centroid_is_illustrative": true,
+      "sexual_violence_per_1000": 3.8,
+      "nonviolent_theft_per_1000": 50.1,
+      "vandalism_per_1000": 8.7,
+      "vehicle_breakins_per_1000": 7.3,
+      "home_burglary_per_1000_housing": 3.5,
+      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/"
     },
     {
       "arrondissement": 13,
@@ -176,7 +269,13 @@
       "non_domestic_violence_per_1000": 4.3,
       "source_url": "https://observatoiresecurite.fr/ile-de-france/paris/paris-13e-arrondissement/",
       "unit": "인구 1,000명당 기록된 사건·피해자(지표별 단위 구분)",
-      "centroid_is_illustrative": true
+      "centroid_is_illustrative": true,
+      "sexual_violence_per_1000": 2.4,
+      "nonviolent_theft_per_1000": 33.6,
+      "vandalism_per_1000": 7.3,
+      "vehicle_breakins_per_1000": 4.8,
+      "home_burglary_per_1000_housing": 3.3,
+      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/"
     },
     {
       "arrondissement": 14,
@@ -187,7 +286,13 @@
       "non_domestic_violence_per_1000": 3.8,
       "source_url": "https://observatoiresecurite.fr/ile-de-france/paris/paris-14e-arrondissement/",
       "unit": "인구 1,000명당 기록된 사건·피해자(지표별 단위 구분)",
-      "centroid_is_illustrative": true
+      "centroid_is_illustrative": true,
+      "sexual_violence_per_1000": 2.4,
+      "nonviolent_theft_per_1000": 33.4,
+      "vandalism_per_1000": 8.2,
+      "vehicle_breakins_per_1000": 3.8,
+      "home_burglary_per_1000_housing": 4.3,
+      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/"
     },
     {
       "arrondissement": 15,
@@ -198,7 +303,13 @@
       "non_domestic_violence_per_1000": 3.8,
       "source_url": "https://observatoiresecurite.fr/ile-de-france/paris/paris-15e-arrondissement/",
       "unit": "인구 1,000명당 기록된 사건·피해자(지표별 단위 구분)",
-      "centroid_is_illustrative": true
+      "centroid_is_illustrative": true,
+      "sexual_violence_per_1000": 2.4,
+      "nonviolent_theft_per_1000": 25.0,
+      "vandalism_per_1000": 5.7,
+      "vehicle_breakins_per_1000": 2.9,
+      "home_burglary_per_1000_housing": 6.3,
+      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/"
     },
     {
       "arrondissement": 16,
@@ -209,7 +320,13 @@
       "non_domestic_violence_per_1000": 2.7,
       "source_url": "https://observatoiresecurite.fr/ile-de-france/paris/paris-16e-arrondissement/",
       "unit": "인구 1,000명당 기록된 사건·피해자(지표별 단위 구분)",
-      "centroid_is_illustrative": true
+      "centroid_is_illustrative": true,
+      "sexual_violence_per_1000": 2.4,
+      "nonviolent_theft_per_1000": 28.8,
+      "vandalism_per_1000": 11.6,
+      "vehicle_breakins_per_1000": 10.8,
+      "home_burglary_per_1000_housing": 6.0,
+      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/"
     },
     {
       "arrondissement": 17,
@@ -220,7 +337,13 @@
       "non_domestic_violence_per_1000": 3.2,
       "source_url": "https://observatoiresecurite.fr/ile-de-france/paris/paris-17e-arrondissement/",
       "unit": "인구 1,000명당 기록된 사건·피해자(지표별 단위 구분)",
-      "centroid_is_illustrative": true
+      "centroid_is_illustrative": true,
+      "sexual_violence_per_1000": 2.2,
+      "nonviolent_theft_per_1000": 28.3,
+      "vandalism_per_1000": 9.9,
+      "vehicle_breakins_per_1000": 6.1,
+      "home_burglary_per_1000_housing": 5.1,
+      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/"
     },
     {
       "arrondissement": 18,
@@ -231,7 +354,13 @@
       "non_domestic_violence_per_1000": 5.6,
       "source_url": "https://observatoiresecurite.fr/ile-de-france/paris/paris-18e-arrondissement/",
       "unit": "인구 1,000명당 기록된 사건·피해자(지표별 단위 구분)",
-      "centroid_is_illustrative": true
+      "centroid_is_illustrative": true,
+      "sexual_violence_per_1000": 2.7,
+      "nonviolent_theft_per_1000": 51.0,
+      "vandalism_per_1000": 8.7,
+      "vehicle_breakins_per_1000": 6.9,
+      "home_burglary_per_1000_housing": 5.9,
+      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/"
     },
     {
       "arrondissement": 19,
@@ -242,7 +371,13 @@
       "non_domestic_violence_per_1000": 6.1,
       "source_url": "https://observatoiresecurite.fr/ile-de-france/paris/paris-19e-arrondissement/",
       "unit": "인구 1,000명당 기록된 사건·피해자(지표별 단위 구분)",
-      "centroid_is_illustrative": true
+      "centroid_is_illustrative": true,
+      "sexual_violence_per_1000": 2.8,
+      "nonviolent_theft_per_1000": 38.8,
+      "vandalism_per_1000": 6.5,
+      "vehicle_breakins_per_1000": 9.2,
+      "home_burglary_per_1000_housing": 5.4,
+      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/"
     },
     {
       "arrondissement": 20,
@@ -253,7 +388,13 @@
       "non_domestic_violence_per_1000": 4.3,
       "source_url": "https://observatoiresecurite.fr/ile-de-france/paris/paris-20e-arrondissement/",
       "unit": "인구 1,000명당 기록된 사건·피해자(지표별 단위 구분)",
-      "centroid_is_illustrative": true
+      "centroid_is_illustrative": true,
+      "sexual_violence_per_1000": 2.1,
+      "nonviolent_theft_per_1000": 20.2,
+      "vandalism_per_1000": 6.2,
+      "vehicle_breakins_per_1000": 3.1,
+      "home_burglary_per_1000_housing": 4.3,
+      "extended_source": "https://www.yakeo.com/v/classements/arrondissements-de-paris/"
     }
   ],
   "incidents": [
@@ -436,13 +577,50 @@
       "event_group": "PARIS-2026-10-17-BASTILLE-MARCH",
       "is_point_exact": false,
       "last_checked": "2026-10-24"
+    },
+    {
+      "id": "PSI-20261003-CRIME-001",
+      "occurred_on": "2026-10-03",
+      "published_on": "2026-10-09",
+      "title": "파리 19구 Rue Archereau 주거지 살인 수사",
+      "category": "살인",
+      "lat": 48.89,
+      "lon": 2.372,
+      "place": "Rue Archereau, 19e",
+      "arrondissement": 19,
+      "location_precision": "거리 대표 좌표 / 실제 주택 주소 표시 안 함",
+      "severity": 3,
+      "summary": "10월 2~3일 밤 주거지에서 남성이 사망한 사건으로 살인 수사가 진행되어 피의자가 기소되었다는 보도. 좌표는 도로 대표 위치.",
+      "source_name": "Le Parisien",
+      "source_url": "https://www.leparisien.fr/faits-divers/paris-un-dealer-presume-retrouve-mort-etrangle-dans-le-xixe-arrondissement-un-suspect-mis-en-examen-09-10-2026-3GNWWUYIOBEIZL5SV4CJASZTUA.php",
+      "event_group": "CRIME-PARIS-19-2026-10-02-03-ARCHEREAU",
+      "verification": "경찰·검찰 인용 언론 보도 / 대표 좌표"
+    },
+    {
+      "id": "PSI-20261020-CRIME-001",
+      "occurred_on": "2026-10-20",
+      "published_on": "2026-10-22",
+      "title": "Les Halles 역 목걸이 날치기 사건",
+      "category": "비폭력 절도",
+      "lat": 48.86246,
+      "lon": 2.34606,
+      "place": "Métro Les Halles, 1er",
+      "arrondissement": 1,
+      "location_precision": "역 중심 근사 좌표 / 범행 지점 아님",
+      "severity": 1,
+      "summary": "파리 경찰청은 10월 22일 게시물에서 그 주 화요일 Les Halles역에서 목걸이 날치기가 발생했고 용의자가 적발됐다고 알림. 폭력 사용 여부는 확인되지 않음.",
+      "source_name": "Préfecture de Police (재게시)",
+      "source_url": "https://www.alerte-rdv-prefecture.fr/actualites/prefecture-de-police",
+      "event_group": "CRIME-PARIS-1-2026-10-20-LES-HALLES-THEFT",
+      "verification": "경찰청 게시물 재게시 / 현장 좌표 근사"
     }
   ],
   "methodology": {
-    "crime": "2025 SSMSI indicators as displayed at Observatoire Sécurité; separate category-specific per-1000 resident values; not total crime risk or personal victim probability.",
+    "crime": "2025 SSMSI 다종 지표 7개를 각 지표별 20개 구 상대 백분위로 표준화한 단순 평균; 사용자 정의 비교지수, 정부 공식 종합 범죄율 아님.",
     "protest": "Selected geolocated reports from 17 Oct 2026. One row per distinct reported area/event-group; not 451 shop coordinates.",
     "coordinates": "All point positions approximate representative anchors pending official geocoding. Circles are not administrative precinct polygons.",
-    "scope": "범죄·치안 뉴스, 일반 시위·집회, 시위 관련 폭력·재산 피해만. 교통사고와 일반 안전사고는 제외."
+    "scope": "범죄·치안 뉴스, 일반 시위·집회, 시위 관련 폭력·재산 피해만. 교통사고와 일반 안전사고는 제외.",
+    "categories": "강력범죄 비교지수: 비무장 폭력 절도, 가정 밖 신체폭력, 성폭력 / 생활·재산범죄 비교지수: 비폭력 대인절도, 고의 기물파손, 차량 안 절도, 주거침입 절도. 살인·무기 사용 강도는 구 단위 결측·미공개 때문에 지수 제외; 범죄 뉴스에는 포함."
   }
 }</script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -456,19 +634,46 @@ const SHEET_URL='https://docs.google.com/spreadsheets/d/'+SHEET_ID+'/edit';
 seed.as_of=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Paris',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date()); // local Paris calendar date
 
 const $=id=>document.getElementById(id); const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const arr=seed.districts;let inc=[...seed.incidents];let mode='crime',metric='violent_robbery_per_1000';let status=msg=>$('mapStatus').textContent=msg;let sourceMode='initial';
+const arr=seed.districts;let inc=[...seed.incidents];let mode='crime',metric='all';let status=msg=>$('mapStatus').textContent=msg;let sourceMode='initial';
 try{const saved=JSON.parse(localStorage.getItem('psi_incidents_test')||'[]'); if(Array.isArray(saved)){for(const e of saved){if(e&&e.id&&kind(e)!=='unknown'&&!inc.some(x=>x.id===e.id))inc.push(e)}}}catch(e){}
 if(typeof L==='undefined'){status('지도 라이브러리를 불러오지 못했습니다. 인터넷 연결 후 다시 열어주세요.');return;}
 const map=L.map('map',{zoomControl:false,preferCanvas:true}).setView([48.8615,2.351],12);L.control.zoom({position:'topleft'}).addTo(map);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap contributors'}).addTo(map);
-const crimeGroup=L.layerGroup().addTo(map), eventGroups={crime:L.layerGroup().addTo(map),protest:L.layerGroup().addTo(map),damage:L.layerGroup().addTo(map)};
+map.createPane('districtLabelPane');map.getPane('districtLabelPane').style.zIndex='575';map.getPane('districtLabelPane').style.pointerEvents='none';
+map.createPane('incidentPane');map.getPane('incidentPane').style.zIndex='660';
+const districtLabels=L.layerGroup().addTo(map);
+const eventGroups={crime:L.layerGroup().addTo(map),protest:L.layerGroup().addTo(map),damage:L.layerGroup().addTo(map)};
 let heatLayers={crime:null,protest:null,damage:null},geoLayer=null,geoAvailable=false;
 const COLORS=['#3fae8a','#62c59e','#9fd18c','#ccd66c','#e8ca70','#f6b75c','#f59b56','#f0785f','#df5265','#a92c66'];
-const getVal=d=>Number(d[metric])||0;
-function getGrade(v){const uniq=[...new Set(arr.map(getVal))].sort((a,b)=>a-b);let index=uniq.indexOf(v);if(index<0)return 1;return Math.min(10,Math.floor(index*10/uniq.length)+1)}
-const getColor=v=>COLORS[getGrade(v)-1];
+const CATEGORY_FIELDS={
+ serious:[['violent_robbery_per_1000','비무장 폭력 절도','/1,000명'],['non_domestic_violence_per_1000','가정 밖 신체폭력','/1,000명'],['sexual_violence_per_1000','성범죄','/1,000명']],
+ property:[['nonviolent_theft_per_1000','비폭력 대인절도','/1,000명'],['vandalism_per_1000','고의 기물파손','/1,000명'],['vehicle_breakins_per_1000','차량 안 절도','/1,000명'],['home_burglary_per_1000_housing','주거침입 절도','/1,000주택']]
+};
+const categoryName=()=>metric==='serious'?'강력범죄':metric==='property'?'생활·재산범죄':'전체 범죄';
+// Equal-weight mean of indicator-specific Paris district percentiles; never sum heterogeneous count units.
+function indicatorPercentile(key,entry){
+ const sorted=arr.map(d=>Number(d[key])).filter(Number.isFinite).sort((a,b)=>a-b), n=sorted.length;
+ if(n<2||!Number.isFinite(Number(entry[key])))return null;
+ const v=Number(entry[key]),first=sorted.findIndex(x=>x===v),last=sorted.lastIndexOf(v);
+ if(first<0)return null;
+ return 100*(first+last)/2/(n-1);
+}
+function categoryScore(d,group){const fields=CATEGORY_FIELDS[group];const vals=fields.map(([key])=>indicatorPercentile(key,d)).filter(v=>v!==null);
+ return vals.length===fields.length?vals.reduce((a,b)=>a+b,0)/vals.length:NaN}
+function getVal(d){if(metric!=='all')return categoryScore(d,metric);
+ const serious=categoryScore(d,'serious'),property=categoryScore(d,'property');
+ // Two categories receive equal 50:50 weights, not three-versus-four indicator weights.
+ return Number.isFinite(serious)&&Number.isFinite(property)?(serious+property)/2:NaN}
+function getGrade(v){if(!Number.isFinite(v))return 0;const sorted=arr.map(getVal).filter(Number.isFinite).sort((a,b)=>a-b);
+ if(!sorted.length)return 0; const index=sorted.findIndex(x=>x>=v-1e-7);return Math.min(10,Math.floor(index*10/sorted.length)+1)}
+const getColor=v=>getGrade(v)?COLORS[getGrade(v)-1]:'#8395a9';
 function renderTenLegend(){$('tenLegend').innerHTML=COLORS.map((c,i)=>`<span title="${i+1}단계" style="background:${c}">${i+1}</span>`).join('')}
-const popupCrime=d=>`<div style="font-weight:800;font-size:15px">${d.arrondissement}구 · 2025년</div><div style="font-size:25px;font-weight:800;color:#93d7ff;margin:9px 0 0">${getVal(d).toFixed(1)}<small style="font-size:11px;color:#bbd6f1;font-weight:400"> / 1,000명</small></div><div>${metric==='violent_robbery_per_1000'?'비무장 폭력 절도':'가정 밖 신체폭력(피해자)'} · 상대 단계 ${getGrade(getVal(d))}/10</div><p style="color:#b7cadf;font-size:11px">지역 주민 인구를 분모로 하므로 방문객 유입이 많은 지역은 비교에 유의.</p><a target="_blank" rel="noopener" href="${esc(validUrl(d.source_url))}">2025 출처 확인 ↗</a>`;
+function popupCrime(d){
+ const fields=metric==='all'?[...CATEGORY_FIELDS.serious,...CATEGORY_FIELDS.property]:CATEGORY_FIELDS[metric];
+ const measures=fields.map(([key,name,unit])=>`<div style="font-size:11px;line-height:1.7">${esc(name)}: ${Number(d[key]).toFixed(1)} ${unit}</div>`).join('');
+ const breakdown=metric==='all'?`<p style="font-size:11px;margin:7px 0">강력범죄 ${categoryScore(d,'serious').toFixed(1)}/100 · 생활·재산범죄 ${categoryScore(d,'property').toFixed(1)}/100<br>두 카테고리를 50:50으로 반영</p>`:'';
+ return `<strong style="font-size:15px">${d.arrondissement}구 · ${categoryName()} (2025)</strong><div style="font-size:25px;font-weight:800;color:#93d7ff">${getVal(d).toFixed(1)}<small style="font-size:11px;color:#bbd6f1;font-weight:400"> /100 · 상대 ${getGrade(getVal(d))}/10단계</small></div>${breakdown}${measures}<p style="font-size:11px;color:#a8bad1">각 원 지표의 20개 구 내 상대 백분위 평균이며 프랑스 정부가 발표한 공식 종합 범죄율이나 개인 피해 확률이 아닙니다. 분모는 범죄마다 주민/주택으로 다를 수 있습니다.</p><a href="https://www.yakeo.com/v/classements/arrondissements-de-paris/" target="_blank" rel="noopener">SSMSI 구별 지표 재표시 ↗</a>`
+}
 function inPeriod(e){const n=$('period').value;if(n==='all')return true;const end=new Date(seed.as_of+'T12:00:00Z');const ev=new Date(e.occurred_on+'T12:00:00Z');if(Number.isNaN(ev.getTime()))return false;const start=new Date(end);start.setUTCDate(start.getUTCDate()-Number(n));return ev>=start&&ev<=end}
 // Incident categories are explicit and audited; unknown categories remain hidden until classified.
 function kind(e){const cat=String(e.category||'').toLowerCase(),group=String(e.event_group||'').toLowerCase();
@@ -481,30 +686,70 @@ function kind(e){const cat=String(e.category||'').toLowerCase(),group=String(e.e
  const damage=/폭력|충돌|약탈|파손|피해|방화|폭동|소요|violence|pillag|dégrad/.test(cat);
  if(protestContext&&damage)return 'damage';
  if(protestContext)return 'protest';
- if(/범죄|절도|강도|폭행|살인|살해|성범죄|성폭력|도난|차량털이|흉기|강간|납치|강탈|형사범죄|crime|robbery|theft|assault|homicide|murder|rape/.test(cat))return 'crime';
+ if(/범죄|절도|강도|폭행|살인|살해|성범죄|성폭력|도난|차량털이|흉기|강간|납치|강탈|소매치기|날치기|형사범죄|crime|robbery|theft|assault|homicide|murder|rape/.test(cat))return 'crime';
  return 'unknown';
 }
+function crimeSubkind(e){const cat=String(e.category||'').toLowerCase();
+ if(/비폭력|소매치기|날치기/.test(cat))return 'property';
+ if(/살인|폭행|강도|폭력|성범죄|성폭력|흉기|강간|납치|homicide|rape|assault|armed/.test(cat))return 'serious';
+ if(/절도|도난|사기|파손|손괴|theft|burglary|pickpocket/.test(cat))return 'property';return 'unknown';}
 const kindNames={crime:'범죄 뉴스',protest:'일반 집회·행진',damage:'시위 관련 폭력·피해'};
 const kindColors={crime:'#4eaafa',protest:'#9c8bff',damage:'#f2666a'};
 function popupIncident(e){const k=kind(e);return `<div style="font-size:11px;color:${kindColors[k]||'#fca'};font-weight:800">${esc(kindNames[k]||'확인 필요')} · ${esc(e.category)} · ${esc(e.occurred_on)}</div><div style="font-weight:800;font-size:15px;line-height:1.45;margin:6px 0">${esc(e.title)}</div><div style="color:#c6d6e4">${esc(e.place)}${e.arrondissement?' · '+esc(e.arrondissement)+'구':''}</div><p>${esc(e.summary)}</p><div style="font-size:10px;color:#dfbe7f">위치: ${esc(e.location_precision)} / ${esc(e.verification||'')}</div><a href="${esc(validUrl(e.source_url))}" target="_blank" rel="noopener noreferrer">${esc(e.source_name)} 원문 확인 ↗</a>`}
-function renderCrime(){crimeGroup.clearLayers();let mx=Math.max(1,...arr.map(getVal));for(const d of arr){let v=getVal(d);let r=10+Math.sqrt(v/mx)*15;L.circleMarker([d.lat,d.lon],{radius:r,color:'#f4fbff',weight:1,opacity:.7,fillColor:getColor(v),fillOpacity:.88}).bindPopup(popupCrime(d)).bindTooltip(d.arrondissement+'구 · '+v.toFixed(1)+'‰ · '+getGrade(v)+'/10단계',{sticky:true}).addTo(crimeGroup)}
- if(geoLayer){geoLayer.eachLayer(l=>{let p=l.feature?.properties||{};let found=extractArrondissement(p);let d=arr.find(x=>x.arrondissement===found);if(d){l.setStyle({fillColor:getColor(getVal(d)),fillOpacity:.52,color:'#1b3650',weight:1.1,opacity:.7});l.bindPopup(popupCrime(d))}else l.setStyle({fillOpacity:0})})}
+function renderDistrictLabels(){
+ districtLabels.clearLayers();
+ const compact=typeof map.getZoom==='function'&&map.getZoom()<=12;
+ const width=compact?40:54,height=compact?30:42;
+ for(const d of arr){
+   const grade=getGrade(getVal(d));
+   const color=getColor(getVal(d));
+   const html=`<div class="district-label-chip${compact?' compact':''}" style="--grade-color:${color}" aria-hidden="true"><span class="district-name">${d.arrondissement}구</span><span class="district-grade">${grade?grade+'/10':'—'}</span></div>`;
+   const icon=L.divIcon({className:'district-label-icon',html,iconSize:[width,height],iconAnchor:[width/2,height/2]});
+   L.marker([d.lat,d.lon],{icon,pane:'districtLabelPane',interactive:false,keyboard:false,title:d.arrondissement+'구 · '+grade+'/10단계'}).addTo(districtLabels);
+ }
+}
+function renderCrime(){
+ renderDistrictLabels();
+ if(geoLayer){geoLayer.eachLayer(l=>{let p=l.feature?.properties||{};let found=extractArrondissement(p);let d=arr.find(x=>x.arrondissement===found);
+  if(d){l.setStyle({fillColor:getColor(getVal(d)),fillOpacity:.57,color:'#284258',weight:1.15,opacity:.8});l.bindPopup(()=>popupCrime(d));}
+  else l.setStyle({fillOpacity:0})})}
  renderTenLegend();
 }
 function extractArrondissement(p){for(const key of ['c_ar','C_AR','c_arinsee','C_ARINSEE','arrondissement','code','n_sq_ar','name','nom']){let v=p[key];if(v==null)continue;let n=Number(v);if(Number.isInteger(n)&&n>=1&&n<=20)return n;if(n>=75101&&n<=75120)return n-75100;let m=String(v).match(/(?:^|\D)(\d{1,2})(?:e|er)?(?:\D|$)/);if(m){n=Number(m[1]);if(n>0&&n<=20)return n}}return null}
 function enabledKind(k){if(k==='crime')return (mode==='crime'||mode==='both')&&$('showCrimeNews').checked;
  if(k==='protest')return (mode==='unrest'||mode==='both')&&$('showProtests').checked;
  if(k==='damage')return (mode==='unrest'||mode==='both')&&$('showDamage').checked;return false}
+// Return one clickable bubble for every distinct approximate location (group nearby reports).
+function popupMany(items){
+ const sorted=[...items].sort((a,b)=>b.occurred_on.localeCompare(a.occurred_on));
+ return (items.length>1?`<strong style="display:block;margin-bottom:10px">이 위치 인근 보도 ${items.length}건</strong>`:'')+
+ `<div class="incident-popup-list">${sorted.map(e=>`<section>${popupIncident(e)}</section>`).join('')}</div>`;
+}
 function renderIncidents(){for(const k of Object.keys(eventGroups)){eventGroups[k].clearLayers();if(heatLayers[k]){map.removeLayer(heatLayers[k]);heatLayers[k]=null}}
- const visible=inc.filter(e=>e&&Number.isFinite(Number(e.lat))&&Number.isFinite(Number(e.lon))&&Number(e.lat)>48.4&&Number(e.lat)<49.4&&Number(e.lon)>1.7&&Number(e.lon)<3&&inPeriod(e)&&enabledKind(kind(e)));
- for(const e of visible){const k=kind(e);let c=kindColors[k];let marker=L.circleMarker([Number(e.lat),Number(e.lon)],{radius:k==='protest'?9:7+(Number(e.severity)||1)*2,fillColor:c,fillOpacity:.92,color:'#fff',weight:2,opacity:.96});marker.bindPopup(popupIncident(e));marker.addTo(eventGroups[k]);e._layer=marker}
+ const visible=inc.filter(e=>e&&Number.isFinite(Number(e.lat))&&Number.isFinite(Number(e.lon))&&Number(e.lat)>48.4&&Number(e.lat)<49.4&&Number(e.lon)>1.7&&Number(e.lon)<3&&inPeriod(e)&&enabledKind(kind(e))&&(kind(e)!=='crime'||metric==='all'||crimeSubkind(e)===metric));
+ const clusters=new Map();
+ for(const e of visible){const key=Math.round(Number(e.lat)*1000)+'|'+Math.round(Number(e.lon)*1000);
+  if(!clusters.has(key))clusters.set(key,[]);clusters.get(key).push(e)}
+ for(const entries of clusters.values()){
+  const main=entries.find(e=>kind(e)==='damage')||entries.find(e=>kind(e)==='crime')||entries[0];
+  const k=kind(main),color=kindColors[k];const title=entries.length>1?`${entries.length}건의 사건·집회`:main.title;
+  const icon=L.divIcon({className:'incident-marker',html:`<span class="incident-hit"><span class="incident-pin${entries.length===1?' single':''}" style="background:${color}">${entries.length>1?entries.length:''}</span></span>`,iconSize:[44,44],iconAnchor:[22,22],popupAnchor:[0,-16]});
+  const marker=L.marker([Number(main.lat),Number(main.lon)],{icon,pane:'incidentPane',keyboard:true,title,riseOnHover:true});
+  marker.bindPopup(()=>popupMany(entries),{maxWidth:355,autoPan:true,closeButton:true,autoPanPadding:[35,35]});marker.addTo(eventGroups[k]);
+  for(const e of entries)e._layer=marker;
+ }
  for(const k of ['crime','protest','damage']){const selected=visible.filter(e=>kind(e)===k);if(!selected.length||!L.heatLayer)continue;
- const grad=k==='crime'?{.25:'#cceaff',.55:'#78c4ff',.8:'#4795ed',1:'#2467bf'}:k==='protest'?{.25:'#ebe4ff',.55:'#bbabff',.8:'#9d83eb',1:'#7853cc'}:{.25:'#ffe0ad',.55:'#ffac7a',.8:'#ff685c',1:'#d82c50'};
- heatLayers[k]=L.heatLayer(selected.map(e=>[Number(e.lat),Number(e.lon),k==='protest'?.65:.5+Number(e.severity||1)/8]),{radius:30,blur:23,minOpacity:.24,maxZoom:15,gradient:grad});if($('heatInput').checked)heatLayers[k].addTo(map)}
+  const grad=k==='crime'?{.25:'#cceaff',.55:'#78c4ff',.8:'#4795ed',1:'#2467bf'}:k==='protest'?{.25:'#ebe4ff',.55:'#bbabff',.8:'#9d83eb',1:'#7853cc'}:{.25:'#ffe0ad',.55:'#ffac7a',.8:'#ff685c',1:'#d82c50'};
+  heatLayers[k]=L.heatLayer(selected.map(e=>[Number(e.lat),Number(e.lon),k==='protest'?.65:.5+Number(e.severity||1)/8]),{radius:30,blur:23,minOpacity:.24,maxZoom:15,gradient:grad});if($('heatInput').checked)heatLayers[k].addTo(map)}
  return visible;
 }
 function renderList(visible){const crimeOn=mode==='crime'||mode==='both';$('rankingBlock').style.display=crimeOn&&$('showStats').checked?'':'none';
- const rankList=$('rankList');rankList.innerHTML='';if(crimeOn&&$('showStats').checked){let ranked=[...arr].sort((a,b)=>getVal(b)-getVal(a)||a.arrondissement-b.arrondissement);let rank=0,prev=null;ranked.forEach((d,i)=>{let v=getVal(d);if(prev===null||v!==prev){rank=i+1;prev=v}let div=document.createElement('div');div.className='rank';div.innerHTML=`<span class="rankno">${rank}위</span><span class="rankname">${d.arrondissement}구</span><span class="rankval">${v.toFixed(1)} ‰</span><span class="rankgrade" style="background:${getColor(v)}" title="상대 ${getGrade(v)}/10단계">${getGrade(v)}</span>`;div.onclick=()=>{map.setView([d.lat,d.lon],13,{animate:true});crimeGroup.eachLayer(l=>{if(Math.abs(l.getLatLng().lat-d.lat)<.0001)l.openPopup()})};rankList.appendChild(div)});$('rankCount').textContent='전체 '+ranked.length+'개 구'}
+ const rankList=$('rankList');rankList.innerHTML='';if(crimeOn&&$('showStats').checked){let ranked=[...arr].sort((a,b)=>getVal(b)-getVal(a)||a.arrondissement-b.arrondissement);let rank=0,prev=null;
+ ranked.forEach((d,i)=>{let v=getVal(d);if(prev===null||Math.abs(v-prev)>1e-7){rank=i+1;prev=v}
+  let div=document.createElement('div');div.className='rank';div.innerHTML=`<span class="rankno">${rank}위</span><span class="rankname">${d.arrondissement}구</span><span class="rankval">${v.toFixed(1)} /100</span><span class="rankgrade" style="background:${getColor(v)}" title="상대 ${getGrade(v)}/10단계">${getGrade(v)}</span>`;
+  div.onclick=()=>{map.setView([d.lat,d.lon],13,{animate:true});let opened=false;if(geoLayer)geoLayer.eachLayer(l=>{if(!opened&&extractArrondissement(l.feature?.properties||{})===d.arrondissement){l.openPopup();opened=true}});
+   if(!opened)status(`${d.arrondissement}구 · ${categoryName()} 상대 비교지수 ${v.toFixed(1)}/100 · 구 경계 데이터 연결 전`)};
+  rankList.appendChild(div)});$('rankCount').textContent='전체 '+ranked.length+'개 구'}
  $('casesBlock').style.display='';$('eventTitle').textContent=mode==='crime'?'범죄 뉴스 기록':mode==='unrest'?'집회·행진·피해 발생 기록':'뉴스·시위 통합 기록';$('displayCount').textContent=visible.length+'개 위치';let out=$('eventList');out.innerHTML='';
  if(!visible.length){let d=document.createElement('div');d.className='desc';d.style.marginTop='12px';d.textContent='선택한 기간·유형의 확인된 위치 사례가 아직 없습니다. 보도가 없다고 사건이 없었다는 뜻은 아닙니다.';out.appendChild(d);return}
  for(const e of [...visible].sort((a,b)=>b.occurred_on.localeCompare(a.occurred_on))){let d=document.createElement('div');d.className='event';const k=kind(e);d.innerHTML=`<div class="eventname"><span class="event-tag" style="border-left:3px solid ${kindColors[k]}">${esc(kindNames[k])}</span>${esc(e.title)}</div><div class="meta"><strong>${esc(e.occurred_on)}</strong> · ${esc(e.place)} · ${esc(e.source_name)}</div>`;d.onclick=()=>{map.setView([Number(e.lat),Number(e.lon)],14,{animate:true});e._layer?.openPopup()};out.appendChild(d)}
@@ -512,14 +757,15 @@ function renderList(visible){const crimeOn=mode==='crime'||mode==='both';$('rank
 function refresh(){const crimeOn=mode==='crime'||mode==='both',protestOn=mode==='unrest'||mode==='both';let stats=crimeOn&&$('showStats').checked;
  $('metricField').style.display=crimeOn?'':'none';$('crimeSwitches').style.display=crimeOn?'':'none';$('protestSwitches').style.display=protestOn?'':'none';$('crimeLegend').classList.toggle('hidden',!stats);$('crimeNewsLegend').classList.toggle('hidden',!(crimeOn&&$('showCrimeNews').checked));$('unrestLegend').classList.toggle('hidden',!protestOn);$('heatToggle').style.display=crimeOn||protestOn?'':'none';
  if(geoLayer){if(stats&&!map.hasLayer(geoLayer))geoLayer.addTo(map);if(!stats&&map.hasLayer(geoLayer))map.removeLayer(geoLayer);if(stats)geoLayer.bringToBack()}
- if(stats&&!map.hasLayer(crimeGroup))crimeGroup.addTo(map);if(!stats&&map.hasLayer(crimeGroup))map.removeLayer(crimeGroup);
+ if(stats&&!map.hasLayer(districtLabels))districtLabels.addTo(map);if(!stats&&map.hasLayer(districtLabels))map.removeLayer(districtLabels);
  renderCrime();let visible=renderIncidents();for(const [k,group] of Object.entries(eventGroups)){if(enabledKind(k)&&!map.hasLayer(group))group.addTo(map);if(!enabledKind(k)&&map.hasLayer(group))map.removeLayer(group)}
  renderList(visible);
  $('numOne').textContent=crimeOn?'20':String(visible.filter(e=>kind(e)==='protest').length);$('labelOne').textContent=crimeOn?'2025년 통계 반영 구':'집회·행진 기록';$('numTwo').textContent=visible.length;$('labelTwo').textContent='기간 내 확인된 뉴스·시위 위치';
- $('mapTitle').textContent=mode==='crime'?'2025 공식 통계 + 범죄 뉴스':mode==='unrest'?'집회·행진 + 시위 관련 피해':'공식 통계 + 뉴스 + 집회·피해';$('mapSubtitle').textContent=stats?'치안 10단계(상대분위) · 보도 사건은 별도 표시':'보도 확인 장소 · 사건 발생 전수 아님';
- status(geoAvailable?'구 경계에 10단계 표시 · 사건 위치는 근사 좌표':'구 중심점에 10단계 표시 · 사건 위치는 근사 좌표');
+ $('mapTitle').textContent=mode==='crime'?`2025 ${categoryName()} 비교지수 + 범죄 뉴스`:mode==='unrest'?'집회·행진 + 시위 관련 피해':`${categoryName()} 비교지수 + 범죄·집회 뉴스`; $('mapSubtitle').textContent=stats?'7개 공식 항목 · 전체는 강력·재산 50:50 평균 · 구별 숫자는 상대 단계 /10':'기사 확인 장소 · 사건 발생 전수 아님';
+ status(geoAvailable?'구별 번호·비교 단계(1~10) 표시 · 사건 원을 누르면 상세보기':'구 경계 데이터 미연결 · 구 번호·비교 단계 라벨 및 뉴스 위치 표시');
 }
 for(const btn of document.querySelectorAll('#tabs button')){btn.addEventListener('click',()=>{mode=btn.dataset.tab;document.querySelectorAll('#tabs button').forEach(x=>x.classList.toggle('active',x===btn));refresh()})}
+if(typeof map.on==='function')map.on('zoomend',()=>{if((mode==='crime'||mode==='both')&&$('showStats').checked)renderDistrictLabels()});
 $('metric').addEventListener('change',e=>{metric=e.target.value;refresh()});$('period').addEventListener('change',refresh);$('heatInput').addEventListener('change',refresh);for(const id of ['showStats','showCrimeNews','showProtests','showDamage'])$(id).addEventListener('change',refresh);
 $('exportButton').onclick=()=>{let output={...seed,incidents:inc.filter(e=>e&&e.id).map(({_layer,...rest})=>rest),exported_on:new Date().toISOString()};let blob=new Blob([JSON.stringify(output,null,2)],{type:'application/json'});let url=URL.createObjectURL(blob);let a=document.createElement('a');a.href=url;a.download='paris_safety_updated.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),2000)};
 $('importButton').onchange=async e=>{const file=e.target.files?.[0];if(!file)return;try{const dat=JSON.parse(await file.text());if(!Array.isArray(dat.incidents))throw Error('incidents 배열이 없습니다');let added=0,changed=0;for(const x of dat.incidents){if(!x.id||!/^\d{4}-\d\d-\d\d$/.test(x.occurred_on||'')||!Number.isFinite(Number(x.lat))||!Number.isFinite(Number(x.lon)))continue;if(kind(x)==='unknown')continue;const idx=inc.findIndex(y=>y.id===x.id);if(idx<0){inc.push(x);added++}else if(JSON.stringify(x)!==JSON.stringify(inc[idx])){inc[idx]=x;changed++}}localStorage.setItem('psi_incidents_test',JSON.stringify(inc.map(({_layer,...e})=>e)));refresh();alert(`병합 완료: 신규 ${added}건, 수정 ${changed}건. 이 브라우저에만 저장되었습니다.`)}catch(err){alert('JSON 불러오기 실패: '+err.message)}e.target.value=''};
@@ -560,7 +806,10 @@ function sheetIncidents(table){const list=[]; for(const row of table.rows||[]){
 function sheetCrime(table){let count=0;for(const row of table.rows||[]){const n=Number(cell(row,0));if(!Number.isInteger(n)||n<1||n>20)continue;
  const d=arr.find(x=>x.arrondissement===n);if(!d)continue;
  const v=Number(cell(row,2)),p=Number(cell(row,3));if(!Number.isFinite(v)||!Number.isFinite(p))continue;
- d.violent_robbery_per_1000=v;d.non_domestic_violence_per_1000=p;count++;
+ const extra=[['sexual_violence_per_1000',7],['nonviolent_theft_per_1000',8],['vandalism_per_1000',9],['vehicle_breakins_per_1000',10],['home_burglary_per_1000_housing',11]];
+  if(extra.some(([key,col])=>!Number.isFinite(Number(cell(row,col)))||cell(row,col)===''))continue;
+  d.violent_robbery_per_1000=v;d.non_domestic_violence_per_1000=p;
+  for(const [key,col] of extra)d[key]=Number(cell(row,col));count++;
 }return count}
 async function updateFromSheets(){if(inFlight)return;inFlight=true;
  syncState('loading',lastSuccess?'데이터 갱신 중…':'Google Sheets 연결 확인 중…');
@@ -571,7 +820,7 @@ async function updateFromSheets(){if(inFlight)return;inFlight=true;
   // Empty Incidents tab can legitimately mean zero; gviz received a valid table.
   // Preserve local-only additions when an import was performed, but prioritize remote IDs.
   const prev=inc.filter(x=>x&&x.id&&kind(x)!=='unknown'&&!seed.incidents.some(s=>s.id===x.id));
-  const localSeed=seed.incidents.filter(x=>x.id==='PSI-20261017-009'&&!live.some(y=>y.id===x.id));
+  const localSeed=[];
   inc.splice(0,inc.length,...live,...localSeed,...prev.filter(x=>!live.some(e=>e.id===x.id)));
   sourceMode='online';lastSuccess=new Date();
   syncState('online','Google Sheets 연결됨 · '+live.length+'건 확인 · 조회 '+lastSuccess.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit',timeZone:'Asia/Seoul'})+' KST');
@@ -586,7 +835,7 @@ setInterval(updateFromSheets,10*60*1000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)updateFromSheets()});
 updateFromSheets();
 
-// Optional official polygons. Runtime fetch failure leaves a fully usable centroid / point map.
-fetch('https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/arrondissements/exports/geojson').then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json()}).then(geo=>{if(!geo.features||geo.features.length<20)throw Error('경계 데이터 부족');geoLayer=L.geoJSON(geo,{style:{color:'#1b3650',weight:1,fillOpacity:.4},interactive:true});geoAvailable=true;refresh();}).catch(()=>{status('2025 치안: 구 중심 점 표시 · 사건: 근사 좌표 표시 (경계 데이터 미연결)')});
+// Optional official arrondissement polygons. If remote data is unavailable, news markers still work; no statistical centroid circles.
+fetch('https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/arrondissements/exports/geojson').then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json()}).then(geo=>{if(!geo.features||geo.features.length<20)throw Error('경계 데이터 부족');geoLayer=L.geoJSON(geo,{style:{color:'#1b3650',weight:1,fillOpacity:.4},interactive:true});geoAvailable=true;refresh();}).catch(()=>{status('파리 행정구역 경계 데이터 연결 실패 · 사건 원은 정상 표시되며 10단계 구역 색상만 일시 미표시')});
 })();
 </script></body></html>
