@@ -46,7 +46,7 @@
 .route-notice{font-size:10.5px;line-height:1.6;color:#b7cbdc;overflow-wrap:anywhere;margin-top:3px}
 .route-notice a{color:#b1eaf3;text-decoration:underline}
 .mini-legend-row.route-legend-row{display:none}
-.mini-legend-line{display:block;flex:none;width:24px;height:0;border-top:3px solid #A45BFA;box-shadow:none;border-radius:0;opacity:1}.mini-legend-line.route-approx{border-top-style:dashed}
+.mini-legend-line{display:block;flex:none;width:24px;height:0;border-top:1.5px solid #A45BFA;box-shadow:none;border-radius:0;opacity:1}.mini-legend-line.route-approx{border-top-style:dashed}
 .mini-legend-row.route-approx-legend{display:none}
 .mini-legend-row.route-legend-row,.mini-legend-row.route-approx-legend{white-space:nowrap}.mini-legend{max-width:190px}
 
@@ -65,7 +65,7 @@
 .point-count-explain{font-size:10px;line-height:1.5;color:#91a8bf;margin:9px 0 0}
 </style></head><body>
 <div class="app">
-<aside class="sidebar"><section class="brand"><div class="brand-top"><span class="dot"></span>PARIS SAFETY INTELLIGENCE</div><h1>파리 치안·시위<br>인텔리전스 맵</h1><p class="desc">2025년 공식 범죄 항목을 전체·강력범죄·생활재산범죄 비교지수로 요약하고, 실제로 보도된 범죄·시위 발생 위치를 구분해 보여줍니다. 공식 통계와 기사 사례는 서로 다른 데이터입니다.</p><div class="top-meta"><span class="chip">웹 연결판 v0.8.6</span><span class="chip">데이터 기준 2026.10.24</span><span class="chip">20개 구 순위·뉴스</span></div></section>
+<aside class="sidebar"><section class="brand"><div class="brand-top"><span class="dot"></span>PARIS SAFETY INTELLIGENCE</div><h1>파리 치안·시위<br>인텔리전스 맵</h1><p class="desc">2025년 공식 범죄 항목을 전체·강력범죄·생활재산범죄 비교지수로 요약하고, 실제로 보도된 범죄·시위 발생 위치를 구분해 보여줍니다. 공식 통계와 기사 사례는 서로 다른 데이터입니다.</p><div class="top-meta"><span class="chip">웹 연결판 v0.8.8</span><span class="chip">데이터 기준 2026.10.24</span><span class="chip">20개 구 순위·뉴스</span></div></section>
 <section class="panel"><h2 class="sectitle">MAP LAYERS</h2><div class="seg" id="tabs"><button data-tab="crime">치안·범죄</button><button data-tab="unrest">시위·집회</button><button data-tab="both" class="active">함께 보기</button></div>
 <section class="point-counts" id="pointCounts" aria-label="색상별 지도 점 개수">
   <div class="point-counts-heading"><span>지도에 표시된 점</span><span class="count-unit">색상별 개수</span></div>
@@ -102,7 +102,7 @@
 <main class="mapbox"><div id="map" class="map"></div><div class="loading" id="mapStatus">지도를 불러오는 중…</div><div class="mini-legend" id="miniLegend" aria-label="지도 색상 인덱스"><div class="mini-legend-title">색상 인덱스</div><div class="mini-legend-row"><span class="mini-legend-dot crime"></span><span>범죄</span></div><div class="mini-legend-row"><span class="mini-legend-dot damage"></span><span>시위 폭력·피해</span></div><div class="mini-legend-row"><span class="mini-legend-dot protest"></span><span>일반 시위</span></div><div class="mini-legend-row route-legend-row" id="routeLegendRow"><span class="mini-legend-line route-confirmed" aria-hidden="true"></span><span title="확인된 경유 도로를 바탕으로 근사 재구성">실제 행진 경로</span></div><div class="mini-legend-row route-approx-legend" id="routeApproxLegend"><span class="mini-legend-line route-approx" aria-hidden="true"></span><span title="실제 행진 도로가 아닌 출발지와 도착지의 직선 연결">시·종점 직선 연결</span></div></div></main></div>
 <script id="seed" type="application/json">{
   "project": "Paris Safety Intelligence",
-  "version": "v0.8.6-2026-10-25",
+  "version": "v0.8.8-2026-10-25",
   "as_of": "2026-10-24",
   "crime_year": 2025,
   "districts": [
@@ -1128,7 +1128,7 @@ function drawRouteLine(anchors,radius,estimated=false){
   if(rect)L.polygon(rect,{pane:'routeZonePane',interactive:false,color:col,weight:0,fillColor:col,fillOpacity:opacity}).addTo(routeZones);
  }
  for(const point of anchors)addRouteBubble(point,radius,col,opacity);
- const line={pane:'routeZonePane',interactive:false,color:'#A45BFA',weight:4,opacity:1};
+ const line={pane:'routeZonePane',interactive:false,color:'#A45BFA',weight:2,opacity:1};
  if(estimated)line.dashArray='6 10';
  L.polyline(anchors,line).addTo(routeZones);
 }
@@ -1208,6 +1208,27 @@ function incidentGroundDistanceMeters(a,b){
  const dLon=(Number(a.lon)-Number(b.lon))*111320*Math.cos((latA+latB)*Math.PI/360);
  return Math.hypot(dLat,dLon);
 }
+// Pixel-accurate footprints of the coloured circles in renderIncidentMarkers().
+// Offsets match its one-, two-, and three-colour SVG layouts.
+function incidentIconCircles(cluster){
+ const counts={crime:0,damage:0,protest:0};
+ for(const e of cluster.items)counts[kind(e)]++;
+ const present=Object.keys(counts).filter(k=>counts[k]>0);
+ const at=(type,dx,dy,r)=>({x:cluster.x+dx,y:cluster.y+dy,r:r+1});
+ if(present.length===1)return [at(present[0],0,0,cluster.items.length===1?3:12)];
+ if(present.length===2)return present.map((type,i)=>at(type,i?10:-10,0,counts[type]===1?3:9.5));
+ return present.map((type,i)=>at(type,i===0?0:i===1?-11:11,i===0?-11:10,counts[type]===1?3:9.5));
+}
+// Signed minimum gap between the actual colour bubbles (negative = overlap).
+function incidentIconGap(a,b){
+ let gap=Infinity;
+ const ac=incidentIconCircles(a),bc=incidentIconCircles(b);
+ for(const x of ac)for(const y of bc){
+  const d=Math.hypot(x.x-y.x,x.y-y.y)-x.r-y.r;
+  if(d<gap)gap=d;
+ }
+ return gap;
+}
 function clusterIncidentsByScreenDistance(items,zoom=map.getZoom()){
  // At citywide zoom, use ONE mixed-category cluster: the existing SVG draws
  // the three distinct red/orange/gray circles with their per-color totals.
@@ -1256,7 +1277,12 @@ function clusterIncidentsByScreenDistance(items,zoom=map.getZoom()){
     if(distSq>best)continue;
     // Check every member, not only a moving centroid: otherwise chains of
     // nearby points can swallow endpoints kilometres away.
-    if(protectedIds.has(e.id)||g.items.some(existing=>protectedIds.has(existing.id)))continue;
+    // A protected march endpoint must not be swallowed by distant events,
+    // but must join circles at the *same* square. Previously ALL protected
+    // endpoints were forbidden from clustering, which stacked small dots
+    // directly on top of large counted bubbles.
+    if((protectedIds.has(e.id)||g.items.some(existing=>protectedIds.has(existing.id)))&&
+       g.items.some(existing=>incidentGroundDistanceMeters(e,existing)>(zoom===11?750:zoom===12?500:350)))continue;
     if(g.items.some(existing=>incidentGroundDistanceMeters(e,existing)>maxClusterSpanMeters))continue;
     nearest=g;best=distSq;
    }
@@ -1278,6 +1304,32 @@ function clusterIncidentsByScreenDistance(items,zoom=map.getZoom()){
    const k=cellKey(nx,ny);if(!cells.has(k))cells.set(k,[]);cells.get(k).push(nearest);
    nearest.cx=nx;nearest.cy=ny;
   }
+ }
+
+ // Second pass: the distance check above compares cluster *centres*.
+ // A counted circle has a larger visual footprint, and category-specific
+ // circles sit off-centre inside a 44px SVG. Thus their edges can collide
+ // even when the centres themselves are sufficiently separated.
+ // Merge only actually colliding SVG circles, retaining per-colour totals.
+ // This also repairs overlaps between a tiny former endpoint marker and
+ // a nearby larger multi-event marker without losing any incident IDs.
+ let iterations=0;
+ // Consolidate visually colliding circles into one multi-colour bubble.
+ // They remain individually accessible in the popup and split on zoom.
+ // The coordinate-distance guard above keeps distant points separate until
+ // their drawn symbols would physically overlap on the current screen.
+ while(iterations++ < items.length && groups.length>1){
+  let mergeA=-1,mergeB=-1,nearest=Infinity;
+  for(let i=0;i<groups.length;i++)for(let j=i+1;j<groups.length;j++){
+   const gap=incidentIconGap(groups[i],groups[j]);
+   if(gap<=2.5 && gap<nearest){mergeA=i;mergeB=j;nearest=gap;}
+  }
+  if(mergeA<0)break;
+  const a=groups[mergeA],b=groups[mergeB],an=a.items.length,bn=b.items.length;
+  a.x=(a.x*an+b.x*bn)/(an+bn);
+  a.y=(a.y*an+b.y*bn)/(an+bn);
+  a.items.push(...b.items);
+  groups.splice(mergeB,1);
  }
  return groups;
 }
