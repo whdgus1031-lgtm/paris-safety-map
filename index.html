@@ -11,6 +11,7 @@
 .syncBanner{display:flex;gap:8px;align-items:center;margin:14px 0 0;padding:10px 11px;border-radius:11px;border:1px solid #52412c;background:#382a24;color:#f2c79c;font-size:11px;line-height:1.5}.syncBanner.online{border-color:#275b4d;background:#16392f;color:#b9eed7}.syncBanner #syncDot{flex-shrink:0;width:8px;height:8px;border-radius:50%;background:currentColor}.syncBanner #syncText{flex:1}.syncBanner button{border-radius:7px;border:1px solid #71839a;padding:4px 8px;color:inherit;background:#182637;cursor:pointer}.syncBanner button:hover{opacity:.8}
 .ten-legend{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:3px;margin:10px 0 7px}.ten-legend span{height:23px;display:flex;align-items:center;justify-content:center;border:1px solid #ffffff40;border-radius:4px;font-weight:800;font-size:10px;color:#10202a}.switch-area{margin:11px 0 0;display:flex;flex-direction:column;gap:7px}.control-line{font-size:12px;display:flex;gap:9px;align-items:center;cursor:pointer;color:#ccd9ea;background:#162337;padding:9px 10px;border:1px solid #30445b;border-radius:9px}.control-line input{accent-color:#8cc4ef;flex:none}.control-line span{display:inline-flex;align-items:center;gap:8px}.color-dot{display:inline-block;width:10px;height:10px;border-radius:50%;box-shadow:0 0 0 2px #ffffff22}.rankdesc{color:#9bacbf;font-size:10px;line-height:1.5;margin:9px 0 6px}.rank{display:flex;align-items:center;gap:9px;border-bottom:1px solid #263449;padding:9px 2px;cursor:pointer;font-size:12px}.rank:hover{background:#1c2b3b}.rankno{width:23px;text-align:right;color:#92a5bd;font-variant-numeric:tabular-nums}.rankname{flex:1;font-weight:730}.rankval{color:#d8e7f7;font-variant-numeric:tabular-nums}.rankgrade{width:24px;text-align:center;padding:4px 0;border-radius:5px;color:#182028;font-size:11px;font-weight:850}.event-tag{padding:3px 6px;border-radius:5px;font-size:10px;color:#dceaff;background:#26354a;margin-right:5px}
 
+
 /* Heat intensity is a visual layer; it must never intercept marker taps. */
 .leaflet-heatmap-layer{pointer-events:none!important}
 .incident-hit{width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;touch-action:manipulation}
@@ -29,11 +30,14 @@
 .district-label-chip.compact .district-grade{font-size:9px;line-height:1.1;padding:1px 3px}
 @media(max-width:760px){.district-label-chip:not(.compact){width:49px;height:38px;border-radius:9px;gap:1px}.district-label-chip.unrest-only:not(.compact){height:28px}.district-label-icon{margin-left:0}.district-label-chip:not(.compact) .district-name{font-size:11px}.district-label-chip:not(.compact) .district-grade{font-size:10px}}
 
+
 /* Marker shapes are SVG: fills and stroke are explicit in renderIncidentMarkers(). */
 .incident-svg{display:block;width:44px;height:44px;overflow:visible;opacity:1!important;filter:none!important;mix-blend-mode:normal!important}
 .incident-hit:hover .incident-svg{transform:scale(1.10);transform-origin:center;transition:transform .1s}
 
+
 .mini-legend{position:absolute;right:14px;bottom:18px;z-index:640;min-width:112px;max-width:148px;background:#111b29e6;border:1px solid #ffffff22;border-radius:12px;padding:8px 10px;box-shadow:0 8px 24px #0000003d;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);pointer-events:none}.mini-legend-title{font-size:10px;font-weight:780;letter-spacing:.04em;color:#dbe7f5;margin:0 0 6px}.mini-legend-row{display:flex;align-items:center;gap:8px;color:#eff6ff;font-size:11px;line-height:1.35}.mini-legend-row+.mini-legend-row{margin-top:6px}.mini-legend-dot{width:10px;height:10px;border-radius:50%;flex:none;box-shadow:0 0 0 1px #ffffff33}.mini-legend-dot.crime{background:#ff0000}.mini-legend-dot.damage{background:#f28c28}.mini-legend-dot.protest{background:#717d8c}@media(max-width:760px){.mini-legend{right:10px;bottom:10px;padding:7px 8px;min-width:100px;border-radius:10px}.mini-legend-title{font-size:9px;margin-bottom:5px}.mini-legend-row{font-size:10px;gap:7px}.mini-legend-dot{width:9px;height:9px}}
+
 
 .route-tools{margin-top:11px}
 .route-settings{background:#132238;border:1px solid #34475f;border-radius:10px;padding:11px;display:flex;flex-direction:column;gap:7px;margin-top:7px}
@@ -45,6 +49,7 @@
 .mini-legend-line{display:block;flex:none;width:24px;height:0;border-top:3px solid #066c7e;box-shadow:none;border-radius:0;opacity:1}.mini-legend-line.route-approx{border-top-style:dashed}
 .mini-legend-row.route-approx-legend{display:none}
 .mini-legend-row.route-legend-row,.mini-legend-row.route-approx-legend{white-space:nowrap}.mini-legend{max-width:190px}
+
 
 /* Map marker tally: counts rendered colour circles (clustered markers count once per colour). */
 .point-counts{margin-top:12px;padding:12px;border:1px solid #334960;border-radius:12px;background:#142235}
@@ -60,7 +65,7 @@
 .point-count-explain{font-size:10px;line-height:1.5;color:#91a8bf;margin:9px 0 0}
 </style></head><body>
 <div class="app">
-<aside class="sidebar"><section class="brand"><div class="brand-top"><span class="dot"></span>PARIS SAFETY INTELLIGENCE</div><h1>파리 치안·시위<br>인텔리전스 맵</h1><p class="desc">2025년 공식 범죄 항목을 전체·강력범죄·생활재산범죄 비교지수로 요약하고, 실제로 보도된 범죄·시위 발생 위치를 구분해 보여줍니다. 공식 통계와 기사 사례는 서로 다른 데이터입니다.</p><div class="top-meta"><span class="chip">웹 연결판 v0.7.7</span><span class="chip">데이터 기준 2026.10.24</span><span class="chip">20개 구 순위·뉴스</span></div></section>
+<aside class="sidebar"><section class="brand"><div class="brand-top"><span class="dot"></span>PARIS SAFETY INTELLIGENCE</div><h1>파리 치안·시위<br>인텔리전스 맵</h1><p class="desc">2025년 공식 범죄 항목을 전체·강력범죄·생활재산범죄 비교지수로 요약하고, 실제로 보도된 범죄·시위 발생 위치를 구분해 보여줍니다. 공식 통계와 기사 사례는 서로 다른 데이터입니다.</p><div class="top-meta"><span class="chip">웹 연결판 v0.8</span><span class="chip">데이터 기준 2026.10.24</span><span class="chip">20개 구 순위·뉴스</span></div></section>
 <section class="panel"><h2 class="sectitle">MAP LAYERS</h2><div class="seg" id="tabs"><button data-tab="crime">치안·범죄</button><button data-tab="unrest">시위·집회</button><button data-tab="both" class="active">함께 보기</button></div>
 <section class="point-counts" id="pointCounts" aria-label="색상별 지도 점 개수">
   <div class="point-counts-heading"><span>지도에 표시된 점</span><span class="count-unit">색상별 개수</span></div>
@@ -97,7 +102,7 @@
 <main class="mapbox"><div id="map" class="map"></div><div class="loading" id="mapStatus">지도를 불러오는 중…</div><div class="mini-legend" id="miniLegend" aria-label="지도 색상 인덱스"><div class="mini-legend-title">색상 인덱스</div><div class="mini-legend-row"><span class="mini-legend-dot crime"></span><span>범죄</span></div><div class="mini-legend-row"><span class="mini-legend-dot damage"></span><span>시위 폭력·피해</span></div><div class="mini-legend-row"><span class="mini-legend-dot protest"></span><span>일반 시위</span></div><div class="mini-legend-row route-legend-row" id="routeLegendRow"><span class="mini-legend-line route-confirmed" aria-hidden="true"></span><span title="확인된 경유 도로를 바탕으로 근사 재구성">실제 행진 경로</span></div><div class="mini-legend-row route-approx-legend" id="routeApproxLegend"><span class="mini-legend-line route-approx" aria-hidden="true"></span><span title="실제 행진 도로가 아닌 출발지와 도착지의 직선 연결">시·종점 직선 연결</span></div></div></main></div>
 <script id="seed" type="application/json">{
   "project": "Paris Safety Intelligence",
-  "version": "v0.7.7-2026-10-25",
+  "version": "v0.8-2026-10-25",
   "as_of": "2026-10-24",
   "crime_year": 2025,
   "districts": [
@@ -821,11 +826,16 @@ const SHEET_ID='1vNg3j316XgLFFiuO8vLnmfPRVvLs5nHhJ8NNdlpA8L4';
 const SHEET_URL='https://docs.google.com/spreadsheets/d/'+SHEET_ID+'/edit';
 seed.as_of=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Paris',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date()); // local Paris calendar date
 
+
 const $=id=>document.getElementById(id); const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const arr=seed.districts;let inc=[...seed.incidents];let mode='both',metric='all';let status=msg=>$('mapStatus').textContent=msg;let sourceMode='initial';
 try{const saved=JSON.parse(localStorage.getItem('psi_incidents_test')||'[]'); if(Array.isArray(saved)){for(const e of saved){if(e&&e.id&&kind(e)!=='unknown'&&!inc.some(x=>x.id===e.id))inc.push(e)}}}catch(e){}
 if(typeof L==='undefined'){status('지도 라이브러리를 불러오지 못했습니다. 인터넷 연결 후 다시 열어주세요.');return;}
-const map=L.map('map',{zoomControl:false,preferCanvas:true}).setView([48.8615,2.351],12);L.control.zoom({position:'topleft'}).addTo(map);
+// Keep ordinary incident circles for ALL reported march endpoints. On a narrow
+// viewport, the old zoom-12 center clipped Porte d'Italie (2026-10-24) below
+// the map, even though the source record was correctly loaded and rendered.
+const compactMap=window.matchMedia('(max-width:760px)').matches;
+const map=L.map('map',{zoomControl:false,preferCanvas:true}).setView(compactMap?[48.854,2.366]:[48.8615,2.351],compactMap?11:12);L.control.zoom({position:'topleft'}).addTo(map);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap contributors'}).addTo(map);
 map.createPane('districtLabelPane');map.getPane('districtLabelPane').style.zIndex='575';map.getPane('districtLabelPane').style.pointerEvents='none';
 map.createPane('routeZonePane');map.getPane('routeZonePane').style.zIndex='480';map.getPane('routeZonePane').style.pointerEvents='none';
@@ -942,8 +952,19 @@ function popupMany(items){
  `<div class="incident-popup-list">${sorted.map(e=>`<section>${popupIncident(e)}</section>`).join('')}</div>`;
 }
 
+
 // Source-verified *street order*, not recorded GPS traces. Points are approximated to the named streets.
 const VERIFIED_ROUTES={
+ "PARIS-2024-01-21-immigration":{  name:"2024.01.21 이민법 반대 행진",date:"2024-01-21",source:"https://nanterre.mrap.fr/21-janvier-Manifestation-contre-la-loi-immigration.html",quality:"실제 행진 개최 및 주최 단체 공지 Avenue Wilson·센강변·Pont Alexandre III 경유 동선. 표시선은 도로 중심점의 근사 연결이며 GPS 궤적이 아님",anchors:[[48.8629,2.2876],[48.8652,2.2969],[48.8648,2.304],[48.8636,2.3136],[48.8566,2.3128]]},
+ "PARIS-2024-05-01-labour-may":{  name:"2024.05.01 노동절 행진",date:"2024-05-01",source:"https://www.prefecturedepolice.interieur.gouv.fr/sites/default/files/Documents/20240429_cp_circulation_1_mai_2024_1.pdf",quality:"프랑스 경찰청 공고에서 République→Boulevard Voltaire→Nation 확인; 근사 연결선",anchors:[[48.8673,2.3633],[48.864,2.3688],[48.8593,2.3782],[48.8542,2.3865],[48.8483,2.3958]]},
+ "PARIS-2024-06-15-anti-rn-june":{  name:"2024.06.15 반극우 행진",date:"2024-06-15",source:"https://www.leparisien.fr/paris-75/manifestation-contre-lextreme-droite-quel-est-le-parcours-du-cortege-a-paris-15-06-2024-G7B7J46ZMNG7XKKDUZKURNXFFU.php",quality:"République→Temple→Filles-du-Calvaire→Beaumarchais→Bastille→Lyon→Daumesnil→Diderot→Nation 도로 순서 확인. 표시선은 근사 연결",anchors:[[48.8673,2.3633],[48.8648,2.3651],[48.8616,2.3675],[48.8582,2.3687],[48.8532,2.3691],[48.85,2.3745],[48.8458,2.383],[48.8465,2.389],[48.84833,2.39583]]},
+ "PARIS-2024-09-07-barnier-march":{  name:"2024.09.07 바르니에 임명 반대 행진",date:"2024-09-07",source:"https://actionpopulaire.fr/evenements/c2ab1404-e92f-4432-840d-d9eaf2e52edc/",quality:"실제 시위와 주최 측 발표 Bastille→Nation 출발·종점만 확인. 실제 도로 정보가 없어 가상 직선으로만 표시",estimated:true,anchors:[[48.8532,2.3691],[48.8483,2.3958]]},
+ "PARIS-2024-11-23-nov-women-violence":{  name:"2024.11.23 여성폭력 반대 행진",date:"2024-11-23",source:"https://urif.unsa.org/stop-aux-violences-sexistes-et-sexuelles-au-travail/",quality:"Gare du Nord→République→Bastille 주최 측 경로. 구체적인 도로 중심선은 미검증이므로 시·종점만 가상 직선 연결",estimated:true,anchors:[[48.8809,2.3553],[48.8532,2.3691]]},
+ "PARIS-2026-10-03-PRIDE":{  name:"2026.10.03 프라이드 행진",date:"2026-10-03",source:"https://www.inter-lgbt.org/save-the-date-samedi-27-juin-2026-marche-des-fiertes-lgbtqia-de-paris-ile-de-france/",quality:"최종 주최단체 노선 Place d’Italie→Gobelins→Claude-Bernard→Gay-Lussac→Saint-Michel→Palais→Sébastopol→Rivoli→Saint-Antoine→Bastille. 도로 중심점 근사로 재구성",anchors:[[48.8323,2.3554],[48.8383,2.3521],[48.8409,2.3465],[48.8438,2.3423],[48.8479,2.3438],[48.8534,2.3453],[48.8582,2.3478],[48.8566,2.353],[48.854,2.3621],[48.8532,2.3691]]},
+ "PARIS-2026-10-06-EDUCATION":{  name:"2026.10.06 학생·노조 행진",date:"2026-10-06",source:"https://www.leparisien.fr/paris-75/manifestation-lyceenne-du-mardi-6-octobre-a-paris-le-parcours-du-cortege-et-les-stations-de-metro-fermees-06-10-2026-ZVT6SBLDTBBV3CFEUBIXVHWFXQ.php",quality:"경찰 공고 République→Boulevard Voltaire→Nation 도로 순서 확인, 실제 행진 사후 보도도 확인. 표시선은 근사 연결",anchors:[[48.8673,2.3633],[48.864,2.3688],[48.8593,2.3782],[48.8542,2.3865],[48.8483,2.3958]]},
+ "PARIS-2026-10-13-EDUCATION":{  name:"2026.10.13 학생·노조 행진",date:"2026-10-13",source:"https://www.leparisien.fr/paris-75/paris-le-parcours-des-manifestations-lyceennes-et-etudiantes-du-mardi-13-octobre-12-10-2026-AGC4ZU53DJEBTLB5KGDVET3HAE.php",quality:"Italie→Gobelins→Port-Royal→Montparnasse→Invalides→Villars→Vauban 경로 발표, Vauban 현장 사후 확인. 표시선은 근사 재구성",anchors:[[48.8323,2.3554],[48.839,2.352],[48.839,2.337],[48.8413,2.323],[48.846,2.3164],[48.8511,2.3171],[48.8521,2.3125]]},
+ "PARIS-2026-10-24-ROUTE":{  name:"2026.10.24 노조·학생 대규모 행진",date:"2026-10-24",source:"https://www.lemonde.fr/videos/video/2026/10/24/manifestations-du-24-octobre-les-premieres-images-du-cortege-parisien_6799710_1669088.html",quality:"실제 Porte d’Italie→동부 Boulevards des Maréchaux→Porte de Vincennes 이동 확인. 약 5.5km 경로의 근사 도로 중심점으로 표시하며 현장 GPS가 아님. 금지된 Bastille→Nation 경로는 제외",anchors:[[48.81686,2.3608],[48.8191,2.3637],[48.8229,2.369],[48.8287,2.3822],[48.8313,2.386],[48.8348,2.396],[48.839,2.402],[48.844,2.407],[48.8471,2.4112]]},
+
  'PARIS-2025-05-01-LABOR':{
   name:'2025.05.01 노동절 행진',date:'2025-05-01',
   source:'https://www.prefecturedepolice.interieur.gouv.fr/sites/default/files/Documents/20250429_cp_circulation_1_mai_2025-1.pdf',
@@ -973,6 +994,21 @@ const VERIFIED_ROUTES={
 // notices of planned marches must never appear in the moving-march selector.
 // Include one-point evidence only when an actual moving procession was reported.
 const CONFIRMED_MARCHES=new Set([
+ "PARIS-2024-03-08-womens-day",
+ "PARIS-2024-05-01-labour-may",
+ "PARIS-2024-06-01-anti-fascist-june",
+ "PARIS-2024-06-15-anti-rn-june",
+ "PARIS-2024-10-01-oct-union",
+ "PARIS-2024-10-05-oct-palestine",
+ "PARIS-2024-12-05-dec-public-sector",
+ "PARIS-2024-01-21-immigration",
+ "PARIS-2024-09-07-barnier-march",
+ "PARIS-2024-11-23-nov-women-violence",
+ "PARIS-2026-10-03-PRIDE",
+ "PARIS-2026-10-06-EDUCATION",
+ "PARIS-2026-10-13-EDUCATION",
+ "PARIS-2026-10-24-ROUTE",
+
  'PARIS-2025-03-08-WOMEN-MARCH',
  'PARIS-2025-03-22-ANTIRACISM',
  'PARIS-2025-05-01-LABOR',
@@ -1007,12 +1043,20 @@ function routePoints(items){
 function routeCandidates(){
  const groups=new Map();
  for(const e of inc){
-  if(kind(e)!=='protest'||!e.event_group||!CONFIRMED_MARCHES.has(e.event_group)||!inPeriod(e))continue;
+  if(kind(e)!=='protest'||!e.event_group||!inPeriod(e))continue;
   if(!groups.has(e.event_group))groups.set(e.event_group,[]);
   groups.get(e.event_group).push(e);
  }
  // Do not offer a route when there is only one known point and no verified streets.
- return new Map([...groups].filter(([key,items])=>VERIFIED_ROUTES[key]||routePoints(items).length>=2));
+ return new Map([...groups].filter(([key,items])=>{
+  if(VERIFIED_ROUTES[key])return true;
+  if(routePoints(items).length<2)return false;
+  if(CONFIRMED_MARCHES.has(key))return true;
+  // Automatically include later Sheets events with independently recorded
+  // departure and arrival. Static rallies and scattered venues have no route.
+  const names=items.map(x=>x.title||'');
+  return names.some(t=>/출발|집결·출발|départ|starting/i.test(t))&&names.some(t=>/도착|종점|종료|arrivée|finish/i.test(t));
+ }));
 }
 function fillRoutePicker(groups){
  const select=$('routePick'),keep=select.value;
@@ -1024,7 +1068,7 @@ function fillRoutePicker(groups){
   const known=VERIFIED_ROUTES[group],date=items[0].occurred_on;
   const title=known?known.name:(date+' '+items[0].title.replace(/\s*[·—-].*$/,'').slice(0,22));
   const option=document.createElement('option');option.value=group;
-  option.textContent=title+(known?' · 경유 도로 확인':' · 시작↔끝 직선');select.appendChild(option);
+  option.textContent=title+(known?(known.estimated?' · 시·종점 직선':' · 경유 도로 확인'):' · 시작↔끝 직선');select.appendChild(option);
  }
  select.value=[...select.options].some(o=>o.value===keep)?keep:'all-marches';
 }
@@ -1076,7 +1120,7 @@ function renderRouteZones(){
  if(showAll||showVerifiedOnly){
   for(const [key,items] of groups){
    const verified=VERIFIED_ROUTES[key];
-   if(verified){drawRouteLine(verified.anchors,radius);confirmed++}
+   if(verified){if(!showVerifiedOnly||!verified.estimated){drawRouteLine(verified.anchors,radius,!!verified.estimated);if(verified.estimated)straight++;else confirmed++}}
    else if(showAll&&drawInferredRoute(items,radius))straight++;
   }
   $('routeNotice').innerHTML=`<b>도로 확인 ${confirmed}건 · 출발↔도착 직선 ${straight}건</b><div style="margin-top:4px">청록 실선은 확인된 도로 순서의 근사 재구성, 같은 청록색 점선은 도로 정보를 모르는 행진의 가상 직선입니다. ${radius}m 음영은 <b>실제 통제·피해 구역이 아닌 가상 참고 영향권</b>입니다.</div>`;
@@ -1084,8 +1128,8 @@ function renderRouteZones(){
  }else{
   const items=groups.get(selection)||[],verified=VERIFIED_ROUTES[selection];
   if(verified){
-   drawRouteLine(verified.anchors,radius);confirmed++;
-   $('routeNotice').innerHTML='<b>경유 도로 확인 · 청록 실선</b> · '+esc(verified.quality)+'. '+radius+'m는 참고 영향권이며 실제 통제구역이 아닙니다. <a href="'+esc(verified.source)+'" target="_blank" rel="noopener noreferrer">출처 확인 ↗</a>';
+   drawRouteLine(verified.anchors,radius,!!verified.estimated);if(verified.estimated)straight++;else confirmed++;
+   $('routeNotice').innerHTML='<b>'+(verified.estimated?'시·종점 직선 · 청록 점선':'경유 도로 확인 · 청록 실선')+'</b> · '+esc(verified.quality)+'. '+radius+'m는 참고 영향권이며 실제 통제구역이 아닙니다. <a href="'+esc(verified.source)+'" target="_blank" rel="noopener noreferrer">출처 확인 ↗</a>';
   }else if(drawInferredRoute(items,radius)){
    straight++;
    $('routeNotice').textContent='출발·도착 지점 사이를 청록색 점선으로 연결했습니다. 이는 실제 행진 도로가 아닌 가상 기준선이며 '+radius+'m 음영도 실제 통제·피해 범위가 아닙니다.';
@@ -1102,6 +1146,7 @@ function focusRouteSelection(){
  const points=def?def.anchors:routePoints(items);
  if(points.length&&typeof map.fitBounds==='function')map.fitBounds(L.latLngBounds(points).pad(.14),{padding:[28,28],maxZoom:14});
 }
+
 
 // Distance-based dynamic marker clustering in projected screen pixels.
 // At wider zooms, clusters cover larger ground distances. At close zooms,
@@ -1253,6 +1298,7 @@ $('exportButton').onclick=()=>{let output={...seed,incidents:inc.filter(e=>e&&e.
 $('importButton').onchange=async e=>{const file=e.target.files?.[0];if(!file)return;try{const dat=JSON.parse(await file.text());if(!Array.isArray(dat.incidents))throw Error('incidents 배열이 없습니다');let added=0,changed=0;for(const x of dat.incidents){if(!x.id||!/^\d{4}-\d\d-\d\d$/.test(x.occurred_on||'')||!Number.isFinite(Number(x.lat))||!Number.isFinite(Number(x.lon)))continue;if(kind(x)==='unknown')continue;const idx=inc.findIndex(y=>y.id===x.id);if(idx<0){inc.push(x);added++}else if(JSON.stringify(x)!==JSON.stringify(inc[idx])){inc[idx]=x;changed++}}localStorage.setItem('psi_incidents_test',JSON.stringify(inc.map(({_layer,...e})=>e)));refresh();alert(`병합 완료: 신규 ${added}건, 수정 ${changed}건. 이 브라우저에만 저장되었습니다.`)}catch(err){alert('JSON 불러오기 실패: '+err.message)}e.target.value=''};
 refresh();
 
+
 // Google Visualization JSONP works on a static host with a publicly readable spreadsheet.
 // It does not grant access to a private Google Sheet. Never silently claim a successful sync.
 let lastSuccess=null, requestNo=0, inFlight=false;
@@ -1319,6 +1365,7 @@ $('syncNow').addEventListener('click',updateFromSheets);
 setInterval(updateFromSheets,10*60*1000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)updateFromSheets()});
 updateFromSheets();
+
 
 // Optional official arrondissement polygons. If remote data is unavailable, news markers still work; no statistical centroid circles.
 fetch('https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/arrondissements/exports/geojson').then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json()}).then(geo=>{if(!geo.features||geo.features.length<20)throw Error('경계 데이터 부족');geoLayer=L.geoJSON(geo,{style:{color:'#1b3650',weight:1,fillOpacity:.4},interactive:true});geoOutlineLayer=L.geoJSON(geo,{style:{color:'#172433',weight:2,opacity:1,fillOpacity:0},interactive:false});geoAvailable=true;refresh();}).catch(()=>{status('파리 행정구역 경계 데이터 연결 실패 · 사건 원과 구 번호는 정상 표시 (구 경계는 일시 미표시)')});
