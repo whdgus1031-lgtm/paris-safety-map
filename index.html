@@ -29,7 +29,7 @@
 .district-label-chip.compact .district-grade{font-size:9px;line-height:1.1;padding:1px 3px}
 @media(max-width:760px){.district-label-chip:not(.compact){width:49px;height:38px;border-radius:9px;gap:1px}.district-label-chip.unrest-only:not(.compact){height:28px}.district-label-icon{margin-left:0}.district-label-chip:not(.compact) .district-name{font-size:11px}.district-label-chip:not(.compact) .district-grade{font-size:10px}}
 
-/* Marker shapes are SVG: fills and stroke are explicit in renderIncidents(). */
+/* Marker shapes are SVG: fills and stroke are explicit in renderIncidentMarkers(). */
 .incident-svg{display:block;width:44px;height:44px;overflow:visible;opacity:1!important;filter:none!important;mix-blend-mode:normal!important}
 .incident-hit:hover .incident-svg{transform:scale(1.10);transform-origin:center;transition:transform .1s}
 
@@ -45,10 +45,33 @@
 .mini-legend-line{display:block;flex:none;width:24px;height:0;border-top:3px solid #066c7e;box-shadow:none;border-radius:0;opacity:1}.mini-legend-line.route-approx{border-top-style:dashed}
 .mini-legend-row.route-approx-legend{display:none}
 .mini-legend-row.route-legend-row,.mini-legend-row.route-approx-legend{white-space:nowrap}.mini-legend{max-width:190px}
+
+/* Map marker tally: counts rendered colour circles (clustered markers count once per colour). */
+.point-counts{margin-top:12px;padding:12px;border:1px solid #334960;border-radius:12px;background:#142235}
+.point-counts-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;font-weight:780;color:#e2edf8;font-size:12px;margin-bottom:10px}
+.count-unit{color:#94abc2;font-size:10px;font-weight:560}
+.point-count-items{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.point-count-items.mode-crime{grid-template-columns:minmax(0,1fr)}
+.point-count-items.mode-unrest{grid-template-columns:repeat(2,minmax(0,1fr))}
+.point-count-item{min-width:0;padding:9px 8px;border:1px solid #30465d;border-radius:9px;background:#1b2e43;display:flex;flex-direction:column;gap:6px}
+.point-count-name{display:flex;align-items:center;gap:6px;min-width:0;font-size:10px;font-weight:670;color:#c4d5e6;line-height:1.3}
+.point-count-name .color-dot{width:9px;height:9px;flex-shrink:0}
+.point-count-item strong{font-variant-numeric:tabular-nums;font-size:21px;line-height:1.15;font-weight:800;color:#f5faff}
+.point-count-explain{font-size:10px;line-height:1.5;color:#91a8bf;margin:9px 0 0}
 </style></head><body>
 <div class="app">
-<aside class="sidebar"><section class="brand"><div class="brand-top"><span class="dot"></span>PARIS SAFETY INTELLIGENCE</div><h1>파리 치안·시위<br>인텔리전스 맵</h1><p class="desc">2025년 공식 범죄 항목을 전체·강력범죄·생활재산범죄 비교지수로 요약하고, 실제로 보도된 범죄·시위 발생 위치를 구분해 보여줍니다. 공식 통계와 기사 사례는 서로 다른 데이터입니다.</p><div class="top-meta"><span class="chip">웹 연결판 v0.7.5</span><span class="chip">데이터 기준 2026.10.24</span><span class="chip">20개 구 순위·뉴스</span></div></section>
+<aside class="sidebar"><section class="brand"><div class="brand-top"><span class="dot"></span>PARIS SAFETY INTELLIGENCE</div><h1>파리 치안·시위<br>인텔리전스 맵</h1><p class="desc">2025년 공식 범죄 항목을 전체·강력범죄·생활재산범죄 비교지수로 요약하고, 실제로 보도된 범죄·시위 발생 위치를 구분해 보여줍니다. 공식 통계와 기사 사례는 서로 다른 데이터입니다.</p><div class="top-meta"><span class="chip">웹 연결판 v0.7.7</span><span class="chip">데이터 기준 2026.10.24</span><span class="chip">20개 구 순위·뉴스</span></div></section>
 <section class="panel"><h2 class="sectitle">MAP LAYERS</h2><div class="seg" id="tabs"><button data-tab="crime">치안·범죄</button><button data-tab="unrest">시위·집회</button><button data-tab="both" class="active">함께 보기</button></div>
+<section class="point-counts" id="pointCounts" aria-label="색상별 지도 점 개수">
+  <div class="point-counts-heading"><span>지도에 표시된 점</span><span class="count-unit">색상별 개수</span></div>
+  <div class="point-count-items" id="pointCountItems">
+    <div class="point-count-item" id="pointCountCrime"><div class="point-count-name"><i class="color-dot" style="background:#ff0000"></i><span>범죄</span></div><strong id="crimePointCount" aria-live="polite">0</strong></div>
+    <div class="point-count-item" id="pointCountDamage"><div class="point-count-name"><i class="color-dot" style="background:#f28c28"></i><span>시위 폭력·피해</span></div><strong id="damagePointCount" aria-live="polite">0</strong></div>
+    <div class="point-count-item" id="pointCountProtest"><div class="point-count-name"><i class="color-dot" style="background:#717d8c"></i><span>일반 시위</span></div><strong id="protestPointCount" aria-live="polite">0</strong></div>
+  </div>
+  <p class="point-count-explain">확대·축소에 따라 가까운 점이 자동으로 합쳐지거나 분리됩니다. 숫자는 묶인 기록 수이며, 색상별 점 개수도 줌에 따라 갱신됩니다.</p>
+</section>
+<div class="switch-area" id="districtLabelSwitch"><label class="control-line"><input type="checkbox" id="showDistrictLabels" checked> <span>지도 위 구 이름·등급 표시</span></label></div>
 <div class="field" id="metricField"><label for="metric">치안 유형 · 2025 공식 항목 기반 자체 비교지수</label><select id="metric"><option value="all" selected>전체 범죄 (강력 + 생활·재산)</option><option value="serious">강력범죄</option><option value="property">생활·재산범죄 (소매치기 등)</option></select></div>
 <div class="switch-area" id="crimeSwitches"><label class="control-line"><input type="checkbox" id="showStats" checked> <span>공식 통계 10단계 색상 지도</span></label><label class="control-line"><input type="checkbox" id="showCrimeNews" checked> <span><i class="color-dot" style="background:#ff0000"></i>범죄 뉴스 위치</span></label></div>
 <div class="switch-area" id="protestSwitches"><label class="control-line"><input type="checkbox" id="showProtests" checked> <span><i class="color-dot" style="background:#717d8c"></i>일반 시위·집회·행진</span></label><label class="control-line"><input type="checkbox" id="showDamage" checked> <span><i class="color-dot" style="background:#f28c28"></i>시위 관련 폭력·재산 피해</span></label></div>
@@ -74,7 +97,7 @@
 <main class="mapbox"><div id="map" class="map"></div><div class="loading" id="mapStatus">지도를 불러오는 중…</div><div class="mini-legend" id="miniLegend" aria-label="지도 색상 인덱스"><div class="mini-legend-title">색상 인덱스</div><div class="mini-legend-row"><span class="mini-legend-dot crime"></span><span>범죄</span></div><div class="mini-legend-row"><span class="mini-legend-dot damage"></span><span>시위 폭력·피해</span></div><div class="mini-legend-row"><span class="mini-legend-dot protest"></span><span>일반 시위</span></div><div class="mini-legend-row route-legend-row" id="routeLegendRow"><span class="mini-legend-line route-confirmed" aria-hidden="true"></span><span title="확인된 경유 도로를 바탕으로 근사 재구성">실제 행진 경로</span></div><div class="mini-legend-row route-approx-legend" id="routeApproxLegend"><span class="mini-legend-line route-approx" aria-hidden="true"></span><span title="실제 행진 도로가 아닌 출발지와 도착지의 직선 연결">시·종점 직선 연결</span></div></div></main></div>
 <script id="seed" type="application/json">{
   "project": "Paris Safety Intelligence",
-  "version": "v0.7.5-2026-10-25",
+  "version": "v0.7.7-2026-10-25",
   "as_of": "2026-10-24",
   "crime_year": 2025,
   "districts": [
@@ -901,7 +924,8 @@ function renderDistrictLabels(){
  }
 }
 function renderCrime(){
- renderDistrictLabels();
+ if($('showDistrictLabels').checked)renderDistrictLabels();
+ else districtLabels.clearLayers();
  if(geoLayer){geoLayer.eachLayer(l=>{let p=l.feature?.properties||{};let found=extractArrondissement(p);let d=arr.find(x=>x.arrondissement===found);
   if(d){l.setStyle({fillColor:getColor(getVal(d)),fillOpacity:.57,color:'#284258',weight:1.15,opacity:.8});l.bindPopup(()=>popupCrime(d));}
   else l.setStyle({fillOpacity:0})})}
@@ -1079,50 +1103,115 @@ function focusRouteSelection(){
  if(points.length&&typeof map.fitBounds==='function')map.fitBounds(L.latLngBounds(points).pad(.14),{padding:[28,28],maxZoom:14});
 }
 
-function renderIncidents(){for(const k of Object.keys(eventGroups)){eventGroups[k].clearLayers();if(heatLayers[k]){map.removeLayer(heatLayers[k]);heatLayers[k]=null}}
- const visible=inc.filter(e=>e&&Number.isFinite(Number(e.lat))&&Number.isFinite(Number(e.lon))&&Number(e.lat)>48.4&&Number(e.lat)<49.4&&Number(e.lon)>1.7&&Number(e.lon)<3&&inPeriod(e)&&enabledKind(kind(e))&&(kind(e)!=='crime'||metric==='all'||crimeSubkind(e)===metric));
- const clusters=new Map();
- for(const e of visible){const key=Math.round(Number(e.lat)*1000)+'|'+Math.round(Number(e.lon)*1000);
-  if(!clusters.has(key))clusters.set(key,[]);clusters.get(key).push(e)}
- for(const entries of clusters.values()){
+// Distance-based dynamic marker clustering in projected screen pixels.
+// At wider zooms, clusters cover larger ground distances. At close zooms,
+// nearby points split apart. A cluster center never drifts beyond the search
+// radius of its members, so long chains of distinct locations do not merge.
+function clusteringRadius(zoom){
+ if(zoom<=10)return 48;
+ if(zoom===11)return 43;
+ if(zoom===12)return 38;
+ if(zoom===13)return 33;
+ if(zoom===14)return 28;
+ if(zoom===15)return 24;
+ if(zoom===16)return 20;
+ return zoom===17?16:13;
+}
+function clusterIncidentsByScreenDistance(items,zoom=map.getZoom()){
+ const radius=clusteringRadius(zoom), radiusSq=radius*radius;
+ const cells=new Map(),groups=[];
+ const cellKey=(ix,iy)=>ix+'|'+iy;
+ // Consistent ordering reduces jitter when filters and data are refreshed.
+ const ordered=[...items].sort((a,b)=>Number(a.lat)-Number(b.lat)||Number(a.lon)-Number(b.lon)||String(a.id).localeCompare(String(b.id)));
+ for(const e of ordered){
+  const point=map.project([Number(e.lat),Number(e.lon)],zoom);
+  const ix=Math.floor(point.x/radius),iy=Math.floor(point.y/radius);
+  let nearest=null,best=radiusSq;
+  for(let ox=-1;ox<=1;ox++)for(let oy=-1;oy<=1;oy++){
+   const candidates=cells.get(cellKey(ix+ox,iy+oy))||[];
+   for(const g of candidates){
+    const dx=point.x-g.x,dy=point.y-g.y,distSq=dx*dx+dy*dy;
+    if(distSq<=best){nearest=g;best=distSq;}
+   }
+  }
+  if(!nearest){
+   nearest={x:point.x,y:point.y,items:[e],cx:ix,cy:iy};
+   groups.push(nearest);
+   const k=cellKey(ix,iy);if(!cells.has(k))cells.set(k,[]);cells.get(k).push(nearest);
+   continue;
+  }
+  const n=nearest.items.length;
+  nearest.items.push(e);
+  nearest.x=(nearest.x*n+point.x)/(n+1);
+  nearest.y=(nearest.y*n+point.y)/(n+1);
+  const nx=Math.floor(nearest.x/radius),ny=Math.floor(nearest.y/radius);
+  if(nx!==nearest.cx||ny!==nearest.cy){
+   const oldKey=cellKey(nearest.cx,nearest.cy),bucket=cells.get(oldKey);
+   bucket.splice(bucket.indexOf(nearest),1);if(!bucket.length)cells.delete(oldKey);
+   const k=cellKey(nx,ny);if(!cells.has(k))cells.set(k,[]);cells.get(k).push(nearest);
+   nearest.cx=nx;nearest.cy=ny;
+  }
+ }
+ return groups;
+}
+function getVisibleIncidents(){
+ return inc.filter(e=>e&&Number.isFinite(Number(e.lat))&&Number.isFinite(Number(e.lon))&&Number(e.lat)>48.4&&Number(e.lat)<49.4&&Number(e.lon)>1.7&&Number(e.lon)<3&&inPeriod(e)&&enabledKind(kind(e))&&(kind(e)!=='crime'||metric==='all'||crimeSubkind(e)===metric));
+}
+function setVisiblePointCounts(renderedDots){
+ for(const k of ['crime','damage','protest'])$(k+'PointCount').textContent=renderedDots[k].toLocaleString('ko-KR');
+}
+function renderIncidentMarkers(visible){
+ for(const k of Object.keys(eventGroups))eventGroups[k].clearLayers();
+ const clusters=clusterIncidentsByScreenDistance(visible);
+ const renderedDots={crime:0,damage:0,protest:0};
+ for(const cluster of clusters){
+  const entries=cluster.items;
   const main=entries.find(e=>kind(e)==='damage')||entries.find(e=>kind(e)==='crime')||entries[0];
   const k=kind(main);
-  // Draw *all* markers as SVG with explicit opaque fill attributes.
-  // This prevents CSS background, gradients and map overlays from making
-  // grey groups black or orange groups deep red.
+  // Explicit SVG fills preserve the exact pure red/orange/gray category colors.
   const categoryCounts={crime:0,damage:0,protest:0};
   for(const e of entries)categoryCounts[kind(e)]++;
   const present=Object.keys(categoryCounts).filter(type=>categoryCounts[type]>0);
-  const title=entries.length>1?`${entries.length}건의 사건·집회`:main.title;
+  for(const type of present)renderedDots[type]++;
+  const title=entries.length>1?`${entries.length}건의 사건·집회 (확대하면 분리)`:main.title;
   const circle=(type,x,y,r,count)=>{
    const fill=kindColors[type];
    const stroke=type==='crime'?'#780000':'#ffffff';
    const text=count>1?`<text x="${x}" y="${y+3.6}" fill="#ffffff" font-size="10" font-weight="800" text-anchor="middle" stroke="none">${count}</text>`:'';
-   return `<circle cx="${x}" cy="${y}" r="${r}" fill="${fill}" fill-opacity="1" stroke="${stroke}" stroke-width="1.5"/>${text}`;
+   return `<circle cx="${x}" cy="${y}" r="${r}" fill="${fill}" fill-opacity="1" stroke="${stroke}" stroke-width="${count>1?1.5:1.2}"/>${text}`;
   };
   let circles='';
   if(present.length===1){
-   // One report: 12px dot. Clustered reports: 24px counted bubble.
-   circles=circle(present[0],22,22,entries.length===1?6:12,entries.length);
+   // Single report: 6px diameter (previously 12px). Counted bubble: unchanged 24px.
+   circles=circle(present[0],22,22,entries.length===1?3:12,entries.length);
   }else if(present.length===2){
-   // Different categories at the same point stay two independent solid colors.
-   circles=circle(present[0],12,22,9.5,categoryCounts[present[0]])+
-     circle(present[1],32,22,9.5,categoryCounts[present[1]]);
+   // Mixed types remain separate opaque colors. Unnumbered circles are smaller.
+   circles=circle(present[0],12,22,categoryCounts[present[0]]===1?4:9.5,categoryCounts[present[0]])+
+     circle(present[1],32,22,categoryCounts[present[1]]===1?4:9.5,categoryCounts[present[1]]);
   }else{
-   circles=circle(present[0],22,11,9.5,categoryCounts[present[0]])+
-     circle(present[1],11,32,9.5,categoryCounts[present[1]])+
-     circle(present[2],33,32,9.5,categoryCounts[present[2]]);
+   circles=circle(present[0],22,11,categoryCounts[present[0]]===1?4:9.5,categoryCounts[present[0]])+
+     circle(present[1],11,32,categoryCounts[present[1]]===1?4:9.5,categoryCounts[present[1]])+
+     circle(present[2],33,32,categoryCounts[present[2]]===1?4:9.5,categoryCounts[present[2]]);
   }
   const bubbleHtml=`<span class="incident-hit" title="${esc(title)}"><svg class="incident-svg" xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44" aria-hidden="true">${circles}</svg></span>`;
   const icon=L.divIcon({className:'incident-marker',html:bubbleHtml,iconSize:[44,44],iconAnchor:[22,22],popupAnchor:[0,-16]});
-  const marker=L.marker([Number(main.lat),Number(main.lon)],{icon,pane:'incidentPane',keyboard:true,title,riseOnHover:true});
-  marker.bindPopup(()=>popupMany(entries),{maxWidth:355,autoPan:true,closeButton:true,autoPanPadding:[35,35]});marker.addTo(eventGroups[k]);
+  const pos=map.unproject(L.point(cluster.x,cluster.y),map.getZoom());
+  const marker=L.marker(pos,{icon,pane:'incidentPane',keyboard:true,title,riseOnHover:true});
+  marker.bindPopup(()=>popupMany(entries),{maxWidth:355,autoPan:true,closeButton:true,autoPanPadding:[35,35]});
+  // A double-tap/double-click on a cluster zooms in to separate nearby events.
+  if(entries.length>1)marker.on('dblclick',()=>map.setView(pos,Math.min(map.getZoom()+2,18),{animate:false}));
+  marker.addTo(eventGroups[k]);
   for(const e of entries)e._layer=marker;
  }
+ return renderedDots;
+}
+function renderIncidents(){
+ for(const k of Object.keys(eventGroups)){if(heatLayers[k]){map.removeLayer(heatLayers[k]);heatLayers[k]=null}}
+ const visible=getVisibleIncidents(),renderedDots=renderIncidentMarkers(visible);
  for(const k of ['crime','protest','damage']){const selected=visible.filter(e=>kind(e)===k);if(!selected.length||!L.heatLayer)continue;
   const grad=k==='crime'?{.25:'#4b0000',.55:'#990000',.8:'#cc0000',1:'#ff0000'}:k==='protest'?{.25:'#e1e4e9',.55:'#a4aebb',.8:'#737f8f',1:'#4c596a'}:{.25:'#fee2be',.55:'#f9b762',.8:'#f08c2d',1:'#cc6314'};
   heatLayers[k]=L.heatLayer(selected.map(e=>[Number(e.lat),Number(e.lon),k==='protest'?.65:.5+Number(e.severity||1)/8]),{radius:30,blur:23,minOpacity:.24,maxZoom:15,gradient:grad});if($('heatInput').checked)heatLayers[k].addTo(map)}
- return visible;
+ return {visible,renderedDots};
 }
 function renderList(visible){const crimeOn=mode==='crime'||mode==='both';$('rankingBlock').style.display=crimeOn&&$('showStats').checked?'':'none';
  const rankList=$('rankList');rankList.innerHTML='';if(crimeOn&&$('showStats').checked){let ranked=[...arr].sort((a,b)=>getVal(b)-getVal(a)||a.arrondissement-b.arrondissement);let rank=0,prev=null;
@@ -1133,23 +1222,33 @@ function renderList(visible){const crimeOn=mode==='crime'||mode==='both';$('rank
   rankList.appendChild(div)});$('rankCount').textContent='전체 '+ranked.length+'개 구'}
  $('casesBlock').style.display='';$('eventTitle').textContent=mode==='crime'?'범죄 뉴스 기록':mode==='unrest'?'집회·행진·피해 발생 기록':'뉴스·시위 통합 기록';$('displayCount').textContent=visible.length+'개 위치';let out=$('eventList');out.innerHTML='';
  if(!visible.length){let d=document.createElement('div');d.className='desc';d.style.marginTop='12px';d.textContent='선택한 기간·유형의 확인된 위치 사례가 아직 없습니다. 보도가 없다고 사건이 없었다는 뜻은 아닙니다.';out.appendChild(d);return}
- for(const e of [...visible].sort((a,b)=>b.occurred_on.localeCompare(a.occurred_on))){let d=document.createElement('div');d.className='event';const k=kind(e);d.innerHTML=`<div class="eventname"><span class="event-tag" style="border-left:3px solid ${kindColors[k]}">${esc(kindNames[k])}</span>${esc(e.title)}</div><div class="meta"><strong>${esc(e.occurred_on)}</strong> · ${esc(e.place)} · ${esc(e.source_name)}</div>`;d.onclick=()=>{map.setView([Number(e.lat),Number(e.lon)],14,{animate:true});e._layer?.openPopup()};out.appendChild(d)}
+ for(const e of [...visible].sort((a,b)=>b.occurred_on.localeCompare(a.occurred_on))){let d=document.createElement('div');d.className='event';const k=kind(e);d.innerHTML=`<div class="eventname"><span class="event-tag" style="border-left:3px solid ${kindColors[k]}">${esc(kindNames[k])}</span>${esc(e.title)}</div><div class="meta"><strong>${esc(e.occurred_on)}</strong> · ${esc(e.place)} · ${esc(e.source_name)}</div>`;d.onclick=()=>{map.setView([Number(e.lat),Number(e.lon)],14,{animate:false});e._layer?.openPopup()};out.appendChild(d)}
 }
-function refresh(){const crimeOn=mode==='crime'||mode==='both',protestOn=mode==='unrest'||mode==='both';let stats=crimeOn&&$('showStats').checked;const protestOnly=mode==='unrest';const showDistrictLabels=stats||protestOnly;
+function refresh(){const crimeOn=mode==='crime'||mode==='both',protestOn=mode==='unrest'||mode==='both';let stats=crimeOn&&$('showStats').checked;const protestOnly=mode==='unrest';const showDistrictLabels=$('showDistrictLabels').checked;
+ $('pointCountItems').className='point-count-items mode-'+mode;
+ $('pointCountCrime').classList.toggle('hidden',!crimeOn);
+ $('pointCountDamage').classList.toggle('hidden',!protestOn);
+ $('pointCountProtest').classList.toggle('hidden',!protestOn);
  $('metricField').style.display=crimeOn?'':'none';$('crimeSwitches').style.display=crimeOn?'':'none';$('protestSwitches').style.display=protestOn?'':'none';$('crimeLegend').classList.toggle('hidden',!stats);$('crimeNewsLegend').classList.toggle('hidden',!(crimeOn&&$('showCrimeNews').checked));$('unrestLegend').classList.toggle('hidden',!protestOn);$('heatToggle').style.display=crimeOn||protestOn?'':'none';
  // Crime/both views retain the colored statistics. Protest-only view shows borders without fills.
  if(geoLayer){if(stats&&!map.hasLayer(geoLayer))geoLayer.addTo(map);if(!stats&&map.hasLayer(geoLayer))map.removeLayer(geoLayer);if(stats)geoLayer.bringToBack()}
  if(geoOutlineLayer){if(protestOnly&&!map.hasLayer(geoOutlineLayer))geoOutlineLayer.addTo(map);if(!protestOnly&&map.hasLayer(geoOutlineLayer))map.removeLayer(geoOutlineLayer);if(protestOnly)geoOutlineLayer.bringToBack()}
  if(showDistrictLabels&&!map.hasLayer(districtLabels))districtLabels.addTo(map);if(!showDistrictLabels&&map.hasLayer(districtLabels))map.removeLayer(districtLabels);
- renderCrime();let visible=renderIncidents();renderRouteZones();for(const [k,group] of Object.entries(eventGroups)){if(enabledKind(k)&&!map.hasLayer(group))group.addTo(map);if(!enabledKind(k)&&map.hasLayer(group))map.removeLayer(group)}
+ renderCrime();const {visible,renderedDots}=renderIncidents();
+ setVisiblePointCounts(renderedDots);
+ renderRouteZones();for(const [k,group] of Object.entries(eventGroups)){if(enabledKind(k)&&!map.hasLayer(group))group.addTo(map);if(!enabledKind(k)&&map.hasLayer(group))map.removeLayer(group)}
  renderList(visible);
  $('numOne').textContent=crimeOn?'20':String(visible.filter(e=>kind(e)==='protest').length);$('labelOne').textContent=crimeOn?'2025년 통계 반영 구':'집회·행진 기록';$('numTwo').textContent=visible.length;$('labelTwo').textContent='기간 내 확인된 뉴스·시위 위치';
- status(protestOnly?(geoAvailable?'파리 20개 구 경계·구 번호 표시 (치안 색상 없음) · 원을 누르면 시위 상세보기':'행정구역 경계 데이터를 불러오지 못해 구 번호만 표시 · 시위 원은 정상 표시'):geoAvailable?'구별 번호·비교 단계(1~10) 표시 · 사건 원을 누르면 상세보기':'구 경계 데이터 미연결 · 구 번호·비교 단계 라벨 및 뉴스 위치 표시');
+ status(protestOnly?(geoAvailable?'파리 20개 구 경계 표시 (치안 색상 없음) · 사건 원을 누르면 상세보기':'구 경계 데이터 미연결 · 사건 원은 정상 표시'):geoAvailable?'구별 비교지수·사건 위치 표시 · 원을 누르면 상세보기':'구 경계 데이터 미연결 · 사건 원을 누르면 상세보기');
 }
 for(const btn of document.querySelectorAll('#tabs button')){btn.addEventListener('click',()=>{mode=btn.dataset.tab;document.querySelectorAll('#tabs button').forEach(x=>x.classList.toggle('active',x===btn));refresh()})}
-if(typeof map.on==='function')map.on('zoomend',()=>{if(mode==='unrest'||((mode==='crime'||mode==='both')&&$('showStats').checked))renderDistrictLabels()});
+if(typeof map.on==='function')map.on('zoomend',()=>{
+ if($('showDistrictLabels').checked)renderDistrictLabels();
+ // Recluster on each zoom and keep colored-dot counters in sync with visible circles.
+ setVisiblePointCounts(renderIncidentMarkers(getVisibleIncidents()));
+});
 $('metric').addEventListener('change',e=>{metric=e.target.value;refresh()});$('showRouteZones').addEventListener('change',refresh);$('routeRadius').addEventListener('change',refresh);$('routePick').addEventListener('change',()=>{refresh();focusRouteSelection()});
-$('period').addEventListener('change',refresh);$('heatInput').addEventListener('change',refresh);for(const id of ['showStats','showCrimeNews','showProtests','showDamage'])$(id).addEventListener('change',refresh);
+$('period').addEventListener('change',refresh);$('heatInput').addEventListener('change',refresh);for(const id of ['showDistrictLabels','showStats','showCrimeNews','showProtests','showDamage'])$(id).addEventListener('change',refresh);
 $('exportButton').onclick=()=>{let output={...seed,incidents:inc.filter(e=>e&&e.id).map(({_layer,...rest})=>rest),exported_on:new Date().toISOString()};let blob=new Blob([JSON.stringify(output,null,2)],{type:'application/json'});let url=URL.createObjectURL(blob);let a=document.createElement('a');a.href=url;a.download='paris_safety_updated.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),2000)};
 $('importButton').onchange=async e=>{const file=e.target.files?.[0];if(!file)return;try{const dat=JSON.parse(await file.text());if(!Array.isArray(dat.incidents))throw Error('incidents 배열이 없습니다');let added=0,changed=0;for(const x of dat.incidents){if(!x.id||!/^\d{4}-\d\d-\d\d$/.test(x.occurred_on||'')||!Number.isFinite(Number(x.lat))||!Number.isFinite(Number(x.lon)))continue;if(kind(x)==='unknown')continue;const idx=inc.findIndex(y=>y.id===x.id);if(idx<0){inc.push(x);added++}else if(JSON.stringify(x)!==JSON.stringify(inc[idx])){inc[idx]=x;changed++}}localStorage.setItem('psi_incidents_test',JSON.stringify(inc.map(({_layer,...e})=>e)));refresh();alert(`병합 완료: 신규 ${added}건, 수정 ${changed}건. 이 브라우저에만 저장되었습니다.`)}catch(err){alert('JSON 불러오기 실패: '+err.message)}e.target.value=''};
 refresh();
