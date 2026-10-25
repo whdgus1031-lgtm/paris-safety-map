@@ -65,7 +65,7 @@
 .point-count-explain{font-size:10px;line-height:1.5;color:#91a8bf;margin:9px 0 0}
 </style></head><body>
 <div class="app">
-<aside class="sidebar"><section class="brand"><div class="brand-top"><span class="dot"></span>PARIS SAFETY INTELLIGENCE</div><h1>파리 치안·시위<br>인텔리전스 맵</h1><p class="desc">2025년 공식 범죄 항목을 전체·강력범죄·생활재산범죄 비교지수로 요약하고, 실제로 보도된 범죄·시위 발생 위치를 구분해 보여줍니다. 공식 통계와 기사 사례는 서로 다른 데이터입니다.</p><div class="top-meta"><span class="chip">웹 연결판 v0.8</span><span class="chip">데이터 기준 2026.10.24</span><span class="chip">20개 구 순위·뉴스</span></div></section>
+<aside class="sidebar"><section class="brand"><div class="brand-top"><span class="dot"></span>PARIS SAFETY INTELLIGENCE</div><h1>파리 치안·시위<br>인텔리전스 맵</h1><p class="desc">2025년 공식 범죄 항목을 전체·강력범죄·생활재산범죄 비교지수로 요약하고, 실제로 보도된 범죄·시위 발생 위치를 구분해 보여줍니다. 공식 통계와 기사 사례는 서로 다른 데이터입니다.</p><div class="top-meta"><span class="chip">웹 연결판 v0.8.2</span><span class="chip">데이터 기준 2026.10.24</span><span class="chip">20개 구 순위·뉴스</span></div></section>
 <section class="panel"><h2 class="sectitle">MAP LAYERS</h2><div class="seg" id="tabs"><button data-tab="crime">치안·범죄</button><button data-tab="unrest">시위·집회</button><button data-tab="both" class="active">함께 보기</button></div>
 <section class="point-counts" id="pointCounts" aria-label="색상별 지도 점 개수">
   <div class="point-counts-heading"><span>지도에 표시된 점</span><span class="count-unit">색상별 개수</span></div>
@@ -102,7 +102,7 @@
 <main class="mapbox"><div id="map" class="map"></div><div class="loading" id="mapStatus">지도를 불러오는 중…</div><div class="mini-legend" id="miniLegend" aria-label="지도 색상 인덱스"><div class="mini-legend-title">색상 인덱스</div><div class="mini-legend-row"><span class="mini-legend-dot crime"></span><span>범죄</span></div><div class="mini-legend-row"><span class="mini-legend-dot damage"></span><span>시위 폭력·피해</span></div><div class="mini-legend-row"><span class="mini-legend-dot protest"></span><span>일반 시위</span></div><div class="mini-legend-row route-legend-row" id="routeLegendRow"><span class="mini-legend-line route-confirmed" aria-hidden="true"></span><span title="확인된 경유 도로를 바탕으로 근사 재구성">실제 행진 경로</span></div><div class="mini-legend-row route-approx-legend" id="routeApproxLegend"><span class="mini-legend-line route-approx" aria-hidden="true"></span><span title="실제 행진 도로가 아닌 출발지와 도착지의 직선 연결">시·종점 직선 연결</span></div></div></main></div>
 <script id="seed" type="application/json">{
   "project": "Paris Safety Intelligence",
-  "version": "v0.8-2026-10-25",
+  "version": "v0.8.2-2026-10-25",
   "as_of": "2026-10-24",
   "crime_year": 2025,
   "districts": [
@@ -588,6 +588,43 @@
     }
   ],
   "incidents": [
+{
+  "id": "PSI-20261024-001",
+  "occurred_on": "2026-10-24",
+  "published_on": "2026-10-24",
+  "title": "24일 노조·학생 대규모 시위 Porte d'Italie 실제 출발",
+  "category": "일반 집회·행진",
+  "lat": 48.81686,
+  "lon": 2.3608,
+  "place": "Porte d'Italie (13e)",
+  "arrondissement": 13,
+  "location_precision": "Le Monde 실제 행진 출발 현장 영상 확인 / 광장 대표 근사좌표",
+  "severity": 1,
+  "summary": "2026-10-24 실제 시위 출발점. 14시 Porte d'Italie 출발, Boulevards des Maréchaux를 따라 Porte de Vincennes로 진행.",
+  "source_name": "Le Monde 현장 영상",
+  "source_url": "https://www.lemonde.fr/videos/video/2026/10/24/manifestations-du-24-octobre-les-premieres-images-du-cortege-parisien_6799710_1669088.html",
+  "event_group": "PARIS-2026-10-24-ROUTE",
+  "verification": "현장 출발 확인; 위치는 근사좌표"
+},
+{
+  "id": "PSI-20261024-PROTEST-002",
+  "occurred_on": "2026-10-24",
+  "published_on": "2026-10-24",
+  "title": "24일 대규모 시위 Porte de Vincennes 도착",
+  "category": "일반 집회·행진",
+  "lat": 48.8471,
+  "lon": 2.4112,
+  "place": "Porte de Vincennes (12·20구 경계)",
+  "arrondissement": 12,
+  "location_precision": "현장 확인 / 대표 근사좌표",
+  "severity": 1,
+  "summary": "2026-10-24 Porte d'Italie 출발 행진의 도착점. 경로 양 끝은 하나의 사건군.",
+  "source_name": "Le Monde 현장 영상 / ANSA",
+  "source_url": "https://www.lemonde.fr/videos/video/2026/10/24/manifestations-du-24-octobre-les-premieres-images-du-cortege-parisien_6799710_1669088.html",
+  "event_group": "PARIS-2026-10-24-ROUTE",
+  "verification": "실제 도착 확인; 위치는 근사좌표"
+},
+
     {
       "id": "PSI-20261017-001",
       "occurred_on": "2026-10-17",
@@ -1162,11 +1199,37 @@ function clusteringRadius(zoom){
  if(zoom===16)return 20;
  return zoom===17?16:13;
 }
+// Screen-distance clustering needs a real-world limit too: at low zooms a 43px
+// radius spans kilometres, incorrectly shifting Porte d'Italie reports north.
+// Keep geographically distinct march endpoints as ordinary gray incident dots.
+function incidentGroundDistanceMeters(a,b){
+ const latA=Number(a.lat),latB=Number(b.lat);
+ const dLat=(latA-latB)*111132;
+ const dLon=(Number(a.lon)-Number(b.lon))*111320*Math.cos((latA+latB)*Math.PI/360);
+ return Math.hypot(dLat,dLon);
+}
 function clusterIncidentsByScreenDistance(items,zoom=map.getZoom()){
  const radius=clusteringRadius(zoom), radiusSq=radius*radius;
+ const maxClusterSpanMeters=850; // diameter cap, not a marker size change
  const cells=new Map(),groups=[];
  const cellKey=(ix,iy)=>ix+'|'+iy;
  // Consistent ordering reduces jitter when filters and data are refreshed.
+ // Endpoints of a confirmed moving march remain individual ordinary
+ // incident dots, not cluster centroids. Applies to future groups too.
+ const movingGroups=new Map();
+ for(const e of items){
+  if(kind(e)!=='protest'||!e.event_group)continue;
+  if(!movingGroups.has(e.event_group))movingGroups.set(e.event_group,[]);
+  movingGroups.get(e.event_group).push(e);
+ }
+ const protectedIds=new Set();
+ for(const [key,members] of movingGroups){
+  if(members.length<2)continue;
+  const begins=members.filter(x=>/출발|시작|départ|starting/i.test(x.title||''));
+  const ends=members.filter(x=>/도착|종점|종료|arrivée|finish/i.test(x.title||''));
+  if(!begins.length||!ends.length)continue;
+  for(const e of [...begins,...ends])protectedIds.add(e.id);
+ }
  const ordered=[...items].sort((a,b)=>Number(a.lat)-Number(b.lat)||Number(a.lon)-Number(b.lon)||String(a.id).localeCompare(String(b.id)));
  for(const e of ordered){
   const point=map.project([Number(e.lat),Number(e.lon)],zoom);
@@ -1176,7 +1239,12 @@ function clusterIncidentsByScreenDistance(items,zoom=map.getZoom()){
    const candidates=cells.get(cellKey(ix+ox,iy+oy))||[];
    for(const g of candidates){
     const dx=point.x-g.x,dy=point.y-g.y,distSq=dx*dx+dy*dy;
-    if(distSq<=best){nearest=g;best=distSq;}
+    if(distSq>best)continue;
+    // Check every member, not only a moving centroid: otherwise chains of
+    // nearby points can swallow endpoints kilometres away.
+    if(protectedIds.has(e.id)||g.items.some(existing=>protectedIds.has(existing.id)))continue;
+    if(g.items.some(existing=>incidentGroundDistanceMeters(e,existing)>maxClusterSpanMeters))continue;
+    nearest=g;best=distSq;
    }
   }
   if(!nearest){
@@ -1351,7 +1419,10 @@ async function updateFromSheets(){if(inFlight)return;inFlight=true;
   // Empty Incidents tab can legitimately mean zero; gviz received a valid table.
   // Preserve local-only additions when an import was performed, but prioritize remote IDs.
   const prev=inc.filter(x=>x&&x.id&&kind(x)!=='unknown'&&!seed.incidents.some(s=>s.id===x.id));
-  const localSeed=[];
+  // These two source-confirmed endpoints must not disappear when a sheet
+  // import is partial. They use the same ordinary gray incident renderer.
+  const mandatoryEndpointIds=new Set(['PSI-20261024-001','PSI-20261024-PROTEST-002']);
+  const localSeed=seed.incidents.filter(e=>mandatoryEndpointIds.has(e.id)&&!live.some(x=>x.id===e.id));
   inc.splice(0,inc.length,...live,...localSeed,...prev.filter(x=>!live.some(e=>e.id===x.id)));
   sourceMode='online';lastSuccess=new Date();
   syncState('online','Google Sheets 연결됨 · '+live.length+'건 확인 · 조회 '+lastSuccess.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit',timeZone:'Asia/Seoul'})+' KST');
